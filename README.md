@@ -1,6 +1,7 @@
 # RangeIndex
 A CircuitPython helper for scaling input values with hyseresis added to control noise. UNTESTED
 
+```python
 # test of range_index library (class)
 import cedargrove_range_index as ri
 
@@ -21,3 +22,4 @@ cv_128.hysteresis = 0.5
 
 # calculate the index an offset values the value x within the cv_128 instance
 idx_cv_0, offset_cv_0, flag_cv_0 = cv_128.range_index(x, idx_cv_0, offset_cv_0)
+```
