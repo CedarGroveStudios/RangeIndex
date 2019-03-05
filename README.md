@@ -1,25 +1,86 @@
-# RangeIndex
-A CircuitPython helper for scaling input values with hyseresis added to control noise. UNTESTED
+# Range_Slicer
+## cedargrove_range_slicer
+A CircuitPython class for scaling a range of input values into indexed/quantized output values. Output slice hysteresis is used to provide dead-zone squelching.
+Range_Slicer is a general-purpose analog value converter that compresses or expands an input value then quantizes it into a collection of precise output slice values. The class detects input value changes and applies selectable hysteresis when slice edge thresholds are reached to eliminate dead-zone issues. Applications include converting rotary knob position to MIDI control or note values, analog signal noise processing, as well as level detection and display.
 
-```python
-# test of range_index library (class)
-import cedargrove_range_index as ri
+### Implementation Notes
+#### Hardware:
+#### Software and Dependencies:
+•	Adafruit CircuitPython firmware for the supported boards: https://github.com/adafruit/circuitpython/releases
 
-# instantiate range_index classes
-key_49 = ri.range_index(0, 4096, 0, 49, hyst_factor=0.5, debug=False)
-key_88 = ri.range_index(0, 4096, 0, 88, hyst_factor=0.2, debug=False)
-cv_128 = ri.range_index(0, 4096, 0, 10, hyst_factor=0.5, debug=False)
+#### ```class cedargrove_range_slicer.Slicer(*, in_min=0, in_max=65535, out_min=0, out_max=65535, slice=1.0, hyst_factor=0.25, debug=False)```
 
-# initialize variables for each instance
-idx_kb_0, offset_kb_0, flag_kb_0 = key_49.range_index()
-idx_kb_1, offset_kb_1, flag_kb_1 = key_88.range_index()
-idx_cv_0, offset_cv_0, flag_cv_0 = cv_128.range_index()
+Class representing the CedarGroveMaker Range_Slicer.
 
-# set new range, index, and hysteresis values for the cv_128 instance
-cv_128.range = (0, 4000)
-cv_128.index = (0, 11)
-cv_128.hysteresis = 0.5
+Parameters:	
 
-# calculate the index an offset values the value x within the cv_128 instance
-idx_cv_0, offset_cv_0, flag_cv_0 = cv_128.range_index(x, idx_cv_0, offset_cv_0)
-```
+-	`in_min` – The input range minimum. Can be any positive or negative value, smaller or larger than the input range maximum. Input range minimum and maximum values cannot be equal. Defaults to `0`.
+
+-	`in_max` – The input range maximum. Can be any positive or negative value, smaller or larger than the input range minimum. Input range minimum and maximum values cannot be equal. Defaults to `65535`.
+
+-	`out_min` – The output index minimum. Can be any positive or negative value, smaller or larger than the output index maximum. Output index minimum and maximum values cannot be equal. Defaults to `0`.
+
+-	`out_max` – The output index minimum. Can be any positive or negative value, smaller or larger than the output index maximum. Output index minimum and maximum values cannot be equal. Defaults to `65535`.
+
+-	`slice` – The size of an output index slice. Can be any positive or negative value other than zero. Defaults to `1.0`.
+
+-	`hyst_factor` – The size of the hysteresis threshold expressed as a factor of the slice size. Can be a positive value from 0 to 1.0. Defaults to `0.25` (25% of the slice size value).
+
+-	`debug` – Turn on debug printout. Defaults to `False`.
+
+#### `range_slicer(input=0)`
+
+Applies the slicer algorithm to an input value using the initialization parameters. Returns the output index value. This is the primary function of the Range_Slicer class.
+
+Parameters:	
+
+- `input` – The input value to convert. Can be any positive or negative numeric value. Defaults to `0`.
+
+
+#### `range(min=0, max=65535)` 
+
+Changes the default input range to new values.
+
+Parameters:	
+
+- `min` – The input range minimum. Can be any positive or negative value, smaller or larger than the input range maximum. Input range minimum and maximum values cannot be equal. Defaults to `0`.
+
+- `max` – The input range maximum. Can be any positive or negative value, smaller or larger than the input range minimum. Input range minimum and maximum values cannot be equal. Defaults to `65535`.
+
+
+#### `index(min=0, max=65535)` 
+
+Changes the default output index to new values.
+
+Parameters:	
+
+- `min` – The index output minimum. Can be any positive or negative value, smaller or larger than the output index maximum. Output index minimum and maximum values cannot be equal. Defaults to `0`.
+
+- `max` – The output index maximum. Can be any positive or negative value, smaller or larger than the output index minimum. Output index minimum and maximum values cannot be equal. Defaults to `65535`.
+
+
+#### `slice(size=1)` 
+
+Changes the default slice size to a new value.
+
+Parameters:	
+
+- `slice` – The size of an index output slice. Can be any positive or negative value other than zero. Defaults to `1.0`.
+
+
+#### `hysteresis(hyst_factor=0.25)`
+
+Changes the default hysteresis threshold to a new value.
+
+Parameters:	
+
+- `hyst_factor` – The size of the hysteresis threshold expressed as a factor of the slice size. Can be a positive value from 0 to 1.0. Defaults to `0.25` (25% of the slice size value).
+
+
+
+
+
+
+
+________________________________________
+© Copyright 2019 Cedar Grove Studios, Revision v01. 
