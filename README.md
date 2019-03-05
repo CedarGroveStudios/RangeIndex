@@ -59,7 +59,7 @@ Parameters:
 - `max` – The output index maximum. Can be any positive or negative value, smaller or larger than the output index minimum. Output index minimum and maximum values cannot be equal. Defaults to `65535`.
 
 
-#### `slice(size=1)` 
+#### `slice(size=1.0)` 
 
 Changes the default slice size to a new value.
 
