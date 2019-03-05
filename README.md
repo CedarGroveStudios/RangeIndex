@@ -1,5 +1,4 @@
 # Range_Slicer
-![Range_Slicer Logo](https://github.com/CedarGroveStudios/Range_Slicer/blob/master/range%20slicer%20logo%2001.bmp)
 ## cedargrove_range_slicer
 A CircuitPython class for scaling a range of input values into indexed/quantized output values. Output slice hysteresis is used to provide dead-zone squelching.
 
@@ -80,11 +79,7 @@ Parameters:
 
 - `hyst_factor` – The size of the hysteresis threshold expressed as a factor of the slice size. Can be a positive value from 0 to 1.0. Defaults to `0.25` (25% of the slice size value).
 
-
-
-
-
-
+![Range_Slicer Logo](https://github.com/CedarGroveStudios/Range_Slicer/blob/master/range%20slicer%20logo%2001.bmp)
 
 ________________________________________
 © Copyright 2019 Cedar Grove Studios, Revision v01. 
