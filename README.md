@@ -40,26 +40,26 @@ Parameters:
 - `input` – The input value to convert. Can be any positive or negative numeric value. Defaults to `0`.
 
 
-#### `range(min=0, max=65535)` 
+#### `range(in_min=0, in_max=65535)` 
 
 Changes the default input range to new values.
 
 Parameters:	
 
-- `min` – The input range minimum. Can be any positive or negative value, smaller or larger than the input range maximum. Input range minimum and maximum values cannot be equal. Defaults to `0`.
+- `in_min` – The input range minimum. Can be any positive or negative value, smaller or larger than the input range maximum. Input range minimum and maximum values cannot be equal. Defaults to `0`.
 
-- `max` – The input range maximum. Can be any positive or negative value, smaller or larger than the input range minimum. Input range minimum and maximum values cannot be equal. Defaults to `65535`.
+- `in_max` – The input range maximum. Can be any positive or negative value, smaller or larger than the input range minimum. Input range minimum and maximum values cannot be equal. Defaults to `65535`.
 
 
-#### `index(min=0, max=65535)` 
+#### `index(out_min=0, out_max=65535)` 
 
 Changes the default output index to new values.
 
 Parameters:	
 
-- `min` – The index output minimum. Can be any positive or negative value, smaller or larger than the output index maximum. Output index minimum and maximum values cannot be equal. Defaults to `0`.
+- `out_min` – The index output minimum. Can be any positive or negative value, smaller or larger than the output index maximum. Output index minimum and maximum values cannot be equal. Defaults to `0`.
 
-- `max` – The output index maximum. Can be any positive or negative value, smaller or larger than the output index minimum. Output index minimum and maximum values cannot be equal. Defaults to `65535`.
+- `out_max` – The output index maximum. Can be any positive or negative value, smaller or larger than the output index minimum. Output index minimum and maximum values cannot be equal. Defaults to `65535`.
 
 
 #### `slice(size=1.0)` 
@@ -68,7 +68,7 @@ Changes the default slice size to a new value.
 
 Parameters:	
 
-- `slice` – The size of an index output slice. Can be any positive or negative value other than zero. Defaults to `1.0`.
+- `size` – The size of an index output slice. Can be any positive or negative value other than zero. Defaults to `1.0`.
 
 
 #### `hysteresis(hyst_factor=0.25)`
