@@ -14,7 +14,7 @@ from analogio import AnalogIn
 
 # uncomment for MIDI_UART
 import cedargrove_midi_uart
-midi = cedargrove_midi_uart.MIDI(midi_out=board.TX, out_channel=0, debug=False)
+midi = cedargrove_midi_uart.MIDI(midi_out=board.TX, midi_in = board.RX, out_channel=0, debug=False)
 
 print("---Joystick MIDI CC for meeblip triode ---")
 
