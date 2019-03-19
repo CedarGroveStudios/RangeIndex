@@ -1,7 +1,7 @@
 #  Metro M4 Joystick MIDI CC
 #  for MIDI USB or MIDI UART
 #  Reads analog inputs, sends out MIDI CC values
-#  written by John Park with Kattni Rembor and Jan Goolsbey for range and hysteresis code
+#  written by John Park with Kattni Rembor and Jan Goolsbey for slicer and hysteresis code
 
 import time
 import board
@@ -19,28 +19,29 @@ midi = cedargrove_midi_uart.MIDI(midi_out=board.TX, midi_in = board.RX, out_chan
 print("---Joystick MIDI CC for meeblip triode ---")
 
 # Instances of range_slicer that defines the characteristics of the potentiometers
-#  This list contains the input range, output range, slice size, and hysteresis value for each knob.
+#  This list contains the input range, output range, slice size, hysteresis and
+#    output data type for each knob.
 #   example ranges:
-#   0 min, 127 max: full range control voltage
-#   36 (C2) min, 84 (B5) max: 49-note keyboard
-#   21 (A0) min, 108 (C8) max: 88-note grand piano
+#    0 min, 127 max: full range control voltage
+#    36 (C2) min, 84 (B5) max: 49-note keyboard
+#    21 (A0) min, 108 (C8) max: 88-note grand piano
 cc_range = [
-    rs.Slicer(0, 65520, 0, 127, 1, 0.25),  # knob_0: 0 to 127: full range MIDI CC/control voltage for VCV Rack
-    rs.Slicer(0, 65520, 0, 127, 1, 0.25),  # knob_1:
-    rs.Slicer(0, 65520, 0, 127, 1, 0.25),  # knob_2:
-    rs.Slicer(0, 65520, 0, 127, 1, 0.25),  # knob_3:
-    rs.Slicer(0, 65520, 0, 127, 1, 0.25),  # knob_4:
-    rs.Slicer(0, 65520, 0, 127, 1, 0.25),  # knob_5:
-    rs.Slicer(0, 65520, 0, 127, 1, 0.25),  # knob_6:
-    rs.Slicer(0, 65520, 0, 127, 1, 0.25),  # knob_7:
-    rs.Slicer(0, 65520, 0, 127, 1, 0.25),  # knob_8:
-    rs.Slicer(0, 65520, 0, 127, 1, 0.25),  # knob_9:
-    rs.Slicer(0, 65520, 0, 127, 1, 0.25),  # knob_10:
-    rs.Slicer(0, 65520, 0, 127, 1, 0.25),  # knob_11:
-    rs.Slicer(0, 65520, 0, 127, 1, 0.25),  # knob_12:
-    rs.Slicer(0, 65520, 0, 127, 1, 0.25),  # knob_13:
-    rs.Slicer(0, 65520, 0, 127, 1, 0.25),  # knob_14:
-    rs.Slicer(0, 65520, 0, 127, 1, 0.25)  # knob_15:
+    rs.Slicer(0, 65520, 0, 127, 1, 0.25, True),  # knob_0: 0 to 127: full range MIDI CC/control voltage for VCV Rack
+    rs.Slicer(0, 65520, 0, 127, 1, 0.25, True),  # knob_1:
+    rs.Slicer(0, 65520, 0, 127, 1, 0.25, True),  # knob_2:
+    rs.Slicer(0, 65520, 0, 127, 1, 0.25, True),  # knob_3:
+    rs.Slicer(0, 65520, 0, 127, 1, 0.25, True),  # knob_4:
+    rs.Slicer(0, 65520, 0, 127, 1, 0.25, True),  # knob_5:
+    rs.Slicer(0, 65520, 0, 127, 1, 0.25, True),  # knob_6:
+    rs.Slicer(0, 65520, 0, 127, 1, 0.25, True),  # knob_7:
+    rs.Slicer(0, 65520, 0, 127, 1, 0.25, True),  # knob_8:
+    rs.Slicer(0, 65520, 0, 127, 1, 0.25, True),  # knob_9:
+    rs.Slicer(0, 65520, 0, 127, 1, 0.25, True),  # knob_10:
+    rs.Slicer(0, 65520, 0, 127, 1, 0.25, True),  # knob_11:
+    rs.Slicer(0, 65520, 0, 127, 1, 0.25, True),  # knob_12:
+    rs.Slicer(0, 65520, 0, 127, 1, 0.25, True),  # knob_13:
+    rs.Slicer(0, 65520, 0, 127, 1, 0.25, True),  # knob_14:
+    rs.Slicer(0, 65520, 0, 127, 1, 0.25, True)  # knob_15:
 ]
 
 # Dictionary of meeblip triode control codes
@@ -84,8 +85,7 @@ for k in range(knob_count):
 
 while True:
     # read each knob value, form a MIDI CC message and send it:
-    # controller number is 'n', value can be 0 to 127
+    #  controller number is 'n', value from range_slicer, channel
     for n in range(knob_count):
-        midi.out_channel = (cc_knobs[n][0])
-        midi.control_change(cc_knobs[n][1], int(cc_range[n].range_slicer(knob[n].value)))
+        midi.control_change(cc_knobs[n][1], cc_range[n].range_slicer(knob[n].value), cc_knobs[n][0])
     time.sleep(0.01)
