@@ -53,7 +53,7 @@ Parameters:
 - `in_max` – The input range maximum. Can be any positive or negative value, smaller or larger than the input range minimum. Input range minimum and maximum values cannot be equal. Defaults to `65535`.
 
 
-#### `index(out_min=0, out_max=65535)` 
+#### `index(out_min=0, out_max=65535, out_integer=False)` 
 
 Changes the default output index to new values. Optionally sets the output value data type to truncated integer.
 
