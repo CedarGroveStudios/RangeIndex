@@ -5,16 +5,14 @@
 
 import time
 import board
+import busio
 import cedargrove_range_slicer as rs
 from analogio import AnalogIn
 
-# uncomment for MIDI_USB
-# import adafruit_midi
-# midi = adafruit_midi.MIDI(out_channel=0, debug=False)  # Set the output MIDI channel (0-15)
+uart = busio.UART(board.TX, board.RX, baudrate=31250, timeout=0.001)
 
-# uncomment for MIDI_UART
-import cedargrove_midi_uart
-midi = cedargrove_midi_uart.MIDI(midi_out=board.TX, midi_in = board.RX, out_channel=0, debug=False)
+import adafruit_midi
+midi = adafruit_midi.MIDI(midi_out=uart, midi_in=uart, out_channel=0, debug=False)  # Set the output MIDI channel (0-15)
 
 print("---Joystick MIDI CC for meeblip triode ---")
 
