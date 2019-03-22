@@ -35,7 +35,7 @@ Parameters:
 
 #### `range_slicer(input=0)`
 
-Applies the slicer algorithm to an input value using the initialization parameters. Returns 1) the output index floating point value (default) or optionally truncated integer value and 2) a flag that is set to `True` when the output value is not equial to the previous result. This is the primary function of the Range_Slicer class.
+Applies the slicer algorithm to an input value using the initialization parameters. Returns 1) the output index floating point value (default) or optionally truncated integer value and 2) a flag that is set to `True` when the output value is not equal to the previous result. This is the primary function of the Range_Slicer class.
 
 Parameters:	
 
