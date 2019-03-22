@@ -22,7 +22,7 @@
 """
 `cedargrove_range_slicer`
 ================================================================================
-Range_Slicer 2019-03-19 v22 12:11PM
+Range_Slicer 2019-03-21 v23 12:11PM
 A CircuitPython class for scaling a range of input values into indexed/quantized
 output values. Output slice hysteresis is used to provide dead-zone squelching.
 
@@ -140,6 +140,8 @@ class Slicer:
 
     def range_slicer(self, input=0):
         """Determines index output value from the range input value optionally truncated to an integer data type.
+           Returns the new index value and a flag (True/False) indicating if the new index changed from the
+           previous index value.
         :param float input: The range input value.
         """
         self._index_mapped = self.mapper(input + self._offset) - self._out_span_min  # mapped with offset removed
@@ -160,12 +162,12 @@ class Slicer:
             if self._debug:
                 print("** range_slicer ", self.__dict__)
 
-            return self._index  # return new index value
+            return self._index, True  # return new index value and change flag
         else:
             if self._debug:
                 print("***range_slicer ", self.__dict__)
 
-            return self._old_idx  # return old index value
+            return self._old_idx, False  # return old index value and change flag
 
     def mapper(self, x):
         """Determines the index output value of the range input value.

@@ -8,11 +8,16 @@ import board
 import busio
 import cedargrove_range_slicer as rs
 from analogio import AnalogIn
+from digitalio import DigitalInOut, Direction
 
-uart = busio.UART(board.TX, board.RX, baudrate=31250, timeout=0.001)
+led = DigitalInOut(board.D13)  # activity indicator
+led.direction = Direction.OUTPUT
 
-import adafruit_midi
-midi = adafruit_midi.MIDI(midi_out=uart, midi_in=uart, out_channel=0, debug=False)  # Set the output MIDI channel (0-15)
+uart = busio.UART(board.TX, board.RX, baudrate=31250, timeout=0.001)  # initialize UART
+
+import adafruit_midi  # MIDI protocol encoder/decoder library
+uart_midi = adafruit_midi.MIDI(midi_out=uart, midi_in=uart, out_channel=0, debug=False)  # Set the UART output MIDI channel (0-15)
+usb_midi = adafruit_midi.MIDI(out_channel=0, debug=False)  # Set the USB output MIDI channel (0-15)
 
 print("---Joystick MIDI CC for meeblip triode ---")
 
@@ -82,8 +87,15 @@ for k in range(knob_count):
     cc_range[k]  # creates an object instance of the slicer
 
 while True:
-    # read each knob value, form a MIDI CC message and send it:
-    #  controller number is 'n', value from range_slicer, channel
+    # read each knob value, form a MIDI CC message, and send if changed from previous knob value.
+    # send to UART and USB ports
+    #  controller number is 'n', index value from range_slicer, channel
     for n in range(knob_count):
-        midi.control_change(cc_knobs[n][1], cc_range[n].range_slicer(knob[n].value), cc_knobs[n][0])
+        index, flag = cc_range[n].range_slicer(knob[n].value) # read and scale knob value
+        if flag:  # did the knob change positions?
+            uart_midi.control_change(cc_knobs[n][1], index, cc_knobs[n][0])  # output via UART port
+            usb_midi.control_change(cc_knobs[n][1], index, cc_knobs[n][0])  # output via USB port
+            led.value = True  # activity indicator
+            # print(hex(cc_knobs[n][1]), hex(index), hex(cc_knobs[n][0]))
     time.sleep(0.01)
+    led.value = False
