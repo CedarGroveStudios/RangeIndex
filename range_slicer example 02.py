@@ -13,7 +13,7 @@ print("Rotary Switch: Range_Slicer example 02")
 #   input range is adjusted for unique potentiometer inaccuracies and noise
 #   slice size divides the output into 5 slices (switch positions 0 through 4)
 #   hysteresis factor is 25% of a slice (adjust this for switch feel)
-pot = rs.Slicer(400, 65000, 0, 4, 1, 0.25, False)
+pot = rs.Slicer(400, 65000, 0, 4, 1, 0.25, True, debug=False)
 
 # set up analog potentiometer input pin
 pot_input = AnalogIn(board.A0)
