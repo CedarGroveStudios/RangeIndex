@@ -49,7 +49,7 @@ cc_range = [
 
 # Dictionary of meeblip triode control codes
 #   the index coorelates to the knob number (0 - 15)
-cc_knobs = {  #   (MIDI channel, CC #, control description)
+cc_knobs = {  # knob number : (MIDI channel, CC #, control description)
     1 : (0, 48, 'triode LFO Depth'),
     0 : (5, 49, 'triode LFO Rate'),
     2 : (0, 50, 'triode Oscillator Detune'),
