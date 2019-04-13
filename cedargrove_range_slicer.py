@@ -22,7 +22,7 @@
 """
 `cedargrove_range_slicer`
 ================================================================================
-Range_Slicer 2019-03-21 v23 12:11PM
+Range_Slicer 2019-04-13 v24 09:10AM
 A CircuitPython class for scaling a range of input values into indexed/quantized
 output values. Output slice hysteresis is used to provide dead-zone squelching.
 
@@ -83,35 +83,68 @@ class Slicer:
             print("*Init: ", self.__dict__)
 
     @property
-    def range(self):
-        """The range input's minimum and maximum floating or integer values. Defaults are 0 and 65535."""
-        return self._in_min, self._in_max
+    def range_min(self):
+        """The range input's minimum floating or integer value. Default is 0."""
+        return self._in_min
 
-    @range.setter
-    def range(self, in_min=0, in_max=65535):
-        if in_min == in_max:
+    @range_min.setter
+    def range_min(self, in_min=0):
+        if in_min == self._in_max:
             raise RuntimeError("Invalid range input; minimum and maximum values cannot be equal")
         self._in_min = in_min
-        self._in_max = in_max
-        self._in_span = (in_max - in_min)
-        self._in_offset = self._in_span / (self._slice_count)
+        self._in_span = (self._in_max - self._in_min)
+        self._in_offset = self._in_span / self._slice_count
 
     @property
-    def index(self):
-        """The index output's minimum and maximum values and the output value data type.
-           Default min and max are 0 and 65535; output data value type is floating."""
-        return self._out_min, self._out_max, self._out_integer
+    def range_max(self):
+        """The range input's maximum floating or integer value. Default is 65535."""
+        return self._in_max
 
-    @index.setter
-    def index(self, out_min=0, out_max=65535, out_integer=False):
-        if out_min == out_max:
+    @range_max.setter
+    def range_max(self, in_max=65535):
+        if self._in_min == in_max:
+            raise RuntimeError("Invalid range input; minimum and maximum values cannot be equal")
+        self._in_max = in_max
+        self._in_span = (self._in_max - self._in_min)
+        self._in_offset = self._in_span / self._slice_count
+
+    @property
+    def index_min(self):
+        """The index output minimum value. Default is 0."""
+        return self._out_min
+
+    @index_min.setter
+    def index_min(self, out_min=0):
+        if out_min == self._out_max:
             raise RuntimeError("Invalid index output; minimum and maximum values cannot be equal")
         self._out_min = out_min
+        self._out_span_min = min(self._out_min, self._out_max)
+        self._out_span_max = max(self._out_max, self._out_min)
+        self._out_span = abs(self._out_max - self._out_min)
+        self._out_direction = self.sign(self._out_max - self._out_min)
+
+    @property
+    def index_max(self):
+        """The index output maximum value. Default is 65535."""
+        return self._out_max
+
+    @index_max.setter
+    def index_max(self, out_max=65535):
+        if self._out_min == out_max:
+            raise RuntimeError("Invalid index output; minimum and maximum values cannot be equal")
         self._out_max = out_max
-        self._out_span_min = min(out_min, out_max)
-        self._out_span_max = max(out_max, out_min)
-        self._out_span = abs(out_max - out_min)
-        self._out_direction = self.sign(out_max - out_min)
+        self._out_span_min = min(self._out_min, self._out_max)
+        self._out_span_max = max(self._out_max, self._out_min)
+        self._out_span = abs(self._out_max - self._out_min)
+        self._out_direction = self.sign(self._out_max - self._out_min
+
+    @property
+    def index_type(self):
+        """The index output value integer data type. Default is False (floating)."""
+        return self._out_integer
+
+    @index_type.setter
+    def index(self, out_integer=False):
         self._out_integer = out_integer
 
     @property
@@ -137,6 +170,18 @@ class Slicer:
         if not (0 <= hyst_factor <= 1.0):
             raise RuntimeError("Invalid hysteresis factor; value must be between 0 and 1.0")
         self._hyst_factor = hyst_factor
+
+    @property
+    def debug(self):
+        """The class debugging mode. Default is False."""
+        return self._debug
+
+    @debug.setter
+    def debug(self, debug=False):
+        self._debug = debug
+        if self._debug:
+            print("*Init:", self.__class__)
+            print("*Init: ", self.__dict__)
 
     def range_slicer(self, input=0):
         """Determines index output value from the range input value optionally truncated to an integer data type.
