@@ -136,7 +136,7 @@ class Slicer:
         self._out_span_min = min(self._out_min, self._out_max)
         self._out_span_max = max(self._out_max, self._out_min)
         self._out_span = abs(self._out_max - self._out_min)
-        self._out_direction = self.sign(self._out_max - self._out_min
+        self._out_direction = self.sign(self._out_max - self._out_min)
 
     @property
     def index_type(self):
