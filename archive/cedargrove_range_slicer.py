@@ -207,8 +207,7 @@ class Slicer:
 
         self._input = input
 
-        # #### THIS SECTION  #### #
-        self._index_mapped = self.mapper(self._input + self._offset + (self._in_offset * 0.0)) - self._out_span_min  # mapped with offset removed
+        self._index_mapped = self.mapper(self._input + self._offset + (self._in_offset * 0.5)) - self._out_span_min  # mapped with offset removed
         self._slice_number = (self._index_mapped - (self._index_mapped % self._slice)) / self._slice  # determine slice # in sequence of slices
         self._index = (self._out_direction * self._slice_number * self._slice) + self._out_min  # quantize and add back the offset
 

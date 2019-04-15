@@ -93,10 +93,7 @@ class Slicer:
             raise RuntimeError("Invalid range input; minimum and maximum values cannot be equal")
         self._in_min = in_min
         self._in_span = (self._in_max - self._in_min)
-
-        self._slice_count = (int(abs(self._out_span) / self._slice)) + 1
         self._in_offset = self._in_span / self._slice_count
-        self._offset = 0
 
     @property
     def range_max(self):
@@ -109,10 +106,7 @@ class Slicer:
             raise RuntimeError("Invalid range input; minimum and maximum values cannot be equal")
         self._in_max = in_max
         self._in_span = (self._in_max - self._in_min)
-
-        self._slice_count = (int(abs(self._out_span) / self._slice)) + 1
         self._in_offset = self._in_span / self._slice_count
-        self._offset = 0
 
     @property
     def index_min(self):
@@ -129,10 +123,6 @@ class Slicer:
         self._out_span = abs(self._out_max - self._out_min)
         self._out_direction = self.sign(self._out_max - self._out_min)
 
-        self._slice_count = (int(abs(self._out_span) / self._slice)) + 1
-        self._in_offset = self._in_span / self._slice_count
-        self._offset = 0
-
     @property
     def index_max(self):
         """The index output maximum value. Default is 65535."""
@@ -147,10 +137,6 @@ class Slicer:
         self._out_span_max = max(self._out_max, self._out_min)
         self._out_span = abs(self._out_max - self._out_min)
         self._out_direction = self.sign(self._out_max - self._out_min)
-
-        self._slice_count = (int(abs(self._out_span) / self._slice)) + 1
-        self._in_offset = self._in_span / self._slice_count
-        self._offset = 0
 
     @property
     def index_type(self):
@@ -173,7 +159,6 @@ class Slicer:
         self._slice = size
         self._slice_count = (int(abs(self._out_span) / self._slice)) + 1
         self._in_offset = self._in_span / self._slice_count
-        self._offset = 0
 
     @property
     def hysteresis(self):
@@ -204,22 +189,13 @@ class Slicer:
            previous index value.
         :param float input: The range input value.
         """
-
-        self._input = input
-
-        # #### THIS SECTION  #### #
-        self._index_mapped = self.mapper(self._input + self._offset + (self._in_offset * 0.0)) - self._out_span_min  # mapped with offset removed
+        self._index_mapped = self.mapper(input + self._offset) - self._out_span_min  # mapped with offset removed
         self._slice_number = (self._index_mapped - (self._index_mapped % self._slice)) / self._slice  # determine slice # in sequence of slices
         self._index = (self._out_direction * self._slice_number * self._slice) + self._out_min  # quantize and add back the offset
 
         # limit index value to within index span
         if self._index < self._out_span_min: self._index = self._out_span_min
         if self._index > self._out_span_max: self._index = self._out_span_max
-
-        if self._index == self._out_span_min:
-            self._offset = self._hyst_factor * -1 * self._out_direction * self._in_offset
-        if self._index == self._out_span_max:
-            self._offset = self._hyst_factor * 1 * self._out_direction * self._in_offset
 
         if self._out_integer:  # is the output value data type integer?
             self._index = int(self._index)
