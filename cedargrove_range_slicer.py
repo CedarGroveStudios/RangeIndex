@@ -49,19 +49,13 @@ class Slicer:
         # input parameters
         self._in_min = in_min
         self._in_max = in_max
-        self._in_span = (in_max - in_min)
 
         # output parameters
         self._out_min = out_min
         self._out_max = out_max
-        self._out_span_min = min(out_min, out_max)
-        self._out_span_max = max(out_max, out_min)
-        self._out_span = abs(out_max - out_min)
-        self._out_direction = self.sign(out_max-out_min)
 
         # slice parameters
         self._slice = slice
-        self._slice_count = (int(abs(self._out_span) / self._slice)) + 1
 
         # hysteresis parameters
         self._hyst_factor = hyst_factor
@@ -69,18 +63,13 @@ class Slicer:
         # output value data type parameters
         self._out_integer = out_integer
 
-        # index parameters
-        self._old_idx = 0
-
-        # offset parameters
-        self._offset = 0
-        self._in_offset = self._in_span / self._slice_count
-
         # debug parameters
         self._debug = debug
         if self._debug:
             print("*Init:", self.__class__)
             print("*Init: ", self.__dict__)
+
+        self.param_updater() # Establish the parameters for range_slicer helper
 
     @property
     def range_min(self):
@@ -89,14 +78,10 @@ class Slicer:
 
     @range_min.setter
     def range_min(self, in_min=0):
-        if in_min == self._in_max:
-            raise RuntimeError("Invalid range input; minimum and maximum values cannot be equal")
+        #if self._in_max == in_min:
+            #raise RuntimeError("Invalid range input; minimum and maximum values cannot be equal")
         self._in_min = in_min
-        self._in_span = (self._in_max - self._in_min)
-
-        self._slice_count = (int(abs(self._out_span) / self._slice)) + 1
-        self._in_offset = self._in_span / self._slice_count
-        self._offset = 0
+        self.param_updater() # Update the parameters for range_slicer helper
 
     @property
     def range_max(self):
@@ -105,14 +90,10 @@ class Slicer:
 
     @range_max.setter
     def range_max(self, in_max=65535):
-        if self._in_min == in_max:
-            raise RuntimeError("Invalid range input; minimum and maximum values cannot be equal")
+        #if self._in_min == in_max:
+            #raise RuntimeError("Invalid range input; minimum and maximum values cannot be equal")
         self._in_max = in_max
-        self._in_span = (self._in_max - self._in_min)
-
-        self._slice_count = (int(abs(self._out_span) / self._slice)) + 1
-        self._in_offset = self._in_span / self._slice_count
-        self._offset = 0
+        self.param_updater() # Update the parameters for range_slicer helper
 
     @property
     def index_min(self):
@@ -121,17 +102,10 @@ class Slicer:
 
     @index_min.setter
     def index_min(self, out_min=0):
-        if out_min == self._out_max:
-            raise RuntimeError("Invalid index output; minimum and maximum values cannot be equal")
+        #if out_min == self._out_max:
+            #raise RuntimeError("Invalid index output; minimum and maximum values cannot be equal")
         self._out_min = out_min
-        self._out_span_min = min(self._out_min, self._out_max)
-        self._out_span_max = max(self._out_max, self._out_min)
-        self._out_span = abs(self._out_max - self._out_min)
-        self._out_direction = self.sign(self._out_max - self._out_min)
-
-        self._slice_count = (int(abs(self._out_span) / self._slice)) + 1
-        self._in_offset = self._in_span / self._slice_count
-        self._offset = 0
+        self.param_updater() # Update the parameters for range_slicer helper
 
     @property
     def index_max(self):
@@ -140,17 +114,10 @@ class Slicer:
 
     @index_max.setter
     def index_max(self, out_max=65535):
-        if self._out_min == out_max:
-            raise RuntimeError("Invalid index output; minimum and maximum values cannot be equal")
+        #if self._out_min == out_max:
+            #raise RuntimeError("Invalid index output; minimum and maximum values cannot be equal")
         self._out_max = out_max
-        self._out_span_min = min(self._out_min, self._out_max)
-        self._out_span_max = max(self._out_max, self._out_min)
-        self._out_span = abs(self._out_max - self._out_min)
-        self._out_direction = self.sign(self._out_max - self._out_min)
-
-        self._slice_count = (int(abs(self._out_span) / self._slice)) + 1
-        self._in_offset = self._in_span / self._slice_count
-        self._offset = 0
+        self.param_updater() # Update the parameters for range_slicer helper
 
     @property
     def index_type(self):
@@ -160,6 +127,7 @@ class Slicer:
     @index_type.setter
     def index(self, out_integer=False):
         self._out_integer = out_integer
+        self.param_updater() # Update the parameters for range_slicer helper
 
     @property
     def slice(self):
@@ -171,9 +139,7 @@ class Slicer:
         if size == 0:
             raise RuntimeError("Invalid slice size; value cannot be zero")
         self._slice = size
-        self._slice_count = (int(abs(self._out_span) / self._slice)) + 1
-        self._in_offset = self._in_span / self._slice_count
-        self._offset = 0
+        self.param_updater() # Update the parameters for range_slicer helper
 
     @property
     def hysteresis(self):
@@ -204,51 +170,50 @@ class Slicer:
            previous index value.
         :param float input: The range input value.
         """
-
         self._input = input
 
-        # #### THIS SECTION  #### #
-        self._index_mapped = self.mapper(self._input + self._offset + (self._in_offset * 0.0)) - self._out_span_min  # mapped with offset removed
-        self._slice_number = (self._index_mapped - (self._index_mapped % self._slice)) / self._slice  # determine slice # in sequence of slices
-        self._index = (self._out_direction * self._slice_number * self._slice) + self._out_min  # quantize and add back the offset
+        # #### issue is with the mapper #### # ????
+        self._index_mapped = self.mapper(self._input + self._offset) - self._out_span_min  # mapped with offset removed
+        self._slice_number = ((self._index_mapped - (self._index_mapped % self._slice)) / self._slice)  # determine slice # in sequence of slices
+        self._index = (self._slice_number * self._slice) + self._out_span_min  # quantize and add back the offset
 
         # limit index value to within index span
         if self._index < self._out_span_min: self._index = self._out_span_min
         if self._index > self._out_span_max: self._index = self._out_span_max
 
-        if self._index == self._out_span_min:
-            self._offset = self._hyst_factor * -1 * self._out_direction * self._in_offset
-        if self._index == self._out_span_max:
-            self._offset = self._hyst_factor * 1 * self._out_direction * self._in_offset
-
         if self._out_integer:  # is the output value data type integer?
             self._index = int(self._index)
 
         if self._index != self._old_idx:  # did the index value change?
-            self._offset = self._hyst_factor * self.sign(self._index - self._old_idx) * self._out_direction * self._in_offset
+            self._offset = self._hyst_factor * self.sign(self._input - self._old_input) * self._out_direction * self._in_offset
+
             self._old_idx = self._index
+            self._old_input = self._input
 
             if self._debug:
                 print("** range_slicer ", self.__dict__)
 
             return self._index, True  # return new index value and change flag
         else:
+            self._offset = self._hyst_factor * self.sign(self._input - self._old_input) * self._out_direction * self._in_offset
+            self._old_input = self._input
             if self._debug:
                 print("***range_slicer ", self.__dict__)
 
             return self._old_idx, False  # return old index value and change flag
 
-    def mapper(self, x):
+    def mapper(self, map_x):
         """Determines the index output value of the range input value.
            (A slightly modified version of Adafruit.CircuitPython.simpleio.map_range.)
         :param float x: The range input value.
         """
-        self._mapped = ((x - self._in_min) * (self._out_span) / self._in_span) + self._out_span_min
+        self._map_x = map_x
+        self._mapped = (((self._map_x - self._in_min) * (self._out_span * self._out_direction)) / (self._in_span)) + self._out_min
 
-        if self._out_span_min <= self._out_span_max:
-            return max(min(self._mapped, self._out_span_max), self._out_span_min)
+        if self._out_min <= self._out_max:
+            return max(min(self._mapped, self._out_max), self._out_min)
         else:
-            return min(max(self._mapped, self._out_span_max), self._out_span_min)
+            return min(max(self._mapped, self._out_max), self._out_min)
 
     def sign(self, x):
         """Determines the sign of a numeric value. Zero is considered to be a positive value.
@@ -256,3 +221,38 @@ class Slicer:
         """
         if x >= 0: return 1
         else: return -1
+
+    def param_updater(self):
+        """ Establishes and updates parameters for range_slicer helper. """
+        # input parameters
+        self._in_span = (self._in_max - self._in_min)
+
+        # output parameters
+        self._out_span_min = min(self._out_min, self._out_max)
+        self._out_span_max = max(self._out_max, self._out_min)
+        self._out_span = (self._out_span_max - self._out_span_min) + self._slice
+        self._out_direction = self.sign(self._out_max - self._out_min)
+
+        # slice parameters
+        self._slice_count = (int((self._out_span_max - self._out_span_min) / self._slice)) + 1
+        print(self._slice_count)
+        #self._slice_count = (int(abs(self._out_span) / self._slice)) + 1
+
+        # hysteresis parameters
+        #   none
+
+        # output value data type parameters
+        #   none
+
+        # index and input parameters
+        self._old_idx = 0
+        self._old_input = 0
+
+        # offset parameters
+        self._offset = 0
+        self._in_offset = self._in_span / self._slice_count
+
+        # debug parameters
+        #   none
+
+        return
