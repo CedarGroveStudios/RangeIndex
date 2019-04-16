@@ -22,7 +22,7 @@
 """
 `cedargrove_range_slicer`
 ================================================================================
-Range_Slicer 2019-04-13 v24 09:10AM
+Range_Slicer 2019-04-16 v25 11:23AM
 A CircuitPython class for scaling a range of input values into indexed/quantized
 output values. Output slice hysteresis is used to provide dead-zone squelching.
 
@@ -78,8 +78,6 @@ class Slicer:
 
     @range_min.setter
     def range_min(self, in_min=0):
-        #if self._in_max == in_min:
-            #raise RuntimeError("Invalid range input; minimum and maximum values cannot be equal")
         self._in_min = in_min
         self.param_updater() # Update the parameters for range_slicer helper
 
@@ -90,8 +88,6 @@ class Slicer:
 
     @range_max.setter
     def range_max(self, in_max=65535):
-        #if self._in_min == in_max:
-            #raise RuntimeError("Invalid range input; minimum and maximum values cannot be equal")
         self._in_max = in_max
         self.param_updater() # Update the parameters for range_slicer helper
 
@@ -102,8 +98,6 @@ class Slicer:
 
     @index_min.setter
     def index_min(self, out_min=0):
-        #if out_min == self._out_max:
-            #raise RuntimeError("Invalid index output; minimum and maximum values cannot be equal")
         self._out_min = out_min
         self.param_updater() # Update the parameters for range_slicer helper
 
@@ -114,8 +108,6 @@ class Slicer:
 
     @index_max.setter
     def index_max(self, out_max=65535):
-        #if self._out_min == out_max:
-            #raise RuntimeError("Invalid index output; minimum and maximum values cannot be equal")
         self._out_max = out_max
         self.param_updater() # Update the parameters for range_slicer helper
 
@@ -172,14 +164,17 @@ class Slicer:
         """
         self._input = input
 
-        # #### issue is with the mapper #### # ????
         self._index_mapped = self.mapper(self._input + self._offset) - self._out_span_min  # mapped with offset removed
         self._slice_number = ((self._index_mapped - (self._index_mapped % self._slice)) / self._slice)  # determine slice # in sequence of slices
         self._index = (self._slice_number * self._slice) + self._out_span_min  # quantize and add back the offset
 
         # limit index value to within index span
-        if self._index < self._out_span_min: self._index = self._out_span_min
-        if self._index > self._out_span_max: self._index = self._out_span_max
+        if self._out_span_min < self._out_span_max:
+            if self._index < self._out_span_min: self._index = self._out_span_min
+            if self._index > self._out_span_max - self._slice: self._index = self._out_span_max - self._slice
+        else:
+            if self._index > self._out_span_min - self._slice: self._index = self._out_span_min - self._slice
+            if self._index < self._out_span_max: self._index = self._out_span_max
 
         if self._out_integer:  # is the output value data type integer?
             self._index = int(self._index)
@@ -208,12 +203,12 @@ class Slicer:
         :param float x: The range input value.
         """
         self._map_x = map_x
-        self._mapped = (((self._map_x - self._in_min) * (self._out_span * self._out_direction)) / (self._in_span)) + self._out_min
+        self._mapped = (self._map_x - self._in_min) * (self._out_span_max - self._out_span_min) / (self._in_max - self._in_min) + self._out_span_min
 
-        if self._out_min <= self._out_max:
-            return max(min(self._mapped, self._out_max), self._out_min)
+        if self._out_span_min <= self._out_span_max:
+            return max(min(self._mapped, self._out_span_max), self._out_span_min)
         else:
-            return min(max(self._mapped, self._out_max), self._out_min)
+            return min(max(self._mapped, self._out_span_max), self._out_span_min)
 
     def sign(self, x):
         """Determines the sign of a numeric value. Zero is considered to be a positive value.
@@ -228,15 +223,18 @@ class Slicer:
         self._in_span = (self._in_max - self._in_min)
 
         # output parameters
-        self._out_span_min = min(self._out_min, self._out_max)
-        self._out_span_max = max(self._out_max, self._out_min)
-        self._out_span = (self._out_span_max - self._out_span_min) + self._slice
+        if self._out_min > self._out_max:
+            self._out_span_min = self._out_min + self._slice
+            self._out_span_max = self._out_max
+        else:
+            self._out_span_min = self._out_min
+            self._out_span_max = self._out_max + self._slice
+
+        self._out_span = (self._out_span_max - self._out_span_min)
         self._out_direction = self.sign(self._out_max - self._out_min)
 
         # slice parameters
         self._slice_count = (int((self._out_span_max - self._out_span_min) / self._slice)) + 1
-        print(self._slice_count)
-        #self._slice_count = (int(abs(self._out_span) / self._slice)) + 1
 
         # hysteresis parameters
         #   none
