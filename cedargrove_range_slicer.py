@@ -135,13 +135,12 @@ class Slicer:
 
     @property
     def hysteresis(self):
-        """The hysteresis factor value. Must be between 0 and 1.0 (0 to 100% of index value slice). Default is 0.25"""
+        """The hysteresis factor value. For example, a factor of 0.50 is a
+        hysteresis setting of 50%. Default is 0.25"""
         return self._hyst_factor
 
     @hysteresis.setter
     def hysteresis(self, hyst_factor=0.25):
-        if not (0 <= hyst_factor <= 1.0):
-            raise RuntimeError("Invalid hysteresis factor; value must be between 0 and 1.0")
         self._hyst_factor = hyst_factor
 
     @property
@@ -159,13 +158,12 @@ class Slicer:
     def range_slicer(self, input=0):
         """Determines index output value from the range input value optionally truncated to an integer data type.
            Returns the new index value and a flag (True/False) indicating if the new index changed from the
-           previous index value.
+           previous index value. This is the primary function of the Slicer class.
         :param float input: The range input value.
         """
-        self._input = input
 
-        self._index_mapped = self.mapper(self._input + self._offset) - self._out_span_min  # mapped with offset removed
-        self._slice_number = ((self._index_mapped - (self._index_mapped % self._slice)) / self._slice)  # determine slice # in sequence of slices
+        self._index_mapped = self.mapper(input + self._offset) - self._out_span_min  # mapped with offset removed
+        self._slice_number = ((self._index_mapped - (self._index_mapped % self._slice)) / self._slice)  # sequential slice number
         self._index = (self._slice_number * self._slice) + self._out_span_min  # quantize and add back the offset
 
         # limit index value to within index span
@@ -180,30 +178,27 @@ class Slicer:
             self._index = int(self._index)
 
         if self._index != self._old_idx:  # did the index value change?
-            self._offset = self._hyst_factor * self.sign(self._input - self._old_input) * self._out_direction * self._in_offset
+            self._offset = self._hyst_factor * self.sign(input - self._old_input) * self._out_direction * self._in_offset
 
-            self._old_idx = self._index
-            self._old_input = self._input
+            # store index and input history values
+            self._old_idx = self._index  # store index and input history values
+            self._old_input = input
 
-            if self._debug:
-                print("** range_slicer ", self.__dict__)
-
+            if self._debug: print("** range_slicer ", self.__dict__)
             return self._index, True  # return new index value and change flag
         else:
-            self._offset = self._hyst_factor * self.sign(self._input - self._old_input) * self._out_direction * self._in_offset
-            self._old_input = self._input
-            if self._debug:
-                print("***range_slicer ", self.__dict__)
+            self._offset = self._hyst_factor * self.sign(input - self._old_input) * self._out_direction * self._in_offset
+            self._old_input = input  # store input history value
 
+            if self._debug: print("***range_slicer ", self.__dict__)
             return self._old_idx, False  # return old index value and change flag
 
-    def mapper(self, map_x):
+    def mapper(self, map_in):
         """Determines the index output value of the range input value.
            (A slightly modified version of Adafruit.CircuitPython.simpleio.map_range.)
-        :param float x: The range input value.
+        :param float map_in: The mapper input value.
         """
-        self._map_x = map_x
-        self._mapped = (self._map_x - self._in_min) * (self._out_span_max - self._out_span_min) / (self._in_max - self._in_min) + self._out_span_min
+        self._mapped = (map_in - self._in_min) * (self._out_span_max - self._out_span_min) / (self._in_max - self._in_min) + self._out_span_min
 
         if self._out_span_min <= self._out_span_max:
             return max(min(self._mapped, self._out_span_max), self._out_span_min)
@@ -211,14 +206,14 @@ class Slicer:
             return min(max(self._mapped, self._out_span_max), self._out_span_min)
 
     def sign(self, x):
-        """Determines the sign of a numeric value. Zero is considered to be a positive value.
-        :param float x: The value.
+        """Determines the sign of a numeric value. Zero is evaluated as a positive value.
+        :param float x: The value to evaluate.
         """
         if x >= 0: return 1
         else: return -1
 
     def param_updater(self):
-        """ Establishes and updates parameters for range_slicer helper. """
+        """ Establishes and updates parameters for the range_slicer function. """
         # input parameters
         self._in_span = (self._in_max - self._in_min)
 
