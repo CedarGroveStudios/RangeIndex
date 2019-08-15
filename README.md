@@ -23,7 +23,7 @@ Parameters:
 
 -	`out_min` – The output index minimum. Can be any positive or negative value, smaller or larger than the output index maximum. Output index minimum and maximum values cannot be equal. Defaults to `0`.
 
--	`out_max` – The output index minimum. Can be any positive or negative value, smaller or larger than the output index maximum. Output index minimum and maximum values cannot be equal. Defaults to `65535`.
+-	`out_max` – The output index maximum. Can be any positive or negative value, smaller or larger than the output index minimum. Output index minimum and maximum values cannot be equal. Defaults to `65535`.
 
 -	`slice` – The size of an output index slice. Can be any positive or negative value other than zero. Defaults to `1.0`.
 
