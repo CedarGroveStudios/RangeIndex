@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name "Proto FeatherWing")(type KiCad)(uri "$(KIPRJMOD)/Proto FeatherWing.pretty")(options "")(descr ""))
+)
