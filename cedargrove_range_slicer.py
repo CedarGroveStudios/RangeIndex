@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 
-# Copyright (c) 2019 Jan Goolsbey, Cedar Grove Studios
+# Copyright (c) 2019 Cedar Grove Studios
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@ Range_Slicer 2019-04-16 v25 11:23AM
 A CircuitPython class for scaling a range of input values into indexed/quantized
 output values. Output slice hysteresis is used to provide dead-zone squelching.
 
-* Author(s): Jan Goolsbey
+* Author(s): Cedar Grove Studios
 
 Implementation Notes
 --------------------
