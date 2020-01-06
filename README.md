@@ -86,4 +86,4 @@ Parameters:
 ![Range_Slicer Logo](https://github.com/CedarGroveStudios/Range_Slicer/blob/master/range%20slicer%20logo%2001.bmp)
 
 ________________________________________
-© Copyright 2019 Cedar Grove Studios, Revision v2.3. 
+© Copyright 2019, 2020 Cedar Grove Studios, Revision v2.3. 
