@@ -7,11 +7,12 @@ A CircuitPython class for scaling a range of input values into indexed/quantized
 Range_Slicer is a general-purpose analog value converter that linearly compresses or expands the input then quantizes it into a collection of precise output slice values. The class detects input value changes and applies selectable hysteresis when slice edge thresholds are reached to eliminate dead-zone noise issues. Applications include converting rotary knob position to discrete ranges of MIDI values, analog signal noise processing, level detection, and signal display.
 
 ### Implementation Notes
-#### Hardware:
+
+See use example code in the _examples_ folder.
+
 #### Software and Dependencies:
 •	Adafruit CircuitPython firmware for the supported boards: https://github.com/adafruit/circuitpython/releases
 
-See example code in the _examples_ folder.
 
 #### ```class cedargrove_range_slicer.Slicer(*, in_min=0, in_max=65535, out_min=0, out_max=65535, slice=1.0, hyst_factor=0.25, out_integer=False, debug=False)```
 
