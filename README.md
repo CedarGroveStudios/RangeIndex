@@ -11,6 +11,8 @@ Range_Slicer is a general-purpose analog value converter that linearly compresse
 #### Software and Dependencies:
 •	Adafruit CircuitPython firmware for the supported boards: https://github.com/adafruit/circuitpython/releases
 
+See example code in the _examples_ folder.
+
 #### ```class cedargrove_range_slicer.Slicer(*, in_min=0, in_max=65535, out_min=0, out_max=65535, slice=1.0, hyst_factor=0.25, out_integer=False, debug=False)```
 
 Class representing the CedarGroveMaker Range_Slicer.
