@@ -2,7 +2,7 @@
 ## cedargrove_range_slicer
 A CircuitPython class for scaling a range of input values into indexed/quantized output values. Output slice hysteresis is used to provide dead-zone squelching.
 
-![Conceptual Methodology](https://github.com/CedarGroveStudios/Range_Slicer/blob/master/conceptual%202019-03-05.png)
+![Conceptual Methodology](https://github.com/CedarGroveStudios/Range_Slicer/blob/master/docs/conceptual%202019-03-05.png)
 
 Range_Slicer is a general-purpose analog value converter that linearly compresses or expands the input then quantizes it into a collection of precise output slice values. The class detects input value changes and applies selectable hysteresis when slice edge thresholds are reached to eliminate dead-zone noise issues. Applications include converting rotary knob position to discrete ranges of MIDI values, analog signal noise processing, level detection, and signal display.
 
@@ -83,7 +83,7 @@ Parameters:
 
 - `hyst_factor` – The size of the hysteresis threshold expressed as a factor of the slice size. Can be a positive value from 0 to 1.0. Defaults to `0.25` (25% of the slice size value).
 
-![Range_Slicer Logo](https://github.com/CedarGroveStudios/Range_Slicer/blob/master/range%20slicer%20logo%2001.bmp)
+![Range_Slicer Logo](https://github.com/CedarGroveStudios/Range_Slicer/blob/master/docs/range%20slicer%20logo%2001.bmp)
 
 ________________________________________
 © Copyright 2019, 2020 Cedar Grove Studios, Revision v2.3. 
