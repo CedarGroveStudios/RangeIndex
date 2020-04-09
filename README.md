@@ -4,6 +4,8 @@ A CircuitPython class for scaling a range of input values into indexed/quantized
 
 ![Conceptual Methodology](https://github.com/CedarGroveStudios/Range_Slicer/blob/master/docs/conceptual%202019-03-05.png)
 
+[Conceptual Methodology (animation)](https://youtu.be/ndU70NTm_Bk)
+
 Range_Slicer is a general-purpose analog value converter that linearly compresses or expands the input then quantizes it into a collection of precise output slice values. The class detects input value changes and applies selectable hysteresis when slice edge thresholds are reached to eliminate dead-zone noise issues. Applications include converting rotary knob position to discrete ranges of MIDI values, analog signal noise processing, level detection, and signal display.
 
 ### Implementation Notes
