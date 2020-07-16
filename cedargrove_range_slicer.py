@@ -216,6 +216,8 @@ class Slicer:
         """ Establishes and updates parameters for the range_slicer function. """
         # input parameters
         self._in_span = (self._in_max - self._in_min)
+        if self._in_span == 0:
+            raise RuntimeError("Invalid Range (input) min/max setting; values cannot be equal")
 
         # output parameters
         if self._out_min > self._out_max:
@@ -226,6 +228,8 @@ class Slicer:
             self._out_span_max = self._out_max + self._slice
 
         self._out_span = (self._out_span_max - self._out_span_min)
+        if self._out_span == 0:
+            raise RuntimeError("Invalid Index (output) min/max setting; values cannot be equal")
         self._out_direction = self.sign(self._out_max - self._out_min)
 
         # slice parameters
