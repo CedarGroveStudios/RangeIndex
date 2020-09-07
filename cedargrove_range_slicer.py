@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 
-# Copyright (c) 2019 Cedar Grove Studios
+# Copyright (c) 2020 Cedar Grove Studios
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -22,7 +22,7 @@
 """
 `cedargrove_range_slicer`
 ================================================================================
-Range_Slicer 2019-04-16 v25 11:23AM
+Range_Slicer 2020-05-28 v26 12:02AM
 A CircuitPython class for scaling a range of input values into indexed/quantized
 output values. Output slice hysteresis is used to provide dead-zone squelching.
 
@@ -45,7 +45,8 @@ __repo__ = "https://github.com/CedarGroveStudios/Range_Slicer.git"
 class Slicer:
     """range_slicer helper class."""
 
-    def __init__(self, in_min=0, in_max=65535, out_min=0, out_max=65535, slice=1.0, hyst_factor=0.25, out_integer=False, debug=False):
+    def __init__(self, in_min=0, in_max=65535, out_min=0, out_max=65535,
+                 slice=1.0, hyst_factor=0.25, out_integer=False, debug=False):
         # input parameters
         self._in_min = in_min
         self._in_max = in_max
@@ -73,7 +74,8 @@ class Slicer:
 
     @property
     def range_min(self):
-        """The range input's minimum floating or integer value. Default is 0."""
+        """The range input's minimum floating or integer value.
+           Default is 0."""
         return self._in_min
 
     @range_min.setter
@@ -83,7 +85,8 @@ class Slicer:
 
     @property
     def range_max(self):
-        """The range input's maximum floating or integer value. Default is 65535."""
+        """The range input's maximum floating or integer value.
+           Default is 65535."""
         return self._in_max
 
     @range_max.setter
@@ -113,7 +116,8 @@ class Slicer:
 
     @property
     def index_type(self):
-        """The index output value integer data type. Default is False (floating)."""
+        """The index output value integer data type.
+           Default is False (floating)."""
         return self._out_integer
 
     @index_type.setter
@@ -156,10 +160,14 @@ class Slicer:
             print("*Init: ", self.__dict__)
 
     def range_slicer(self, input=0):
-        """Determines index output value from the range input value optionally truncated to an integer data type.
-           Returns the new index value and a flag (True/False) indicating if the new index changed from the
-           previous index value. This is the primary function of the Slicer class.
+        """Determines index output value from the range input value optionally
+           truncated to an integer data type. Returns the new index value and
+           a flag (True/False) indicating if the new index changed from the
+           previous index value.
+           This is the primary function of the Slicer class.
+
         :param float input: The range input value.
+
         """
 
         self._index_mapped = self.mapper(input + self._offset) - self._out_span_min  # mapped with offset removed
