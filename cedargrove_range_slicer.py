@@ -39,7 +39,6 @@ Implementation Notes
 
 """
 
-__version__ = "0.0.0-auto.0"
 __repo__ = "https://github.com/CedarGroveStudios/Range_Slicer.git"
 
 class Slicer:
@@ -165,22 +164,25 @@ class Slicer:
            a flag (True/False) indicating if the new index changed from the
            previous index value.
            This is the primary function of the Slicer class.
-
-        :param float input: The range input value.
-
         """
-
-        self._index_mapped = self.mapper(input + self._offset) - self._out_span_min  # mapped with offset removed
-        self._slice_number = ((self._index_mapped - (self._index_mapped % self._slice)) / self._slice)  # sequential slice number
-        self._index = (self._slice_number * self._slice) + self._out_span_min  # quantize and add back the offset
+        # mapped with offset removed
+        self._index_mapped = self.mapper(input + self._offset) - self._out_span_min
+        # sequential slice number
+        self._slice_number = ((self._index_mapped - (self._index_mapped % self._slice)) / self._slice)
+        # quantize and add back the offset
+        self._index = (self._slice_number * self._slice) + self._out_span_min
 
         # limit index value to within index span
         if self._out_span_min < self._out_span_max:
-            if self._index < self._out_span_min: self._index = self._out_span_min
-            if self._index > self._out_span_max - self._slice: self._index = self._out_span_max - self._slice
+            if self._index < self._out_span_min:
+                self._index = self._out_span_min
+            if self._index > self._out_span_max - self._slice:
+                self._index = self._out_span_max - self._slice
         else:
-            if self._index > self._out_span_min - self._slice: self._index = self._out_span_min - self._slice
-            if self._index < self._out_span_max: self._index = self._out_span_max
+            if self._index > self._out_span_min - self._slice:
+                self._index = self._out_span_min - self._slice
+            if self._index < self._out_span_max:
+                self._index = self._out_span_max
 
         if self._out_integer:  # is the output value data type integer?
             self._index = int(self._index)
@@ -192,19 +194,21 @@ class Slicer:
             self._old_idx = self._index  # store index and input history values
             self._old_input = input
 
-            if self._debug: print("** range_slicer ", self.__dict__)
+            if self._debug:
+                print("** range_slicer ", self.__dict__)
             return self._index, True  # return new index value and change flag
         else:
             self._offset = self._hyst_factor * self.sign(input - self._old_input) * self._out_direction * self._in_offset
             self._old_input = input  # store input history value
 
-            if self._debug: print("***range_slicer ", self.__dict__)
+            if self._debug:
+                print("***range_slicer ", self.__dict__)
             return self._old_idx, False  # return old index value and change flag
 
     def mapper(self, map_in):
         """Determines the index output value of the range input value.
-           (A slightly modified version of Adafruit.CircuitPython.simpleio.map_range.)
-        :param float map_in: The mapper input value.
+           (A slightly modified version of
+           Adafruit.CircuitPython.simpleio.map_range.)
         """
         self._mapped = (map_in - self._in_min) * (self._out_span_max - self._out_span_min) / (self._in_max - self._in_min) + self._out_span_min
 
@@ -214,10 +218,11 @@ class Slicer:
             return min(max(self._mapped, self._out_span_max), self._out_span_min)
 
     def sign(self, x):
-        """Determines the sign of a numeric value. Zero is evaluated as a positive value.
-        :param float x: The value to evaluate.
+        """Determines the sign of a numeric value. Zero is evaluated as a
+           positive value.
         """
-        if x >= 0: return 1
+        if x >= 0:
+            return 1
         else: return -1
 
     def param_updater(self):
