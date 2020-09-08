@@ -184,6 +184,13 @@ class Slicer:
             if self._index < self._out_span_max:
                 self._index = self._out_span_max
 
+        """# simplification of section above consistent with map_range technique
+        if self._out_span_min <= self._out_span_max:
+            self._index = max(min(self._index, self._out_span_max - self._slice), self._out_span_min)
+        else:
+            self._index = min(max(self._index, self._out_span_max), self._out_span_min - self._slice)"""
+
+
         if self._out_integer:  # is the output value data type integer?
             self._index = int(self._index)
 
