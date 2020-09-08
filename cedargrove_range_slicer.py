@@ -198,7 +198,7 @@ class Slicer:
                 print("** range_slicer ", self.__dict__)
             return self._index, True  # return new index value and change flag
         else:
-            self._offset = self._hyst_factor * self.sign(input - self._old_input) * self._out_direction * self._in_offset
+            # self._offset = self._hyst_factor * self.sign(input - self._old_input) * self._out_direction * self._in_offset
             self._old_input = input  # store input history value
 
             if self._debug:
