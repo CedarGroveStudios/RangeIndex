@@ -166,28 +166,14 @@ class Slicer:
            This is the primary function of the Slicer class.
         """
         # mapped with offset removed
-        self._index_mapped = self.mapper(input + self._offset) - self._out_span_min
+        self._index_mapped = self.mapper(input - self._offset) - self._out_span_min
         # sequential slice number
         self._slice_number = ((self._index_mapped - (self._index_mapped % self._slice))
                               / self._slice)
         # quantize and add back the offset
         self._index = (self._slice_number * self._slice) + self._out_span_min
 
-        """# limit index value to within index span
-        # (old technique)
-        if self._out_span_min < self._out_span_max:
-            if self._index < self._out_span_min:
-                self._index = self._out_span_min
-            if self._index > self._out_span_max - self._slice:
-                self._index = self._out_span_max - self._slice
-        else:
-            if self._index > self._out_span_min - self._slice:
-                self._index = self._out_span_min - self._slice
-            if self._index < self._out_span_max:
-                self._index = self._out_span_max"""
-
         # Limit index value to within index span
-        # (simplification of section above consistent with map_range technique)
         if self._out_min <= self._out_max:
             self._index = max(min(self._index, self._out_max), self._out_min)
         else:
@@ -198,8 +184,12 @@ class Slicer:
             self._index = int(self._index)
 
         if self._index != self._old_idx:  # did the index value change?
+            print('input:', input, 'index:', self._index, 'old_idx:', self._old_idx)
+            print('in_span_dir:', self._in_span_dir, 'out_span_dir:', self._out_span_dir)
+            print("in_dir:", self.sign(input - self._old_input), 'in_offset:', self._in_offset)
+
             self._offset = (self._hyst_factor * self.sign(input - self._old_input)
-                            * self._out_direction * self._in_offset)
+                            * self._in_span_dir * self._out_span_dir * self._in_offset)
 
             # store index and input history values
             self._old_idx = self._index  # store index and input history values
@@ -209,11 +199,8 @@ class Slicer:
                 print("** range_slicer ", self.__dict__)
             return self._index, True  # return new index value and change flag
         else:
-            # Reset offset value at upper index value
-            # *** need to also fix offset value at _out_span_min when range is reversed
-            if self._index == self._out_span_max - self._slice:
-                self._offset = (self._hyst_factor * self.sign(input - self._old_input)
-                                * self._out_direction * self._in_offset)
+            self._offset = (self._hyst_factor * self.sign(input - self._old_input)
+                            * self._in_span_dir * self._out_span_dir * self._in_offset)
 
             self._old_input = input  # store input history value
 
@@ -224,7 +211,7 @@ class Slicer:
     def mapper(self, map_in):
         """Determines the index output value of the range input value.
            (A slightly modified version of
-           Adafruit.CircuitPython.simpleio.map_range.)
+           Adafruit.CircuitPython.simpleio.map_range library.)
         """
         self._mapped = ((map_in - self._in_min) * (self._out_span_max - self._out_span_min)
                         / (self._in_max - self._in_min)) + self._out_span_min
@@ -248,6 +235,7 @@ class Slicer:
         self._in_span = (self._in_max - self._in_min)
         if self._in_span == 0:
             raise RuntimeError("Invalid Range (input) min/max setting; values cannot be equal")
+        self._in_span_dir = self.sign(self._in_span)
 
         # output parameters
         if self._out_min > self._out_max:
@@ -260,7 +248,7 @@ class Slicer:
         self._out_span = (self._out_span_max - self._out_span_min)
         if self._out_span == 0:
             raise RuntimeError("Invalid Index (output) min/max setting; values cannot be equal")
-        self._out_direction = self.sign(self._out_max - self._out_min)
+        self._out_span_dir = self.sign(self._out_span)
 
         # slice parameters
         self._slice_count = (int((self._out_span_max - self._out_span_min)
