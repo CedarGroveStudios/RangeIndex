@@ -22,7 +22,7 @@
 """
 `cedargrove_range_slicer`
 ================================================================================
-Range_Slicer 2020-09-09 v30 09:57PM
+Range_Slicer 2020-09-08 v28 09:57PM
 A CircuitPython class for scaling a range of input values into indexed/quantized
 output values. Output slice hysteresis is used to provide dead-zone squelching.
 
@@ -158,9 +158,6 @@ class Slicer:
             print("*Init:", self.__class__)
             print("*Init: ", self.__dict__)
 
-
-
-    # -------------------------------------------------------------------- #
     def range_slicer(self, input=0):
         """Determines index output value from the range input value optionally
            truncated to an integer data type. Returns the new index value and
@@ -168,43 +165,14 @@ class Slicer:
            previous index value.
            This is the primary function of the Slicer class.
         """
-
-        self._hyst_band = self._hyst_factor * self._slice
-        print('_hyst_band, _hyst_factor, _slice', self._hyst_band, self._hyst_factor, self._slice)
-
-
         # map hysteresis-adjusted input and remove span minimum
-        self._idx_mapped = self.mapper(input)
+        self._index_mapped = self.mapper(input - self._offset) - self._out_span_min
         # calculate the sequential slice number
-        self._slice_num = ((self._idx_mapped - (self._idx_mapped % self._slice))
+        self._slice_number = ((self._index_mapped - (self._index_mapped % self._slice))
                               / self._slice)
         # quantize and add back the offset
-        self._idx_quan = (self._slice_num * self._slice) + self._out_min
-
-        print('input, _idx_mapped, _idx_quan:', input, self._idx_mapped, self._idx_quan)
-        print('_slice_num', self._slice_num)
-        print('_in_min,  _in_max ', self._in_min, self._in_max)
-        print('_out_min, _out_max', self._out_min, self._out_max)
-
-        print('_idx_mapped, _idx_quan + _hyst_band, _idx_quan - _hyst_band', self._idx_mapped, self._idx_quan + self._hyst_band, self._idx_quan - self._hyst_band)
-        if (self._idx_mapped < (self._idx_quan + self._hyst_band)) and (self._idx_mapped > (self._idx_quan - self._hyst_band)):
-            print("_idx_mapped is between top and bottom _hyst_band thresholds for _idx_quan:", self._idx_quan)
-            print("in the squelch zone: don't change index value")
-
-        if self._idx_mapped > self._idx_quan + self._hyst_band:
-            print("_idx_mapped is greater than upper _hyst_band threshold")
-            print("_idx_quan is the value to use:", self._idx_quan)
-
-        if self._idx_mapped < self._idx_quan - self._hyst_band:
-            print("_idx_mapped is less than lower _hyst_band threshold")
-            print("_idx_quan - _slice is the new value to use:", self._idx_quan - self._slice)
-
-
-
-
-        while True:
-            pass
-
+        self._index = (self._slice_number * self._slice) + self._out_span_min
+        print('*** _index_mapped, _index:', self._index_mapped, self._index)
 
         # Limit index value to within index span
         if self._out_min <= self._out_max:
@@ -212,39 +180,53 @@ class Slicer:
         else:
             self._index = min(max(self._index, self._out_max), self._out_min)
 
+        # this may need to be moved so that it doesn't mess with offset values
+        """if self._out_integer:  # is the output value data type integer?
+            self._index = int(self._index)"""
+
+        if self._index != self._old_idx:  # did the index value change?
+            self._offset = (self._hyst_factor * self.sign(input - self._old_input)
+                            * self._in_span_dir * self._out_span_dir * self._in_offset)
+            print('index change')
+
+            # store index and input history values
+            self._in_dir = self.sign(input - self._old_input)  # store input direction
+            self._old_idx = self._index  # store index and input history values
+            self._old_input = input
 
 
+        else:
+            # this is the section that detects input direction changes when the index value hasn't changed
+            # wondering if it needs to capture the previous offset value and only calculate the new value when
+            # the mapper index value satisfies the previous offset threshold.
+            if self._in_dir != self.sign(input - self._old_input):
+                print('input direction change: _in_dir, sign(input - _old_input):', self._in_dir, self.sign(input - self._old_input))
+                print('input:', input, '_old_input:', self._old_input)
+
+            self._offset = (self._hyst_factor * self.sign(input - self._old_input)
+                            * self._in_span_dir * self._out_span_dir * self._in_offset)
 
 
+            self._in_dir = self.sign(input - self._old_input)  # store input direction
+            self._old_input = input  # store input history value
 
-
-
-
-
-
-        if self._out_integer:  # is the output value data type integer?
-            self._index = int(self._index)
 
         if self._debug:
             print("***range_slicer ", self.__dict__)
         return self._index, False  # return index value and change flag
 
-
-
-
-    # -------------------------------------------------------------------- #
-
     def mapper(self, map_in):
         """Determines the index output value of the range input value.
-           (from Adafruit.CircuitPython.simpleio.map_range)
+           (A slightly modified version of
+           Adafruit.CircuitPython.simpleio.map_range library.)
         """
-        self._mapped = ((map_in - self._in_min) * (self._out_max - self._out_min)
-                        / (self._in_max - self._in_min)) + self._out_min
+        self._mapped = ((map_in - self._in_min) * (self._out_span_max - self._out_span_min)
+                        / (self._in_max - self._in_min)) + self._out_span_min
 
-        if self._out_min <= self._out_max:
-            return max(min(self._mapped, self._out_max), self._out_min)
+        if self._out_span_min <= self._out_span_max:
+            return max(min(self._mapped, self._out_span_max), self._out_span_min)
         else:
-            return min(max(self._mapped, self._out_max), self._out_min)
+            return min(max(self._mapped, self._out_span_max), self._out_span_min)
 
     def sign(self, x):
         """Determines the sign of a numeric value. Zero is evaluated as a
