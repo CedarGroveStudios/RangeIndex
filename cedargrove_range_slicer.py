@@ -65,9 +65,9 @@ class Slicer:
 
         # debug parameters
         self._debug = debug
-        if self._debug:
+        """if self._debug:
             print("*Init:", self.__class__)
-            print("*Init: ", self.__dict__)
+            print("*Init: ", self.__dict__)"""
 
         self.param_updater() # Establish the parameters for range_slicer helper
 
@@ -154,10 +154,9 @@ class Slicer:
     @debug.setter
     def debug(self, debug=False):
         self._debug = debug
-        if self._debug:
+        """if self._debug:
             print("*Init:", self.__class__)
-            print("*Init: ", self.__dict__)
-
+            print("*Init: ", self.__dict__)"""
 
 
     # -------------------------------------------------------------------- #
@@ -170,13 +169,15 @@ class Slicer:
         """
 
         self._hyst_band = self._hyst_factor * self._slice
-        print()
-        print('--- fixed values ---')
-        print('_in_min :', self._in_min, '_in_max :', self._in_max)
-        print('_out_min:', self._out_min, '_out_max:', self._out_max)
-        print('_slice:', self._slice)
-        print('_hyst_band:', self._hyst_band, '_hyst_factor:', self._hyst_factor)
-        print()
+
+        if self._debug:
+            print()
+            print('===== fixed values =====')
+            print('_in_min :', self._in_min, '_in_max :', self._in_max)
+            print('_out_min:', self._out_min, '_out_max:', self._out_max)
+            print('_slice:', self._slice)
+            print('_hyst_band:', self._hyst_band, '_hyst_factor:', self._hyst_factor)
+            print()
 
         # map hysteresis-adjusted input and remove span minimum
         self._idx_mapped = self.mapper(input)
@@ -186,36 +187,56 @@ class Slicer:
         # quantize and add back the offset
         self._idx_quan = (self._slice_num * self._slice) + self._out_min
 
-        print('--- mapped values ---')
-        print('input:', input)
-        print('_idx_mapped:', self._idx_mapped, '_idx_quan:', self._idx_quan)
-        print('_slice_num:', self._slice_num)
-        print()
+        if self._debug:
+            print('--- mapped values ---')
+            print('input:', input)
+            print('_idx_mapped:', self._idx_mapped, '_idx_quan:', self._idx_quan)
+            print('_slice_num:', self._slice_num)
+            print()
 
-        print('--- hysteresis band thresolds ---')
-        print('_idx_quan:', self._idx_quan)
-        print('upper threshold (_idx_quan + _hyst_band):', self._idx_quan + self._hyst_band)
-        print('lower threshold (_idx_quan - _hyst_band):', self._idx_quan - self._hyst_band)
-        print()
+            print('--- hysteresis band thresolds ---')
+            print('_idx_quan:', self._idx_quan)
+            print('upper threshold (_idx_quan + _hyst_band):', self._idx_quan + self._hyst_band)
+            print('lower threshold (_idx_quan - _hyst_band):', self._idx_quan - self._hyst_band)
+            print()
 
         if (self._idx_mapped < (self._idx_quan + self._hyst_band)) and (self._idx_mapped > (self._idx_quan - self._hyst_band)):
-            print("_idx_mapped is between upper and lower _hyst_band thresholds for _idx_quan:", self._idx_quan)
-            print("in the squelch zone: don't change index value")
+            if self._debug:
+                print("_idx_mapped is between upper and lower _hyst_band thresholds for _idx_quan:", self._idx_quan)
+                print("in the squelch zone: don't change index value")
+
+            index_flag = False
 
         if self._idx_mapped >= self._idx_quan + self._hyst_band:
-            print("_idx_mapped is greater than upper _hyst_band threshold")
-            print("_idx_quan is the value to use:", self._idx_quan)
+            if self._debug:
+                print("_idx_mapped is greater than upper _hyst_band threshold")
+                print("_idx_quan is the value to use:", self._idx_quan)
+
+            if self._index == self._idx_quan:
+                index_flag = False
+            else:
+                index_flag = True
+
+            self._index = self._idx_quan
 
         if self._idx_mapped <= self._idx_quan - self._hyst_band:
-            print("_idx_mapped is less than lower _hyst_band threshold")
-            print("_idx_quan - _slice is the new value to use:", self._idx_quan - self._slice)
+            if self._debug:
+                print("_idx_mapped is less than lower _hyst_band threshold")
+                print("_idx_quan - _slice is the new value to use:", self._idx_quan - self._slice)
 
+            if self._index == self._idx_quan:
+                index_flag = False
+            else:
+                index_flag = True
 
+            self._index = self._idx_quan - self._slice
 
+        if self._debug:
+            print()
+            print(' returns:', self._index, index_flag)
 
-        while True:
-            pass
-
+        """while True:
+            pass"""
 
         # Limit index value to within index span
         if self._out_min <= self._out_max:
@@ -223,28 +244,12 @@ class Slicer:
         else:
             self._index = min(max(self._index, self._out_max), self._out_min)
 
-
-
-
-
-
-
-
-
-
-
         if self._out_integer:  # is the output value data type integer?
-            self._index = int(self._index)
-
-        if self._debug:
-            print("***range_slicer ", self.__dict__)
-        return self._index, False  # return index value and change flag
-
-
+            return int(self._index), index_flag
+        return self._index, index_flag
 
 
     # -------------------------------------------------------------------- #
-
     def mapper(self, map_in):
         """Determines the index output value of the range input value.
            (from Adafruit.CircuitPython.simpleio.map_range)
@@ -297,6 +302,7 @@ class Slicer:
         #   none
 
         # index and input parameters
+        self._index = 0
         self._old_idx = 0
         self._old_input = 0
         self._in_dir = 0
