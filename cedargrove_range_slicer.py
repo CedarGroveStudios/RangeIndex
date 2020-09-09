@@ -184,29 +184,35 @@ class Slicer:
             self._index = int(self._index)
 
         if self._index != self._old_idx:  # did the index value change?
-            print('input:', input, 'index:', self._index, 'old_idx:', self._old_idx)
-            print('in_span_dir:', self._in_span_dir, 'out_span_dir:', self._out_span_dir)
-            print("in_dir:", self.sign(input - self._old_input), 'in_offset:', self._in_offset)
-
             self._offset = (self._hyst_factor * self.sign(input - self._old_input)
                             * self._in_span_dir * self._out_span_dir * self._in_offset)
+            print('index change')
 
             # store index and input history values
+            self._in_dir = self.sign(input - self._old_input)  # store input direction
             self._old_idx = self._index  # store index and input history values
             self._old_input = input
 
-            if self._debug:
-                print("** range_slicer ", self.__dict__)
-            return self._index, True  # return new index value and change flag
+
         else:
+            # this is the section that detects input direction changes when the index value hasn't changed
+            # wondering if it needs to capture the previous offset value and only calculate the new value when
+            # the mapper index value satisfies the previous offset threshold.
+            if self._in_dir != self.sign(input - self._old_input):
+                print('input direction change: _in_dir, sign(input - _old_input):', self._in_dir, self.sign(input - self._old_input))
+                print('input:', input, '_old_input:', self._old_input)
+
             self._offset = (self._hyst_factor * self.sign(input - self._old_input)
                             * self._in_span_dir * self._out_span_dir * self._in_offset)
 
+
+            self._in_dir = self.sign(input - self._old_input)  # store input direction
             self._old_input = input  # store input history value
 
-            if self._debug:
-                print("***range_slicer ", self.__dict__)
-            return self._old_idx, False  # return old index value and change flag
+
+        if self._debug:
+            print("***range_slicer ", self.__dict__)
+        return self._index, False  # return index value and change flag
 
     def mapper(self, map_in):
         """Determines the index output value of the range input value.
@@ -263,6 +269,7 @@ class Slicer:
         # index and input parameters
         self._old_idx = 0
         self._old_input = 0
+        self._in_dir = 0
 
         # offset parameters
         self._offset = 0
