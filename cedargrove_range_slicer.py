@@ -165,13 +165,14 @@ class Slicer:
            previous index value.
            This is the primary function of the Slicer class.
         """
-        # mapped with offset removed
+        # map hysteresis-adjusted input and remove span minimum
         self._index_mapped = self.mapper(input - self._offset) - self._out_span_min
-        # sequential slice number
+        # calculate the sequential slice number
         self._slice_number = ((self._index_mapped - (self._index_mapped % self._slice))
                               / self._slice)
         # quantize and add back the offset
         self._index = (self._slice_number * self._slice) + self._out_span_min
+        print('*** _index_mapped, _index:', self._index_mapped, self._index)
 
         # Limit index value to within index span
         if self._out_min <= self._out_max:
@@ -179,9 +180,9 @@ class Slicer:
         else:
             self._index = min(max(self._index, self._out_max), self._out_min)
 
-
-        if self._out_integer:  # is the output value data type integer?
-            self._index = int(self._index)
+        # this may need to be moved so that it doesn't mess with offset values
+        """if self._out_integer:  # is the output value data type integer?
+            self._index = int(self._index)"""
 
         if self._index != self._old_idx:  # did the index value change?
             self._offset = (self._hyst_factor * self.sign(input - self._old_input)
