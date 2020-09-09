@@ -170,8 +170,13 @@ class Slicer:
         """
 
         self._hyst_band = self._hyst_factor * self._slice
-        print('_hyst_band, _hyst_factor, _slice', self._hyst_band, self._hyst_factor, self._slice)
-
+        print()
+        print('--- fixed values ---')
+        print('_in_min :', self._in_min, '_in_max :', self._in_max)
+        print('_out_min:', self._out_min, '_out_max:', self._out_max)
+        print('_slice:', self._slice)
+        print('_hyst_band:', self._hyst_band, '_hyst_factor:', self._hyst_factor)
+        print()
 
         # map hysteresis-adjusted input and remove span minimum
         self._idx_mapped = self.mapper(input)
@@ -181,21 +186,27 @@ class Slicer:
         # quantize and add back the offset
         self._idx_quan = (self._slice_num * self._slice) + self._out_min
 
-        print('input, _idx_mapped, _idx_quan:', input, self._idx_mapped, self._idx_quan)
-        print('_slice_num', self._slice_num)
-        print('_in_min,  _in_max ', self._in_min, self._in_max)
-        print('_out_min, _out_max', self._out_min, self._out_max)
+        print('--- mapped values ---')
+        print('input:', input)
+        print('_idx_mapped:', self._idx_mapped, '_idx_quan:', self._idx_quan)
+        print('_slice_num:', self._slice_num)
+        print()
 
-        print('_idx_mapped, _idx_quan + _hyst_band, _idx_quan - _hyst_band', self._idx_mapped, self._idx_quan + self._hyst_band, self._idx_quan - self._hyst_band)
+        print('--- hysteresis band thresolds ---')
+        print('_idx_quan:', self._idx_quan)
+        print('upper threshold (_idx_quan + _hyst_band):', self._idx_quan + self._hyst_band)
+        print('lower threshold (_idx_quan - _hyst_band):', self._idx_quan - self._hyst_band)
+        print()
+
         if (self._idx_mapped < (self._idx_quan + self._hyst_band)) and (self._idx_mapped > (self._idx_quan - self._hyst_band)):
-            print("_idx_mapped is between top and bottom _hyst_band thresholds for _idx_quan:", self._idx_quan)
+            print("_idx_mapped is between upper and lower _hyst_band thresholds for _idx_quan:", self._idx_quan)
             print("in the squelch zone: don't change index value")
 
-        if self._idx_mapped > self._idx_quan + self._hyst_band:
+        if self._idx_mapped >= self._idx_quan + self._hyst_band:
             print("_idx_mapped is greater than upper _hyst_band threshold")
             print("_idx_quan is the value to use:", self._idx_quan)
 
-        if self._idx_mapped < self._idx_quan - self._hyst_band:
+        if self._idx_mapped <= self._idx_quan - self._hyst_band:
             print("_idx_mapped is less than lower _hyst_band threshold")
             print("_idx_quan - _slice is the new value to use:", self._idx_quan - self._slice)
 
