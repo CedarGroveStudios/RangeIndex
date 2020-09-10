@@ -22,7 +22,7 @@
 """
 `cedargrove_range_slicer`
 ================================================================================
-Range_Slicer 2020-09-09 v31 09:27PM
+Range_Slicer 2020-09-09 v30 09:27PM
 A CircuitPython class for scaling a range of input values into indexed/quantized
 output values. Output slice hysteresis is used to provide dead-zone squelching.
 
@@ -170,6 +170,15 @@ class Slicer:
 
         self._hyst_band = self._hyst_factor * self._slice
 
+        if self._debug:
+            print()
+            print('===== fixed values =====')
+            print('_in_min :', self._in_min, '_in_max :', self._in_max)
+            print('_out_min:', self._out_min, '_out_max:', self._out_max)
+            print('_slice:', self._slice)
+            print('_hyst_band:', self._hyst_band, '_hyst_factor:', self._hyst_factor)
+            print()
+
         # map hysteresis-adjusted input and remove _out_min bias
         self._idx_mapped = self.mapper(input)
         # calculate the sequential slice number
@@ -178,33 +187,60 @@ class Slicer:
         # quantize and add back the _out_min bias
         self._idx_quan = (self._slice_num * self._slice) + self._out_min
 
-        # is the mapped input value between the upper and lower hyst band limits?
+        if self._debug:
+            print('--- mapped values ---')
+            print('input:', input)
+            print('_idx_mapped:', self._idx_mapped, '_idx_quan:', self._idx_quan)
+            print('_slice_num:', self._slice_num)
+            print()
+
+            print('--- hysteresis band thresolds ---')
+            print('_idx_quan:', self._idx_quan)
+            print('upper threshold (_idx_quan + _hyst_band):', self._idx_quan + self._hyst_band)
+            print('lower threshold (_idx_quan - _hyst_band):', self._idx_quan - self._hyst_band)
+            print()
+
         if (self._idx_mapped > (self._idx_quan - self._hyst_band)) and (self._idx_mapped < (self._idx_quan + self._hyst_band)):
-            # adjust if previous value was lower than the hyst band
+            if self._debug:
+                print("_idx_mapped is between upper and lower _hyst_band thresholds for _idx_quan:", self._idx_quan)
+                print("set index value based on direction of change; ignore if no previous change")
+
             if self._index < self._idx_quan - self._hyst_band:
                 self._index = self._idx_quan - self._slice
-            # adjust if previous value was higher than the hyst band
+
             if self._index > self._idx_quan:
                 self._index = self._idx_quan
-            # (do nothing if previous value and current quantized value are the same) 
 
-        # adjust if mapped value is equal to or greater than upper hyst band threshold
+
         if self._idx_mapped >= self._idx_quan + self._hyst_band:
+            if self._debug:
+                print("_idx_mapped is greater or equal to upper _hyst_band threshold")
+                print("_idx_quan is the value to use:", self._idx_quan)
+
             self._index = self._idx_quan
 
-        # adjust if mapped value is equal to or less than lower hyst band threshold
         if self._idx_mapped <= self._idx_quan - self._hyst_band:
+            if self._debug:
+                print("_idx_mapped is less or equal to lower _hyst_band threshold")
+                print("_idx_quan - _slice is the new value to use:", self._idx_quan - self._slice)
+
             self._index = self._idx_quan - self._slice
 
-        # if mapped value is greater than or equal to the output maximum, set index to maximum
         if self._idx_mapped >= self._out_max:
             self._index = self._out_max
 
-        # Limit index value to within index span (is this needed?)
+        """while True:
+            pass"""
+
+        # Limit index value to within index span
         if self._out_min <= self._out_max:
             self._index = max(min(self._index, self._out_max), self._out_min)
         else:
             self._index = min(max(self._index, self._out_max), self._out_min)
+
+        if self._debug:
+            print()
+            print(' returns:', self._index, False)
 
         if self._out_integer:  # is the output value data type integer?
             return int(self._index), False
