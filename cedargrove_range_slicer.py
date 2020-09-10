@@ -22,7 +22,7 @@
 """
 `cedargrove_range_slicer`
 ================================================================================
-Range_Slicer 2020-09-09 v30 09:57PM
+Range_Slicer 2020-09-09 v30 06:13PM
 A CircuitPython class for scaling a range of input values into indexed/quantized
 output values. Output slice hysteresis is used to provide dead-zone squelching.
 
@@ -179,12 +179,12 @@ class Slicer:
             print('_hyst_band:', self._hyst_band, '_hyst_factor:', self._hyst_factor)
             print()
 
-        # map hysteresis-adjusted input and remove span minimum
+        # map hysteresis-adjusted input and remove _out_min bias
         self._idx_mapped = self.mapper(input)
         # calculate the sequential slice number
         self._slice_num = ((self._idx_mapped - (self._idx_mapped % self._slice))
                               / self._slice)
-        # quantize and add back the offset
+        # quantize and add back the _out_min bias
         self._idx_quan = (self._slice_num * self._slice) + self._out_min
 
         if self._debug:
@@ -204,6 +204,15 @@ class Slicer:
             if self._debug:
                 print("_idx_mapped is between upper and lower _hyst_band thresholds for _idx_quan:", self._idx_quan)
                 print("in the squelch zone: don't change index value")
+
+
+            if (self._index != self._idx_quan) and (self._index != self._idx_quan - self._slice):
+                print('big change')
+                print('_index:', self._index, '_idx_mapped', self._idx_mapped, '_idx_quan', self._idx_quan)
+
+            else:
+                print('no big change')
+
 
             index_flag = False
 
@@ -231,9 +240,8 @@ class Slicer:
 
             self._index = self._idx_quan - self._slice
 
-        if self._debug:
-            print()
-            print(' returns:', self._index, index_flag)
+        if self._idx_mapped >= self._out_max:
+            self._index = self._out_max
 
         """while True:
             pass"""
@@ -243,6 +251,10 @@ class Slicer:
             self._index = max(min(self._index, self._out_max), self._out_min)
         else:
             self._index = min(max(self._index, self._out_max), self._out_min)
+
+        if self._debug:
+            print()
+            print(' returns:', self._index, index_flag)
 
         if self._out_integer:  # is the output value data type integer?
             return int(self._index), index_flag
