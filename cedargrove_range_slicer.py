@@ -30,13 +30,9 @@ output values. Output slice hysteresis is used to provide dead-zone squelching.
 
 Implementation Notes
 --------------------
-**Hardware:**
-
 **Software and Dependencies:**
-
-* Adafruit CircuitPython firmware for the supported boards:
-  https://github.com/adafruit/circuitpython/releases
-
+  * Adafruit CircuitPython firmware for the supported boards:
+    https://github.com/adafruit/circuitpython/releases
 """
 
 __repo__ = "https://github.com/CedarGroveStudios/Range_Slicer.git"
@@ -46,6 +42,7 @@ class Slicer:
 
     def __init__(self, in_min=0, in_max=65535, out_min=0, out_max=65535,
                  slice=1.0, hyst_factor=0.25, out_integer=False, debug=False):
+
         # input parameters
         self._in_min = in_min
         self._in_max = in_max
@@ -54,16 +51,16 @@ class Slicer:
         self._out_min = out_min
         self._out_max = out_max
 
-        # slice parameters
+        # output slice parameter
         self._slice = slice
 
-        # hysteresis parameters
+        # hysteresis parameter
         self._hyst_factor = hyst_factor
 
-        # output value data type parameters
+        # output value data type parameter
         self._out_integer = out_integer
 
-        # debug parameters
+        # debug parameter
         self._debug = debug
         """if self._debug:
             print("*Init:", self.__class__)
@@ -161,12 +158,11 @@ class Slicer:
 
     # -------------------------------------------------------------------- #
     def range_slicer(self, input=0):
-        """Determines index output value from the range input value optionally
-           truncated to an integer data type. Returns the new index value and
-           a flag (True/False) indicating if the new index changed from the
-           previous index value.
-           This is the primary function of the Slicer class.
-        """
+        """Determines an index (output) value from the input value. Returns new
+           index value and a change flag (True/False) if the new index changed
+           from the previous index. Index value can be optionally converted to
+           integer data type.
+           This is the primary function of the Slicer class. """
 
         self._hyst_band = self._hyst_factor * self._slice
 
@@ -186,7 +182,7 @@ class Slicer:
             # adjust if previous value was higher than the hyst band
             if self._index > self._idx_quan:
                 self._index = self._idx_quan
-            # (do nothing if previous value and current quantized value are the same) 
+            # (do nothing if previous value and current quantized value are the same)
 
         # adjust if mapped value is equal to or greater than upper hyst band threshold
         if self._idx_mapped >= self._idx_quan + self._hyst_band:
@@ -214,8 +210,7 @@ class Slicer:
     # -------------------------------------------------------------------- #
     def mapper(self, map_in):
         """Determines the output value based on the input value.
-           (from Adafruit.CircuitPython.simpleio.map_range)
-        """
+           (from Adafruit.CircuitPython.simpleio.map_range)  """
         self._mapped = ((map_in - self._in_min) * (self._out_max - self._out_min)
                         / (self._in_max - self._in_min)) + self._out_min
 
@@ -226,8 +221,7 @@ class Slicer:
 
     def sign(self, x):
         """Determines the sign of a numeric value. Zero is evaluated as a
-           positive value.
-        """
+           positive value.  """
         if x >= 0:
             return 1
         else: return -1
@@ -258,7 +252,7 @@ class Slicer:
                              / self._slice)) + 1
 
         # hysteresis parameters
-        #   none
+        #   calculate output hysteresis band value based on slice size
 
         # output value data type parameters
         #   none
@@ -272,8 +266,5 @@ class Slicer:
         # offset parameters
         self._offset = 0
         self._in_offset = self._in_span / self._slice_count
-
-        # debug parameters
-        #   none
 
         return
