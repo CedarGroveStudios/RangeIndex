@@ -128,8 +128,8 @@ class Slicer:
 
     @slice.setter
     def slice(self, size=1.0):
-        if size == 0:
-            raise RuntimeError("Invalid slice size; value cannot be zero")
+        if size <= 0:
+            raise RuntimeError("Invalid Slice setting; value must be greater than zero")
         self._slice = size
         self.param_updater() # Update the parameters for range_slicer helper
 
@@ -211,6 +211,10 @@ class Slicer:
     def mapper(self, map_in):
         """Determines the output value based on the input value.
            (from Adafruit.CircuitPython.simpleio.map_range)  """
+
+        if (self._in_min == self._in_max) or (self._out_min == self._out_max):
+            return self._out_min
+
         self._mapped = ((map_in - self._in_min) * (self._out_max - self._out_min)
                         / (self._in_max - self._in_min)) + self._out_min
 
@@ -228,10 +232,9 @@ class Slicer:
 
     def param_updater(self):
         """ Establishes and updates parameters for the range_slicer function. """
+
         # input parameters
         self._in_span = (self._in_max - self._in_min)
-        if self._in_span == 0:
-            raise RuntimeError("Invalid Range (input) min/max setting; values cannot be equal")
         self._in_span_dir = self.sign(self._in_span)
 
         # output parameters
@@ -243,11 +246,11 @@ class Slicer:
             self._out_span_max = self._out_max + self._slice
 
         self._out_span = (self._out_span_max - self._out_span_min)
-        if self._out_span == 0:
-            raise RuntimeError("Invalid Index (output) min/max setting; values cannot be equal")
         self._out_span_dir = self.sign(self._out_span)
 
         # slice parameters
+        if self._slice <= 0:
+            raise RuntimeError("Invalid Slice setting; value must be greater than zero")
         self._slice_count = (int((self._out_span_max - self._out_span_min)
                              / self._slice)) + 1
 
