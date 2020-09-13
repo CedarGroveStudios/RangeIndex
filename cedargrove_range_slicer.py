@@ -169,12 +169,25 @@ class Slicer:
         # map hysteresis-adjusted input and remove _out_min bias
         self._idx_mapped = self.mapper(input)
         # calculate the sequential slice number
-        self._slice_num = ((self._idx_mapped - (self._idx_mapped % self._slice))
+        self._slice_num = (((self._idx_mapped - self._out_min) - ((self._idx_mapped - self._out_min) % self._slice))
                               / self._slice)
         # quantize and add back the _out_min bias
         self._idx_quan = (self._slice_num * self._slice) + self._out_min
 
-        # is the mapped input value between the upper and lower hyst band limits?
+        if self._idx_mapped >= self._index:
+            #print('signal is INcreasing')
+            if self._idx_mapped >= self._idx_quan + self._hyst_band:
+                self._index = self._idx_quan
+            if self._idx_mapped >= self._out_max:
+                self._index = self._out_max
+        else:
+            #print("signal is DEcreasing, input:", input, '_idx_mapped', self._idx_mapped, '_idx_quan:', self._idx_quan)
+            if self._idx_mapped <= self._index - self._hyst_band:
+                self._index = self._index - self._slice
+        #print("new index:", self._index)
+
+
+        """# is the mapped input value between the upper and lower hyst band limits?
         if (self._idx_mapped > (self._idx_quan - self._hyst_band)) and (self._idx_mapped < (self._idx_quan + self._hyst_band)):
             # adjust if previous value was lower than the hyst band
             if self._index < self._idx_quan - self._hyst_band:
@@ -190,20 +203,22 @@ class Slicer:
 
         # adjust if mapped value is equal to or less than lower hyst band threshold
         if self._idx_mapped <= self._idx_quan - self._hyst_band:
+            print('_idx_mapped, _idx_quan, _hyst_band', self._idx_mapped, self._idx_quan, self._hyst_band)
             self._index = self._idx_quan - self._slice
+            print('(new)_index, _idx_quan, _slice', self._index, self._idx_quan, self._slice)
 
         # if mapped value is greater than or equal to the output maximum, set index to maximum
         if self._idx_mapped >= self._out_max:
-            self._index = self._out_max
+            self._index = self._out_max"""
 
-        # Limit index value to within index span (is this needed?)
+        """# Limit index value to within index span (is this needed?)
         if self._out_min <= self._out_max:
             self._index = max(min(self._index, self._out_max), self._out_min)
         else:
             self._index = min(max(self._index, self._out_max), self._out_min)
 
         if self._out_integer:  # is the output value data type integer?
-            return int(self._index), False
+            return int(self._index), False"""
         return self._index, False
 
 
