@@ -174,51 +174,62 @@ class Slicer:
         # quantize and add back the _out_min bias
         self._idx_quan = (self._slice_num * self._slice) + self._out_min
 
-        if self._idx_mapped >= self._index:
-            #print('signal is INcreasing')
-            if self._idx_mapped >= self._idx_quan + self._hyst_band:
+        """print('')
+        print('_idx_mapped:', self._idx_mapped, '_hyst_band:', self._hyst_band, '_idx_quan + _slice:', self._idx_quan + self._slice)
+        print('lower band from _idx_quan + _slice - _band to _idx_quan + _slice:', self._idx_quan + self._slice - self._hyst_band, self._idx_quan + self._slice)
+        print('upper band from _idx_quan                  to _idx_quan +  _band:', self._idx_quan, self._idx_quan + self._hyst_band)"""
+
+        # is mapped value in lower band??
+        if self._idx_mapped > (self._idx_quan + self._slice - self._hyst_band) and self._idx_mapped < (self._idx_quan + self._slice):
+            if self._idx_mapped > self._old_idx_mapped:
+                #print('in LOWER band and INcreasing -- entered band from a LOWER slice')
+                #print('change _index:', self._index, ' to _idx_quan:', self._idx_quan)
                 self._index = self._idx_quan
-            if self._idx_mapped >= self._out_max:
-                self._index = self._out_max
+
+            elif self._idx_mapped < self._old_idx_mapped:
+                #print('in LOWER band and DEcreasing -- entered band from an UPPER slice')
+                pass
+
+            else:
+                #print('* in LOWER band and SAME as before')
+                pass
+
+                # is mapped value in upper band?
+        elif self._idx_mapped > self._idx_quan and self._idx_mapped < (self._idx_quan + self._hyst_band):
+            if self._idx_mapped > self._old_idx_mapped:
+                #print('in UPPER band and INcreasing -- entered band from a LOWER slice')
+                if self._idx_mapped > self._idx_quan + self._hyst_band:
+                    #print('change _index:', self._index, ' to _idx_quan:', self._idx_quan)
+                    self._index = self._idx_quan
+
+            elif self._idx_mapped < self._old_idx_mapped:
+                #print('in UPPER band and DEcreasing -- entered band from an UPPER slice')
+                pass
+
+            else:
+                #print('* in UPPER band and SAME as before')
+                pass
+
         else:
-            #print("signal is DEcreasing, input:", input, '_idx_mapped', self._idx_mapped, '_idx_quan:', self._idx_quan)
-            if self._idx_mapped <= self._index - self._hyst_band:
-                self._index = self._index - self._slice
-        #print("new index:", self._index)
-
-
-        """# is the mapped input value between the upper and lower hyst band limits?
-        if (self._idx_mapped > (self._idx_quan - self._hyst_band)) and (self._idx_mapped < (self._idx_quan + self._hyst_band)):
-            # adjust if previous value was lower than the hyst band
-            if self._index < self._idx_quan - self._hyst_band:
-                self._index = self._idx_quan - self._slice
-            # adjust if previous value was higher than the hyst band
-            if self._index > self._idx_quan:
-                self._index = self._idx_quan
-            # (do nothing if previous value and current quantized value are the same)
-
-        # adjust if mapped value is equal to or greater than upper hyst band threshold
-        if self._idx_mapped >= self._idx_quan + self._hyst_band:
+            #print('--> NOT in either band')
+            #print('--> change _index:', self._index, ' to _idx_quan:', self._idx_quan)
             self._index = self._idx_quan
 
-        # adjust if mapped value is equal to or less than lower hyst band threshold
-        if self._idx_mapped <= self._idx_quan - self._hyst_band:
-            print('_idx_mapped, _idx_quan, _hyst_band', self._idx_mapped, self._idx_quan, self._hyst_band)
-            self._index = self._idx_quan - self._slice
-            print('(new)_index, _idx_quan, _slice', self._index, self._idx_quan, self._slice)
-
-        # if mapped value is greater than or equal to the output maximum, set index to maximum
+        #if mapped value is greater than or equal to the output maximum, set index to maximum
         if self._idx_mapped >= self._out_max:
-            self._index = self._out_max"""
+            self._index = self._out_max
 
-        """# Limit index value to within index span (is this needed?)
+        # Limit index value to within index span (is this needed?)
         if self._out_min <= self._out_max:
             self._index = max(min(self._index, self._out_max), self._out_min)
         else:
             self._index = min(max(self._index, self._out_max), self._out_min)
 
         if self._out_integer:  # is the output value data type integer?
-            return int(self._index), False"""
+            return int(self._index), False
+
+        self._old_idx_mapped = self._idx_mapped  # save for next cycle
+
         return self._index, False
 
 
@@ -280,6 +291,7 @@ class Slicer:
         self._old_idx = 0
         self._old_input = 0
         self._in_dir = 0
+        self._old_idx_mapped = 0
 
         # offset parameters
         self._offset = 0
