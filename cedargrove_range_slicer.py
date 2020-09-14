@@ -22,7 +22,7 @@
 """
 `cedargrove_range_slicer`
 ================================================================================
-Range_Slicer 2020-09-13 v32 3:18PM
+Range_Slicer 2020-09-13 v32 6:35PM
 A CircuitPython class for scaling a range of input values into indexed/quantized
 output values. Output slice hysteresis is used to provide dead-zone squelching.
 
@@ -180,38 +180,43 @@ class Slicer:
         print('upper band from _idx_quan                  to _idx_quan +  _band:', self._idx_quan, self._idx_quan + self._hyst_band)"""
 
         # is mapped value in lower band??
-        if self._idx_mapped > (self._idx_quan + self._slice - self._hyst_band) and self._idx_mapped < (self._idx_quan + self._slice):
+        if self._idx_mapped > self._idx_quan + ((1 - self._hyst_factor) * self._slice) and self._idx_mapped < (self._idx_quan + self._slice):
+            self._slice_thresh = self._idx_quan + self._slice
+            #print('_slice_thresh:', self._slice_thresh)
             if self._idx_mapped > self._old_idx_mapped:
                 #print('in LOWER band and INcreasing -- entered band from a LOWER slice')
                 #print('change _index:', self._index, ' to _idx_quan:', self._idx_quan)
                 self._index = self._idx_quan
 
-            elif self._idx_mapped < self._old_idx_mapped:
+            """elif self._idx_mapped < self._old_idx_mapped:
                 #print('in LOWER band and DEcreasing -- entered band from an UPPER slice')
                 pass
 
             else:
                 #print('* in LOWER band and SAME as before')
-                pass
+                pass"""
 
                 # is mapped value in upper band?
-        elif self._idx_mapped > self._idx_quan and self._idx_mapped < (self._idx_quan + self._hyst_band):
+        elif self._idx_mapped >= self._idx_quan and self._idx_mapped < (self._idx_quan + self._hyst_band):
+            self._slice_thresh = self._idx_quan
+            #print('_slice_thresh:', self._slice_thresh)
             if self._idx_mapped > self._old_idx_mapped:
                 #print('in UPPER band and INcreasing -- entered band from a LOWER slice')
                 if self._idx_mapped > self._idx_quan + self._hyst_band:
                     #print('change _index:', self._index, ' to _idx_quan:', self._idx_quan)
                     self._index = self._idx_quan
 
-            elif self._idx_mapped < self._old_idx_mapped:
+            """elif self._idx_mapped < self._old_idx_mapped:
                 #print('in UPPER band and DEcreasing -- entered band from an UPPER slice')
                 pass
 
             else:
                 #print('* in UPPER band and SAME as before')
-                pass
+                pass"""
 
         else:
             #print('--> NOT in either band')
+            #print('--> _idx_mapped:', self._idx_mapped)
             #print('--> change _index:', self._index, ' to _idx_quan:', self._idx_quan)
             self._index = self._idx_quan
 
@@ -219,11 +224,11 @@ class Slicer:
         if self._idx_mapped >= self._out_max:
             self._index = self._out_max
 
-        # Limit index value to within index span (is this needed?)
+        """# Limit index value to within index span (is this needed?)
         if self._out_min <= self._out_max:
             self._index = max(min(self._index, self._out_max), self._out_min)
         else:
-            self._index = min(max(self._index, self._out_max), self._out_min)
+            self._index = min(max(self._index, self._out_max), self._out_min)"""
 
         if self._out_integer:  # is the output value data type integer?
             return int(self._index), False
@@ -292,6 +297,7 @@ class Slicer:
         self._old_input = 0
         self._in_dir = 0
         self._old_idx_mapped = 0
+        self._slice_thresh = None
 
         # offset parameters
         self._offset = 0
