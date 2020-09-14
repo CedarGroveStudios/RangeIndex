@@ -1,132 +1,6 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
-# Adafruit_custom_BAT54XY_Dual_Schottky_Diode_Array
-#
-DEF Adafruit_custom_BAT54XY_Dual_Schottky_Diode_Array DA 0 20 Y Y 2 F N
-F0 "DA" 100 100 50 H V L CNN
-F1 "Adafruit_custom_BAT54XY_Dual_Schottky_Diode_Array" 100 0 50 H V L CNN
-F2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" 110 -90 50 H I L CNN
-F3 "" 0 50 50 V I C CNN
-DRAW
-C 0 0 5 0 1 0 N
-T 0 -100 -180 20 0 0 0 "30V 200mA" Normal 0 C C
-T 0 -140 -150 20 0 0 0 400mV Normal 0 C C
-T 0 -120 170 20 0 0 0 BAT54XY Normal 0 C C
-S -200 200 100 -200 0 1 0 f
-P 2 0 1 0 -400 -175 -400 -175 N
-P 2 0 1 0 -350 0 -350 0 N
-P 2 0 1 0 -280 0 -280 0 N
-P 2 0 1 0 -250 -175 -250 -175 N
-P 2 0 1 0 -250 -175 -250 -175 N
-P 2 0 1 0 -240 20 -240 20 N
-P 2 0 1 0 -240 30 -240 30 N
-P 2 0 1 0 -200 0 -200 0 N
-P 2 0 1 0 -200 0 -200 0 N
-P 2 0 1 0 -200 0 -190 0 N
-P 2 0 1 0 -80 0 -120 0 N
-P 2 0 1 0 -70 0 -80 0 N
-P 2 0 1 0 -50 0 -75 0 N
-P 2 0 1 0 0 -400 0 -400 N
-P 2 0 1 0 0 -250 0 -250 N
-P 2 0 1 0 0 -250 0 -250 N
-P 2 0 1 0 0 -200 0 -190 N
-P 2 0 1 0 0 -150 0 -140 N
-P 2 0 1 0 0 -125 0 125 N
-P 2 0 1 0 0 -120 0 -140 N
-P 2 0 1 0 0 -50 -50 -50 N
-P 2 0 1 0 0 -50 50 -50 N
-P 2 0 1 0 0 0 -50 0 N
-P 2 0 1 0 0 100 -50 100 N
-P 2 0 1 0 0 100 50 100 N
-P 2 0 1 0 0 120 0 130 N
-P 2 0 1 0 0 200 0 180 N
-P 2 0 1 0 0 250 0 250 N
-P 2 0 1 0 0 250 0 250 N
-P 2 0 1 0 0 400 0 400 N
-P 3 0 1 0 -50 -50 -50 -60 -30 -60 N
-P 3 0 1 0 -50 100 -50 90 -30 90 N
-P 3 0 1 0 0 140 0 150 0 110 N
-P 3 0 1 0 50 -50 50 -40 30 -40 N
-P 3 0 1 0 50 100 50 110 30 110 N
-P 5 0 1 0 0 -100 50 -100 0 -50 -50 -100 0 -100 N
-P 5 0 1 0 0 50 50 50 0 100 -50 50 0 50 N
-X A 1 0 -300 100 U 25 20 1 1 P
-X K 2 0 300 100 D 25 20 1 1 P
-X K_A 6 -300 0 100 R 25 20 1 1 P
-X K_A 3 -300 0 100 R 25 20 2 1 P
-X A 4 0 -300 100 U 25 20 2 1 P
-X K 5 0 300 100 D 25 20 2 1 P
-ENDDRAW
-ENDDEF
-#
-# Adafruit_custom_ItsyBitsy_M4_Express
-#
-DEF Adafruit_custom_ItsyBitsy_M4_Express M 0 40 Y Y 1 F N
-F0 "M" 0 1150 50 H V C CNN
-F1 "Adafruit_custom_ItsyBitsy_M4_Express" 0 1050 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-T 900 0 100 50 0 0 0 "Adafruit ItsyBitsy_M4_Express" Normal 0 C C
-S -500 -950 500 950 0 1 0 N
-S -150 950 150 800 0 1 0 N
-X RST 1 -700 600 200 R 50 50 1 1 I
-X A5 10 -700 -300 200 R 50 50 1 1 B
-X SCK 11 -700 -400 200 R 50 50 1 1 B
-X MO 12 -700 -500 200 R 50 50 1 1 B
-X MI 13 -700 -600 200 R 50 50 1 1 B
-X D2/A6 14 -300 -1150 200 U 50 50 1 1 B
-X En 15 -200 -1150 200 U 50 50 1 1 I
-X swdio 16 -100 -1150 200 U 50 50 1 1 B
-X swclk 17 0 -1150 200 U 50 50 1 1 B
-X D3 18 100 -1150 200 U 50 50 1 1 B
-X D4 19 200 -1150 200 U 50 50 1 1 B
-X 3V 2 -700 500 200 R 50 50 1 1 w
-X D0/RX 20 300 -1150 200 U 50 50 1 1 I
-X D1/TX 21 700 -600 200 L 50 50 1 1 O
-X SDA 22 700 -500 200 L 50 50 1 1 B
-X SCL 23 700 -400 200 L 50 50 1 1 B
-X D5! 24 700 -300 200 L 50 50 1 1 O
-X D7 25 700 -200 200 L 50 50 1 1 B
-X D9 26 700 -100 200 L 50 50 1 1 B
-X D10 27 700 0 200 L 50 50 1 1 B
-X D11 28 700 100 200 L 50 50 1 1 B
-X D12 29 700 200 200 L 50 50 1 1 B
-X Aref 3 -700 400 200 R 50 50 1 1 I
-X D13/LED 30 700 300 200 L 50 50 1 1 B
-X USB 31 700 400 200 L 50 50 1 1 w
-X G 32 700 500 200 L 50 50 1 1 B
-X BAT 33 700 600 200 L 50 50 1 1 W
-X Vhi 4 -700 300 200 R 50 50 1 1 w
-X ~~A0 5 -700 200 200 R 50 50 1 1 B
-X ~~A1 6 -700 100 200 R 50 50 1 1 B
-X A2 7 -700 0 200 R 50 50 1 1 B
-X A3 8 -700 -100 200 R 50 50 1 1 B
-X A4 9 -700 -200 200 R 50 50 1 1 B
-ENDDRAW
-ENDDEF
-#
-# Adafruit_custom_Schurter_4832.2211_3.5mm_vert_TS_switch
-#
-DEF Adafruit_custom_Schurter_4832.2211_3.5mm_vert_TS_switch J 0 20 Y Y 1 F N
-F0 "J" -50 350 50 H V C CNN
-F1 "Adafruit_custom_Schurter_4832.2211_3.5mm_vert_TS_switch" 0 250 50 H V C CNN
-F2 "Adafruit:Schurter_4832.2211_3.5mm_vert_TS_switch" 50 -300 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-S 200 -100 250 100 0 1 0 F
-S 250 -150 -250 150 0 1 0 f
-P 2 0 1 0 -100 -100 200 -100 N
-P 3 0 1 0 -100 0 -50 0 -50 100 N
-P 3 0 1 0 -100 50 -50 100 0 50 N
-P 4 0 1 0 -150 100 50 100 100 50 150 100 N
-X SLEEVE 1 -350 -100 100 R 25 20 1 1 B
-X SWITCH 2 -350 0 100 R 25 20 1 1 B
-X TIP 3 -350 100 100 R 25 20 1 1 B
-ENDDRAW
-ENDDEF
-#
 # Amplifier_Operational_OPA2156xDGK
 #
 DEF Amplifier_Operational_OPA2156xDGK U 0 20 Y Y 3 L N
@@ -152,322 +26,18 @@ X V+ 8 -100 300 150 D 50 50 3 1 W
 ENDDRAW
 ENDDEF
 #
-# Connector_Generic_Conn_01x11
+# power_+10V
 #
-DEF Connector_Generic_Conn_01x11 J 0 40 Y N 1 F N
-F0 "J" 0 600 50 H V C CNN
-F1 "Connector_Generic_Conn_01x11" 0 -600 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- Connector*:*_1x??_*
-$ENDFPLIST
-DRAW
-S -50 -495 0 -505 1 1 6 N
-S -50 -395 0 -405 1 1 6 N
-S -50 -295 0 -305 1 1 6 N
-S -50 -195 0 -205 1 1 6 N
-S -50 -95 0 -105 1 1 6 N
-S -50 5 0 -5 1 1 6 N
-S -50 105 0 95 1 1 6 N
-S -50 205 0 195 1 1 6 N
-S -50 305 0 295 1 1 6 N
-S -50 405 0 395 1 1 6 N
-S -50 505 0 495 1 1 6 N
-S -50 550 50 -550 1 1 10 f
-X Pin_1 1 -200 500 150 R 50 50 1 1 P
-X Pin_10 10 -200 -400 150 R 50 50 1 1 P
-X Pin_11 11 -200 -500 150 R 50 50 1 1 P
-X Pin_2 2 -200 400 150 R 50 50 1 1 P
-X Pin_3 3 -200 300 150 R 50 50 1 1 P
-X Pin_4 4 -200 200 150 R 50 50 1 1 P
-X Pin_5 5 -200 100 150 R 50 50 1 1 P
-X Pin_6 6 -200 0 150 R 50 50 1 1 P
-X Pin_7 7 -200 -100 150 R 50 50 1 1 P
-X Pin_8 8 -200 -200 150 R 50 50 1 1 P
-X Pin_9 9 -200 -300 150 R 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# Connector_Generic_Conn_02x05_Odd_Even
-#
-DEF Connector_Generic_Conn_02x05_Odd_Even J 0 40 Y N 1 F N
-F0 "J" 50 300 50 H V C CNN
-F1 "Connector_Generic_Conn_02x05_Odd_Even" 50 -300 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- Connector*:*_2x??_*
-$ENDFPLIST
-DRAW
-S -50 -195 0 -205 1 1 6 N
-S -50 -95 0 -105 1 1 6 N
-S -50 5 0 -5 1 1 6 N
-S -50 105 0 95 1 1 6 N
-S -50 205 0 195 1 1 6 N
-S -50 250 150 -250 1 1 10 f
-S 150 -195 100 -205 1 1 6 N
-S 150 -95 100 -105 1 1 6 N
-S 150 5 100 -5 1 1 6 N
-S 150 105 100 95 1 1 6 N
-S 150 205 100 195 1 1 6 N
-X Pin_1 1 -200 200 150 R 50 50 1 1 P
-X Pin_10 10 300 -200 150 L 50 50 1 1 P
-X Pin_2 2 300 200 150 L 50 50 1 1 P
-X Pin_3 3 -200 100 150 R 50 50 1 1 P
-X Pin_4 4 300 100 150 L 50 50 1 1 P
-X Pin_5 5 -200 0 150 R 50 50 1 1 P
-X Pin_6 6 300 0 150 L 50 50 1 1 P
-X Pin_7 7 -200 -100 150 R 50 50 1 1 P
-X Pin_8 8 300 -100 150 L 50 50 1 1 P
-X Pin_9 9 -200 -200 150 R 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# Range_Slicer_PCB-rescue_B160-E3-diode-2019-04-06_Range_Slicer_PCB-rescue
-#
-DEF Range_Slicer_PCB-rescue_B160-E3-diode-2019-04-06_Range_Slicer_PCB-rescue D 0 40 N N 1 F N
-F0 "D" 0 100 50 H V C CNN
-F1 "Range_Slicer_PCB-rescue_B160-E3-diode-2019-04-06_Range_Slicer_PCB-rescue" 0 -100 50 H V C CNN
-F2 "Diodes_SMD:SMA_Standard" 0 -175 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- D*DO?214AC*
- D*SMA*
- DO?214AC*
- SMA*
-$ENDFPLIST
-DRAW
-P 2 0 1 0 50 0 -50 0 N
-P 4 0 1 8 50 50 50 -50 -50 0 50 50 N
-P 6 0 1 8 -75 25 -75 50 -50 50 -50 -50 -25 -50 -25 -25 N
-X K 1 -150 0 100 R 50 50 1 1 P
-X A 2 150 0 100 L 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# Range_Slicer_PCB-rescue_CONN_01X04-conn-2019-04-06_Range_Slicer_PCB-rescue
-#
-DEF Range_Slicer_PCB-rescue_CONN_01X04-conn-2019-04-06_Range_Slicer_PCB-rescue J 0 40 Y N 1 F N
-F0 "J" 0 250 50 H V C CNN
-F1 "Range_Slicer_PCB-rescue_CONN_01X04-conn-2019-04-06_Range_Slicer_PCB-rescue" 100 0 50 V V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- Pin_Header_Straight_1X*
- Pin_Header_Angled_1X*
- Socket_Strip_Straight_1X*
- Socket_Strip_Angled_1X*
-$ENDFPLIST
-DRAW
-S -50 -145 10 -155 0 1 0 N
-S -50 -45 10 -55 0 1 0 N
-S -50 55 10 45 0 1 0 N
-S -50 155 10 145 0 1 0 N
-S -50 200 50 -200 0 1 0 N
-X P1 1 -200 150 150 R 50 50 1 1 P
-X P2 2 -200 50 150 R 50 50 1 1 P
-X P3 3 -200 -50 150 R 50 50 1 1 P
-X P4 4 -200 -150 150 R 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# Range_Slicer_PCB-rescue_CP1_Small-device-2019-04-06_Range_Slicer_PCB-rescue
-#
-DEF Range_Slicer_PCB-rescue_CP1_Small-device-2019-04-06_Range_Slicer_PCB-rescue C 0 10 N N 1 F N
-F0 "C" 10 70 50 H V L CNN
-F1 "Range_Slicer_PCB-rescue_CP1_Small-device-2019-04-06_Range_Slicer_PCB-rescue" 10 -80 50 H V L CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- CP_*
-$ENDFPLIST
-DRAW
-A 0 -140 125 1186 614 0 1 12 N -60 -30 60 -30
-P 2 0 1 12 -60 20 60 20 N
-P 2 0 1 0 -50 60 -30 60 N
-P 2 0 1 0 -40 50 -40 70 N
-X ~ 1 0 100 80 D 50 50 1 1 P
-X ~ 2 0 -100 80 U 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# Range_Slicer_PCB-rescue_C_Small-device-2019-04-06_Range_Slicer_PCB-rescue
-#
-DEF Range_Slicer_PCB-rescue_C_Small-device-2019-04-06_Range_Slicer_PCB-rescue C 0 10 N N 1 F N
-F0 "C" 10 70 50 H V L CNN
-F1 "Range_Slicer_PCB-rescue_C_Small-device-2019-04-06_Range_Slicer_PCB-rescue" 10 -80 50 H V L CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- C_*
-$ENDFPLIST
-DRAW
-P 2 0 1 13 -60 -20 60 -20 N
-P 2 0 1 12 -60 20 60 20 N
-X ~ 1 0 100 80 D 50 50 1 1 P
-X ~ 2 0 -100 80 U 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# Range_Slicer_PCB-rescue_LED-device-2019-04-06_Range_Slicer_PCB-rescue
-#
-DEF Range_Slicer_PCB-rescue_LED-device-2019-04-06_Range_Slicer_PCB-rescue D 0 40 Y N 1 F N
-F0 "D" 0 100 50 H V C CNN
-F1 "Range_Slicer_PCB-rescue_LED-device-2019-04-06_Range_Slicer_PCB-rescue" 0 -100 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- LED*
-$ENDFPLIST
-DRAW
-P 2 0 1 8 -50 -50 -50 50 N
-P 2 0 1 0 -50 0 50 0 N
-P 4 0 1 8 50 -50 50 50 -50 0 50 -50 N
-P 5 0 1 0 -120 -30 -180 -90 -150 -90 -180 -90 -180 -60 N
-P 5 0 1 0 -70 -30 -130 -90 -100 -90 -130 -90 -130 -60 N
-X K 1 -150 0 100 R 50 50 1 1 P
-X A 2 150 0 100 L 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# Range_Slicer_PCB-rescue_LM1117-5.0-regul-2019-04-06_Range_Slicer_PCB-rescue
-#
-DEF Range_Slicer_PCB-rescue_LM1117-5.0-regul-2019-04-06_Range_Slicer_PCB-rescue U 0 30 Y Y 1 F N
-F0 "U" 100 -250 50 H V C CNN
-F1 "Range_Slicer_PCB-rescue_LM1117-5.0-regul-2019-04-06_Range_Slicer_PCB-rescue" 0 250 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- SOT-223*
- TO-263*
- TO-252*
-$ENDFPLIST
-DRAW
-S -200 -200 200 200 0 1 10 f
-X GND/ADJ 1 0 -300 100 U 50 50 1 1 W
-X VO 2 300 0 100 L 50 50 1 1 w
-X VI 3 -300 0 100 R 50 50 1 1 W
-ENDDRAW
-ENDDEF
-#
-# Range_Slicer_PCB-rescue_PEC11R-4215F-S0024-dk_Encoders-2019-04-06_Range_Slicer_PCB-rescue
-#
-DEF Range_Slicer_PCB-rescue_PEC11R-4215F-S0024-dk_Encoders-2019-04-06_Range_Slicer_PCB-rescue S 0 40 Y Y 1 F N
-F0 "S" 0 300 60 H V C CNN
-F1 "Range_Slicer_PCB-rescue_PEC11R-4215F-S0024-dk_Encoders-2019-04-06_Range_Slicer_PCB-rescue" 0 400 60 H V C CNN
-F2 "digikey-footprints:Rotary_Encoder_Switched_PEC11R" 200 200 60 H I L CNN
-F3 "http://www.bourns.com/docs/Product-Datasheets/PEC11R.pdf" 200 300 60 H I L CNN
-F4 "PEC11R-4215F-S0024-ND" 200 400 60 H I L CNN "Digi-Key_PN"
-F5 "PEC11R-4215F-S0024" 200 500 60 H I L CNN "MPN"
-F6 "Sensors, Transducers" 200 600 60 H I L CNN "Category"
-F7 "Encoders" 200 700 60 H I L CNN "Family"
-F8 "http://www.bourns.com/docs/Product-Datasheets/PEC11R.pdf" 200 800 60 H I L CNN "DK_Datasheet_Link"
-F9 "/product-detail/en/bourns-inc/PEC11R-4215F-S0024/PEC11R-4215F-S0024-ND/4499665" 200 900 60 H I L CNN "DK_Detail_Page"
-F10 "ENCODER ROTARY" 200 1000 60 H I L CNN "Description"
-F11 "Bourns Inc." 200 1100 60 H I L CNN "Manufacturer"
-F12 "Active" 200 1200 60 H I L CNN "Status"
-DRAW
-S -200 200 100 -400 0 1 0 f
-P 2 0 1 0 0 100 100 100 N
-P 3 0 1 0 -200 100 -150 100 0 150 N
-X ~ 1 -400 100 200 R 50 50 1 1 B
-X ~ 2 300 100 200 L 50 50 1 1 B
-X ~ 3 -400 -300 200 R 50 50 1 1 P
-X CH_A A -400 0 200 R 50 50 1 1 B
-X CH_B B -400 -200 200 R 50 50 1 1 B
-X COM C -400 -100 200 R 50 50 1 1 I
-ENDDRAW
-ENDDEF
-#
-# Range_Slicer_PCB-rescue_POT-device-2019-04-06_Range_Slicer_PCB-rescue
-#
-DEF Range_Slicer_PCB-rescue_POT-device-2019-04-06_Range_Slicer_PCB-rescue RV 0 40 N N 1 F N
-F0 "RV" -175 0 50 V V C CNN
-F1 "Range_Slicer_PCB-rescue_POT-device-2019-04-06_Range_Slicer_PCB-rescue" -100 0 50 V V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-S 40 100 -40 -100 0 1 10 N
-P 2 0 1 0 100 0 60 0 N
-P 3 0 1 0 45 0 90 20 90 -20 F
-X 1 1 0 150 50 D 50 50 1 1 P
-X 2 2 150 0 50 L 50 50 1 1 P
-X 3 3 0 -150 50 U 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# Range_Slicer_PCB-rescue_R_Small-device-2019-04-06_Range_Slicer_PCB-rescue
-#
-DEF Range_Slicer_PCB-rescue_R_Small-device-2019-04-06_Range_Slicer_PCB-rescue R 0 10 N N 1 F N
-F0 "R" 30 20 50 H V L CNN
-F1 "Range_Slicer_PCB-rescue_R_Small-device-2019-04-06_Range_Slicer_PCB-rescue" 30 -40 50 H V L CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- R_*
-$ENDFPLIST
-DRAW
-S -30 70 30 -70 0 1 8 N
-X ~ 1 0 100 30 D 50 50 1 1 P
-X ~ 2 0 -100 30 U 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# dk_Alarms-Buzzers-and-Sirens_PS1240P02BT
-#
-DEF dk_Alarms-Buzzers-and-Sirens_PS1240P02BT BZ 0 0 Y Y 1 F N
-F0 "BZ" 0 200 60 H V L CNN
-F1 "dk_Alarms-Buzzers-and-Sirens_PS1240P02BT" -50 -150 60 H V L CNN
-F2 "digikey-footprints:Piezo_Transducer_THT_PS1240P02BT" 200 200 60 H I L CNN
-F3 "https://product.tdk.com/info/en/catalog/datasheets/piezoelectronic_buzzer_ps_en.pdf" 200 300 60 H I L CNN
-F4 "445-2525-1-ND" 200 400 60 H I L CNN "Digi-Key_PN"
-F5 "PS1240P02BT" 200 500 60 H I L CNN "MPN"
-F6 "Audio Products" 200 600 60 H I L CNN "Category"
-F7 "Alarms, Buzzers, and Sirens" 200 700 60 H I L CNN "Family"
-F8 "https://product.tdk.com/info/en/catalog/datasheets/piezoelectronic_buzzer_ps_en.pdf" 200 800 60 H I L CNN "DK_Datasheet_Link"
-F9 "/product-detail/en/tdk-corporation/PS1240P02BT/445-2525-1-ND/935930" 200 900 60 H I L CNN "DK_Detail_Page"
-F10 "AUDIO PIEZO TRANSDUCER 30V TH" 200 1000 60 H I L CNN "Description"
-F11 "TDK Corporation" 200 1100 60 H I L CNN "Manufacturer"
-F12 "Active" 200 1200 60 H I L CNN "Status"
-DRAW
-A 200 50 71 450 -450 0 1 0 N 250 100 250 0
-A 200 50 112 634 -634 0 1 0 N 250 150 250 -50
-S 0 150 100 -50 0 1 0 f
-P 5 0 1 0 100 100 200 150 200 -50 100 0 100 100 f
-X ~ 1 -100 100 100 R 50 50 1 1 I
-X ~ 2 -100 0 100 R 50 50 1 1 I
-ENDDRAW
-ENDDEF
-#
-# power_+3.3V
-#
-DEF power_+3.3V #PWR 0 0 Y Y 1 F P
+DEF power_+10V #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power_+3.3V" 0 140 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-ALIAS +3.3V
-DRAW
-P 2 0 1 0 -30 50 0 100 N
-P 2 0 1 0 0 0 0 100 N
-P 2 0 1 0 0 100 30 50 N
-X +3V3 1 0 0 0 U 50 50 1 1 W N
-ENDDRAW
-ENDDEF
-#
-# power_+5VA
-#
-DEF power_+5VA #PWR 0 0 Y Y 1 F P
-F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power_+5VA" 0 140 50 H V C CNN
+F1 "power_+10V" 0 140 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
 P 2 0 1 0 -30 50 0 100 N
 P 2 0 1 0 0 0 0 100 N
 P 2 0 1 0 0 100 30 50 N
-X +5VA 1 0 0 0 U 50 50 1 1 W N
+X +10V 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
@@ -481,6 +51,23 @@ F3 "" 0 0 50 H I C CNN
 DRAW
 P 6 0 1 0 0 0 0 -50 50 -50 0 -100 -50 -50 0 -50 N
 X GND 1 0 0 0 D 50 50 1 1 W N
+ENDDRAW
+ENDDEF
+#
+# schmitt_ladder-rescue_R_Small-device-2019-04-06_Range_Slicer_PCB-rescue-Range_Slicer_PCB-rescue
+#
+DEF schmitt_ladder-rescue_R_Small-device-2019-04-06_Range_Slicer_PCB-rescue-Range_Slicer_PCB-rescue R 0 10 N N 1 F N
+F0 "R" 30 20 50 H V L CNN
+F1 "schmitt_ladder-rescue_R_Small-device-2019-04-06_Range_Slicer_PCB-rescue-Range_Slicer_PCB-rescue" 30 -40 50 H V L CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+S -30 70 30 -70 0 1 8 N
+X ~ 1 0 100 30 D 50 50 1 1 P
+X ~ 2 0 -100 30 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #

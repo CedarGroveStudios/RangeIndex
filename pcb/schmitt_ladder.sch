@@ -1,1961 +1,595 @@
 EESchema Schematic File Version 4
 EELAYER 30 0
 EELAYER END
-$Descr USLegal 14000 8500
+$Descr USLetter 11000 8500
 encoding utf-8
 Sheet 1 1
-Title "Range_Slicer"
-Date "2020-09-02"
-Rev "v07"
+Title "Schmitt Ladder"
+Date "2020-09-14"
+Rev "v00"
 Comp "Cedar Grove Studios"
 Comment1 ""
 Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text Label 5600 3275 0    50   ~ 0
-3V
-Text Label 8100 3275 2    50   ~ 0
-GND
-Text Label 5600 3775 0    50   ~ 0
-CV_00_IN
-Text Label 8100 3375 2    50   ~ 0
-USB
-Text Label 8100 4275 2    50   ~ 0
-SDA
-Text Label 8100 4175 2    50   ~ 0
-SCL
 $Comp
-L power:GND #PWR021
-U 1 1 5B582EC3
-P 8400 3325
-F 0 "#PWR021" H 8400 3075 50  0001 C CNN
-F 1 "GND" H 8405 3152 50  0000 C CNN
-F 2 "" H 8400 3325 50  0001 C CNN
-F 3 "" H 8400 3325 50  0001 C CNN
-	1    8400 3325
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR08
-U 1 1 5B5D9C42
-P 2325 1525
-F 0 "#PWR08" H 2325 1275 50  0001 C CNN
-F 1 "GND" H 2330 1352 50  0000 C CNN
-F 2 "" H 2325 1525 50  0001 C CNN
-F 3 "" H 2325 1525 50  0001 C CNN
-	1    2325 1525
-	1    0    0    -1  
-$EndComp
-$Comp
-L Range_Slicer_PCB-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue R2
-U 1 1 5B5D9D12
-P 1850 1200
-F 0 "R2" V 2000 1225 50  0000 C CNN
-F 1 "10K" V 1925 1200 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 1850 1200 50  0001 C CNN
-F 3 "" H 1850 1200 50  0001 C CNN
-	1    1850 1200
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Range_Slicer_PCB-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue R5
-U 1 1 5B5D9D8A
-P 2325 1375
-F 0 "R5" H 2175 1425 50  0000 L CNN
-F 1 "5.05K" H 2050 1350 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 2325 1375 50  0001 C CNN
-F 3 "" H 2325 1375 50  0001 C CNN
-	1    2325 1375
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+3.3V #PWR020
-U 1 1 5B610C00
-P 5300 3200
-F 0 "#PWR020" H 5300 3050 50  0001 C CNN
-F 1 "+3.3V" H 5315 3373 50  0000 C CNN
-F 2 "" H 5300 3200 50  0001 C CNN
-F 3 "" H 5300 3200 50  0001 C CNN
-	1    5300 3200
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+3.3V #PWR07
-U 1 1 5B610C60
-P 1975 825
-F 0 "#PWR07" H 1975 675 50  0001 C CNN
-F 1 "+3.3V" H 1975 975 50  0000 C CNN
-F 2 "" H 1975 825 50  0001 C CNN
-F 3 "" H 1975 825 50  0001 C CNN
-	1    1975 825 
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1975 850  1975 825 
-$Comp
-L Range_Slicer_PCB-rescue:LED-device-2019-04-06_Range_Slicer_PCB-rescue D15
-U 1 1 5B5B407B
-P 5525 6325
-F 0 "D15" V 5600 6225 50  0000 C CNN
-F 1 "PWR" V 5525 6200 50  0000 C CNN
-F 2 "LED_THT:LED_D3.0mm" H 5525 6325 50  0001 C CNN
-F 3 "" H 5525 6325 50  0001 C CNN
-	1    5525 6325
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Range_Slicer_PCB-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue R13
-U 1 1 5B5B42E0
-P 5525 6025
-F 0 "R13" H 5650 6075 50  0000 C CNN
-F 1 "1.5K" H 5750 6000 50  0000 R CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 5525 6025 50  0001 C CNN
-F 3 "" H 5525 6025 50  0001 C CNN
-	1    5525 6025
-	1    0    0    -1  
-$EndComp
-Text Notes 5800 6375 0    50   ~ 0
-Panel\nPower\nIndicator
-$Comp
-L Adafruit_custom:Schurter_4832.2211_3.5mm_vert_TS_switch J1
-U 1 1 5B50374C
-P 1300 1300
-F 0 "J1" H 1150 1575 50  0000 R CNN
-F 1 "CV_00 IN" H 1050 1500 50  0000 L CNN
-F 2 "Adafruit:Schurter_4832.2211_3.5mm_vert_TS_switch" H 1350 1200 50  0001 C CNN
-F 3 "" H 1350 1200 50  0001 C CNN
-	1    1300 1300
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Adafruit_custom:Schurter_4832.2211_3.5mm_vert_TS_switch J7
-U 1 1 5B519A2A
-P 12900 1750
-F 0 "J7" H 12800 2025 50  0000 R CNN
-F 1 "CV_00 OUT" H 12925 1950 50  0000 R CNN
-F 2 "Adafruit:Schurter_4832.2211_3.5mm_vert_TS_switch" H 12950 1650 50  0001 C CNN
-F 3 "" H 12950 1650 50  0001 C CNN
-	1    12900 1750
-	1    0    0    -1  
-$EndComp
-NoConn ~ 12550 1750
-$Comp
-L Range_Slicer_PCB-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue R14
-U 1 1 5B7F1945
-P 10800 1150
-F 0 "R14" V 10650 1150 50  0000 C CNN
-F 1 "20K" V 10725 1225 50  0000 R CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 10800 1150 50  0001 C CNN
-F 3 "" H 10800 1150 50  0001 C CNN
-	1    10800 1150
-	0    1    1    0   
-$EndComp
-$Comp
-L power:+5VA #PWR027
-U 1 1 5BBCC717
-P 8175 2850
-F 0 "#PWR027" H 8175 2700 50  0001 C CNN
-F 1 "+5VA" H 8190 3023 50  0000 C CNN
-F 2 "" H 8175 2850 50  0001 C CNN
-F 3 "" H 8175 2850 50  0001 C CNN
-	1    8175 2850
-	1    0    0    -1  
-$EndComp
-Text Notes 11250 900  0    50   ~ 0
-Full-Scale\nCalibrate
-Wire Wire Line
-	1650 1200 1750 1200
-Text Notes 11700 1100 0    25   ~ 0
-Ideal gain = 3.03  = 10V Vout / 3.3V Vin\nset cal pot to ~~ 40.6K
-$Comp
-L Range_Slicer_PCB-rescue:CONN_01X04-conn-2019-04-06_Range_Slicer_PCB-rescue J6
-U 1 1 5C95ED81
-P 7375 6200
-F 0 "J6" H 7325 5875 50  0000 L CNN
-F 1 "STEMMA-QT" H 7325 5950 50  0000 L CNN
-F 2 "Connector_JST:JST_SH_SM04B-SRSS-TB_1x04-1MP_P1.00mm_Horizontal" H 7375 6200 50  0001 C CNN
-F 3 "" H 7375 6200 50  0001 C CNN
-	1    7375 6200
+L Amplifier_Operational:OPA2156xDGK U1
+U 1 1 5F139E32
+P 4850 1475
+F 0 "U1" H 4825 1250 50  0000 L CNN
+F 1 "OPA2156xDGK" H 4825 1325 50  0000 L CNN
+F 2 "Package_SO:VSSOP-8_3.0x3.0mm_P0.65mm" H 4850 1475 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/opa2156.pdf" H 4850 1475 50  0001 C CNN
+	1    4850 1475
 	1    0    0    1   
 $EndComp
-Text Label 6625 6150 0    50   ~ 0
-SDA
-Wire Wire Line
-	6625 6150 7175 6150
-Text Label 6625 6050 0    50   ~ 0
-SCL
-Wire Wire Line
-	6625 6050 7175 6050
 $Comp
-L power:+3.3V #PWR032
-U 1 1 5CA62C4C
-P 7050 5975
-F 0 "#PWR032" H 7050 5825 50  0001 C CNN
-F 1 "+3.3V" H 7065 6148 50  0000 C CNN
-F 2 "" H 7050 5975 50  0001 C CNN
-F 3 "" H 7050 5975 50  0001 C CNN
-	1    7050 5975
-	1    0    0    -1  
+L Amplifier_Operational:OPA2156xDGK U1
+U 2 1 5F13B033
+P 4850 2475
+F 0 "U1" H 4825 2250 50  0000 L CNN
+F 1 "OPA2156xDGK" H 4825 2325 50  0000 L CNN
+F 2 "Package_SO:VSSOP-8_3.0x3.0mm_P0.65mm" H 4850 2475 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/opa2156.pdf" H 4850 2475 50  0001 C CNN
+	2    4850 2475
+	1    0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR033
-U 1 1 5CA7A992
-P 7050 6400
-F 0 "#PWR033" H 7050 6150 50  0001 C CNN
-F 1 "GND" H 7055 6227 50  0000 C CNN
-F 2 "" H 7050 6400 50  0001 C CNN
-F 3 "" H 7050 6400 50  0001 C CNN
-	1    7050 6400
-	1    0    0    -1  
+L schmitt_ladder-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue-Range_Slicer_PCB-rescue R3
+U 1 1 5FC619EE
+P 4300 1800
+F 0 "R3" V 4375 1725 50  0000 L CNN
+F 1 "100K" V 4450 1725 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 4300 1800 50  0001 C CNN
+F 3 "" H 4300 1800 50  0001 C CNN
+	1    4300 1800
+	0    1    1    0   
 $EndComp
-Wire Wire Line
-	7050 6400 7050 6350
-Wire Wire Line
-	7050 6350 7175 6350
-Wire Wire Line
-	7050 6250 7050 5975
-Wire Wire Line
-	7050 6250 7175 6250
-$Comp
-L Connector_Generic:Conn_01x11 J5
-U 1 1 5C71AB8C
-P 9650 5650
-F 0 "J5" H 9600 6325 50  0000 L CNN
-F 1 "TFT DISPLAY" H 9600 6250 50  0000 L CNN
-F 2 "Adafruit:TFT_Display_1.44in_128x128_PID2088" H 9650 5650 50  0001 C CNN
-F 3 "" H 9650 5650 50  0001 C CNN
-	1    9650 5650
-	1    0    0    -1  
-$EndComp
-Text Label 8100 3975 2    50   ~ 0
-~DISP_RST
-Wire Wire Line
-	8175 2850 8175 3375
-Text Label 5600 5050 0    50   ~ 0
-~SEL_ENC
-Wire Wire Line
-	7550 3475 8100 3475
-Wire Wire Line
-	7550 3575 8100 3575
-Wire Wire Line
-	7550 3675 8100 3675
-Wire Wire Line
-	7550 3775 8100 3775
-Wire Wire Line
-	6150 3975 5600 3975
-Wire Wire Line
-	7550 4175 8100 4175
-Wire Wire Line
-	7550 4275 8100 4275
-Wire Wire Line
-	6150 4075 5600 4075
-Text Label 7375 2000 0    50   ~ 0
-ENC_PH_B
-Text Label 7375 2200 0    50   ~ 0
-ENC_PH_A
-$Comp
-L Range_Slicer_PCB-rescue:PEC11R-4215F-S0024-dk_Encoders-2019-04-06_Range_Slicer_PCB-rescue ROT1
-U 1 1 5D31962D
-P 7975 1250
-F 0 "ROT1" V 8025 1650 50  0000 R CNN
-F 1 "SELECT" V 7950 1725 50  0000 R CNN
-F 2 "digikey-footprints:Rotary_Encoder_Switched_PEC11R_mntg_hole" H 7875 1410 50  0001 C CNN
-F 3 "~" H 7975 1510 50  0001 C CNN
-	1    7975 1250
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	7875 950  7875 900 
-Text Label 7375 2100 0    50   ~ 0
-~SEL_ENC
-Text Label 7375 900  0    50   ~ 0
-~ENC_SW
-Text Notes 1000 1725 0    50   ~ 0
- CV_00 Input
-Text Notes 7950 1025 0    50   ~ 0
-Rotary Encoder
-Text Notes 7500 6200 0    50   ~ 0
-STEMMA-QT Interface\nJST-SH
-Text Label 5600 4175 0    50   ~ 0
-DISP_SCK
-Text Label 8900 5650 0    50   ~ 0
-DISP_HOPI
 $Comp
 L power:GND #PWR02
-U 1 1 5CBBB846
-P 1650 1525
-F 0 "#PWR02" H 1650 1275 50  0001 C CNN
-F 1 "GND" H 1655 1352 50  0000 C CNN
-F 2 "" H 1650 1525 50  0001 C CNN
-F 3 "" H 1650 1525 50  0001 C CNN
-	1    1650 1525
-	1    0    0    -1  
-$EndComp
-Text Label 8100 3575 2    50   ~ 0
-~ENC_SW
-Text Label 8100 3675 2    50   ~ 0
-ENC_PH_A
-Text Label 8100 3775 2    50   ~ 0
-ENC_PH_B
-Text Label 8900 5950 0    50   ~ 0
-~DISP_DC
-Text Label 5600 4275 0    50   ~ 0
-DISP_HOPI
-Text Label 8900 5450 0    50   ~ 0
-DISP_SCK
-Text Label 8100 5050 2    50   ~ 0
-~DISP_CS
-Text Label 8900 5750 0    50   ~ 0
-~DISP_CS
-Wire Wire Line
-	9450 5650 8900 5650
-Wire Wire Line
-	9450 5450 8900 5450
-Wire Wire Line
-	9450 5850 8900 5850
-Wire Wire Line
-	9450 5750 8900 5750
-NoConn ~ 9450 5250
-$Comp
-L power:+3.3V #PWR030
-U 1 1 5D225565
-P 9375 5025
-F 0 "#PWR030" H 9375 4875 50  0001 C CNN
-F 1 "+3.3V" H 9390 5198 50  0000 C CNN
-F 2 "" H 9375 5025 50  0001 C CNN
-F 3 "" H 9375 5025 50  0001 C CNN
-	1    9375 5025
-	1    0    0    -1  
-$EndComp
-Text Label 8900 5850 0    50   ~ 0
-~DISP_RST
-Wire Wire Line
-	8900 5950 9450 5950
-Text Notes 9725 5575 0    50   ~ 0
-MISO
-Text Notes 9725 5475 0    50   ~ 0
-SCK
-Text Notes 9725 5675 0    50   ~ 0
-MOSI
-Text Notes 9725 5875 0    50   ~ 0
-Rst
-Text Notes 9725 5775 0    50   ~ 0
-TFTCS
-Text Notes 9725 5275 0    50   ~ 0
-3Vo
-Text Notes 9725 5175 0    50   ~ 0
-Vin
-Text Notes 9725 5375 0    50   ~ 0
-Gnd
-Text Notes 9550 6500 0    50   ~ 0
-Adafruit #2088\nColor 1.44-inch\n128x128 TFT display
-$Comp
-L power:GND #PWR031
-U 1 1 5CAD7F0C
-P 9375 6250
-F 0 "#PWR031" H 9375 6000 50  0001 C CNN
-F 1 "GND" H 9380 6077 50  0000 C CNN
-F 2 "" H 9375 6250 50  0001 C CNN
-F 3 "" H 9375 6250 50  0001 C CNN
-	1    9375 6250
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	8075 2100 8075 1650
-Wire Wire Line
-	8175 2000 8175 1650
-Wire Wire Line
-	7975 2200 7975 1650
-Wire Wire Line
-	8075 2100 7875 2100
-Wire Wire Line
-	7875 2100 7875 1650
-$Comp
-L power:GND #PWR026
-U 1 1 5C7B3BCF
-P 8275 1650
-F 0 "#PWR026" H 8275 1400 50  0001 C CNN
-F 1 "GND" H 8280 1477 50  0000 C CNN
-F 2 "" H 8275 1650 50  0001 C CNN
-F 3 "" H 8275 1650 50  0001 C CNN
-	1    8275 1650
-	1    0    0    -1  
-$EndComp
-Text Notes 12675 2100 0    50   ~ 0
- CV_00 Output
-Text Label 8100 5150 2    50   ~ 0
-~DISP_DC
-$Comp
-L power:GND #PWR028
-U 1 1 5CEE164F
-P 10600 1250
-F 0 "#PWR028" H 10600 1000 50  0001 C CNN
-F 1 "GND" H 10605 1077 50  0000 C CNN
-F 2 "" H 10600 1250 50  0001 C CNN
-F 3 "" H 10600 1250 50  0001 C CNN
-	1    10600 1250
+U 1 1 5FC619FB
+P 4100 1900
+F 0 "#PWR02" H 4100 1650 50  0001 C CNN
+F 1 "GND" H 4105 1727 50  0000 C CNN
+F 2 "" H 4100 1900 50  0001 C CNN
+F 3 "" H 4100 1900 50  0001 C CNN
+	1    4100 1900
 	1    0    0    -1  
 $EndComp
 $Comp
-L Adafruit_custom:Schurter_4832.2211_3.5mm_vert_TS_switch J3
-U 1 1 5CF70572
-P 1300 4200
-F 0 "J3" H 1125 4475 50  0000 R CNN
-F 1 "GATE_IN" H 1025 4400 50  0000 L CNN
-F 2 "Adafruit:Schurter_4832.2211_3.5mm_vert_TS_switch" H 1350 4100 50  0001 C CNN
-F 3 "" H 1350 4100 50  0001 C CNN
-	1    1300 4200
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Range_Slicer_PCB-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue R4
-U 1 1 5CF7057E
-P 1850 4100
-F 0 "R4" V 2000 4100 50  0000 C CNN
-F 1 "5.05K" V 1925 4100 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 1850 4100 50  0001 C CNN
-F 3 "" H 1850 4100 50  0001 C CNN
-	1    1850 4100
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Range_Slicer_PCB-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue R7
-U 1 1 5CF70584
-P 2325 4275
-F 0 "R7" H 2125 4325 50  0000 L CNN
-F 1 "10K" H 2125 4250 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 2325 4275 50  0001 C CNN
-F 3 "" H 2325 4275 50  0001 C CNN
-	1    2325 4275
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+3.3V #PWR011
-U 1 1 5CF70596
-P 1975 3725
-F 0 "#PWR011" H 1975 3575 50  0001 C CNN
-F 1 "+3.3V" H 1975 3875 50  0000 C CNN
-F 2 "" H 1975 3725 50  0001 C CNN
-F 3 "" H 1975 3725 50  0001 C CNN
-	1    1975 3725
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1975 3750 1975 3725
-Connection ~ 2325 4100
-Text Label 5600 3975 0    50   ~ 0
-GATE_IN
-Text Label 8100 3475 2    50   ~ 0
-PIEZO
-$Comp
-L dk_Alarms-Buzzers-and-Sirens:PS1240P02BT BZ1
-U 1 1 5F5BF740
-P 5250 2125
-F 0 "BZ1" H 5590 2223 60  0000 L CNN
-F 1 "PS1240P02BT" H 5590 2117 60  0000 L CNN
-F 2 "digikey-footprints:Piezo_Transducer_THT_PS1240P02BT" H 5450 2325 60  0001 L CNN
-F 3 "https://product.tdk.com/info/en/catalog/datasheets/piezoelectronic_buzzer_ps_en.pdf" H 5450 2425 60  0001 L CNN
-F 4 "445-2525-1-ND" H 5450 2525 60  0001 L CNN "Digi-Key_PN"
-F 5 "PS1240P02BT" H 5450 2625 60  0001 L CNN "MPN"
-F 6 "Audio Products" H 5450 2725 60  0001 L CNN "Category"
-F 7 "Alarms, Buzzers, and Sirens" H 5450 2825 60  0001 L CNN "Family"
-F 8 "https://product.tdk.com/info/en/catalog/datasheets/piezoelectronic_buzzer_ps_en.pdf" H 5450 2925 60  0001 L CNN "DK_Datasheet_Link"
-F 9 "/product-detail/en/tdk-corporation/PS1240P02BT/445-2525-1-ND/935930" H 5450 3025 60  0001 L CNN "DK_Detail_Page"
-F 10 "AUDIO PIEZO TRANSDUCER 30V TH" H 5450 3125 60  0001 L CNN "Description"
-F 11 "TDK Corporation" H 5450 3225 60  0001 L CNN "Manufacturer"
-F 12 "Active" H 5450 3325 60  0001 L CNN "Status"
-	1    5250 2125
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR019
-U 1 1 5F0B059B
-P 5050 2250
-F 0 "#PWR019" H 5050 2000 50  0001 C CNN
-F 1 "GND" H 5055 2077 50  0000 C CNN
-F 2 "" H 5050 2250 50  0001 C CNN
-F 3 "" H 5050 2250 50  0001 C CNN
-	1    5050 2250
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5150 2025 4675 2025
-Wire Wire Line
-	5050 2125 5150 2125
-Wire Wire Line
-	5050 2125 5050 2250
-Text Label 4675 2025 0    50   ~ 0
-PIEZO
-$Comp
-L Amplifier_Operational:OPA2156xDGK U4
-U 1 1 5F139E32
-P 11400 1650
-F 0 "U4" H 11400 2017 50  0000 C CNN
-F 1 "OPA2156xDGK" H 11400 1926 50  0000 C CNN
-F 2 "Package_SO:VSSOP-8_3.0x3.0mm_P0.65mm" H 11400 1650 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/opa2156.pdf" H 11400 1650 50  0001 C CNN
-	1    11400 1650
-	1    0    0    1   
-$EndComp
-Connection ~ 7875 2100
-Wire Wire Line
-	7375 900  7875 900 
-Wire Wire Line
-	7375 2000 8175 2000
-Wire Wire Line
-	7375 2100 7875 2100
-Wire Wire Line
-	7375 2200 7975 2200
-Wire Wire Line
-	5525 6525 5525 6475
-Wire Wire Line
-	5525 6175 5525 6125
-Wire Wire Line
-	5525 5925 5525 5775
-Text Label 5525 5775 0    50   ~ 0
-+12VA
-$Comp
-L power:GND #PWR025
-U 1 1 5FBE4217
-P 5525 6525
-F 0 "#PWR025" H 5525 6275 50  0001 C CNN
-F 1 "GND" H 5530 6352 50  0000 C CNN
-F 2 "" H 5525 6525 50  0001 C CNN
-F 3 "" H 5525 6525 50  0001 C CNN
-	1    5525 6525
-	1    0    0    -1  
-$EndComp
-Text Notes 5800 6525 0    50   ~ 0
-Vf = 3v
-Text Label 5600 4075 0    50   ~ 0
-SEL_ENC
-Text Label 5600 3575 0    50   ~ 0
-CV_00_OUT
-Text Label 10550 1750 0    50   ~ 0
-CV_00_OUT
-Wire Wire Line
-	4675 1200 5250 1200
-Wire Wire Line
-	6325 1425 6325 1500
-Connection ~ 6325 1100
-Wire Wire Line
-	6325 1100 6325 1225
-Wire Wire Line
-	5150 800  6325 800 
-Wire Wire Line
-	6325 1100 6325 800 
-Wire Wire Line
-	6225 1100 6325 1100
-Wire Wire Line
-	5850 1100 5925 1100
-$Comp
-L power:GND #PWR024
-U 1 1 5F40D668
-P 6325 1500
-F 0 "#PWR024" H 6325 1250 50  0001 C CNN
-F 1 "GND" H 6330 1327 50  0000 C CNN
-F 2 "" H 6325 1500 50  0001 C CNN
-F 3 "" H 6325 1500 50  0001 C CNN
-	1    6325 1500
-	1    0    0    -1  
-$EndComp
-Text Notes 6375 1150 0    50   ~ 0
-ENCODER Select
-$Comp
-L Range_Slicer_PCB-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue R12
-U 1 1 5F40D65D
-P 6325 1325
-F 0 "R12" H 6450 1375 50  0000 C CNN
-F 1 "665" H 6450 1300 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 6325 1325 50  0001 C CNN
-F 3 "" H 6325 1325 50  0001 C CNN
-	1    6325 1325
-	1    0    0    -1  
-$EndComp
-$Comp
-L Range_Slicer_PCB-rescue:LED-device-2019-04-06_Range_Slicer_PCB-rescue D14
-U 1 1 5F40D653
-P 6075 1100
-F 0 "D14" H 6100 1200 50  0000 C CNN
-F 1 "SEL_ENC_GRN" H 6175 1275 50  0000 C CNN
-F 2 "LED_THT:LED_D3.0mm" H 6075 1100 50  0001 C CNN
-F 3 "" H 6075 1100 50  0001 C CNN
-	1    6075 1100
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	4100 1450 4100 1525
-Connection ~ 4100 1100
-Wire Wire Line
-	2925 800  4100 800 
-Wire Wire Line
-	4100 1100 4100 800 
-Wire Wire Line
-	4000 1100 4100 1100
-Wire Wire Line
-	3625 1100 3700 1100
-$Comp
-L Amplifier_Operational:OPA2156xDGK U1
-U 1 1 5F186D06
-P 3325 1100
-F 0 "U1" H 3325 1467 50  0000 C CNN
-F 1 "OPA2156xDGK" H 3325 1376 50  0000 C CNN
-F 2 "Package_SO:VSSOP-8_3.0x3.0mm_P0.65mm" H 3325 1100 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/opa2156.pdf" H 3325 1100 50  0001 C CNN
-	1    3325 1100
-	1    0    0    1   
-$EndComp
-$Comp
-L Amplifier_Operational:OPA2156xDGK U1
-U 2 1 5F13F955
-P 3325 2450
-F 0 "U1" H 3325 2817 50  0000 C CNN
-F 1 "OPA2156xDGK" H 3325 2726 50  0000 C CNN
-F 2 "Package_SO:VSSOP-8_3.0x3.0mm_P0.65mm" H 3325 2450 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/opa2156.pdf" H 3325 2450 50  0001 C CNN
-	2    3325 2450
-	1    0    0    1   
-$EndComp
-Text Label 4675 1200 0    50   ~ 0
-SEL_ENC
-Wire Wire Line
-	5150 1000 5250 1000
-Wire Wire Line
-	5150 1000 5150 800 
-Wire Wire Line
-	2925 1000 3025 1000
-Wire Wire Line
-	2925 1000 2925 800 
-$Comp
-L power:GND #PWR015
-U 1 1 5D0C331B
-P 4100 1525
-F 0 "#PWR015" H 4100 1275 50  0001 C CNN
-F 1 "GND" H 4105 1352 50  0000 C CNN
-F 2 "" H 4100 1525 50  0001 C CNN
-F 3 "" H 4100 1525 50  0001 C CNN
-	1    4100 1525
-	1    0    0    -1  
-$EndComp
-$Comp
-L Range_Slicer_PCB-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue R8
-U 1 1 5D0C3312
-P 4100 1350
-F 0 "R8" H 4200 1400 50  0000 C CNN
-F 1 "665" H 4225 1325 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 4100 1350 50  0001 C CNN
-F 3 "" H 4100 1350 50  0001 C CNN
-	1    4100 1350
-	1    0    0    -1  
-$EndComp
-$Comp
-L Range_Slicer_PCB-rescue:LED-device-2019-04-06_Range_Slicer_PCB-rescue D9
-U 1 1 5D0C330C
-P 3850 1100
-F 0 "D9" H 3875 1200 50  0000 C CNN
-F 1 "CV_00_IN_RED" H 3925 1275 50  0000 C CNN
-F 2 "LED_THT:LED_D3.0mm" H 3850 1100 50  0001 C CNN
-F 3 "" H 3850 1100 50  0001 C CNN
-	1    3850 1100
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	10550 1750 11100 1750
-$Comp
-L power:GND #PWR034
-U 1 1 5B689E72
-P 12475 1925
-F 0 "#PWR034" H 12475 1675 50  0001 C CNN
-F 1 "GND" H 12480 1752 50  0000 C CNN
-F 2 "" H 12475 1925 50  0001 C CNN
-F 3 "" H 12475 1925 50  0001 C CNN
-	1    12475 1925
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	12475 1925 12475 1850
-Wire Wire Line
-	12475 1850 12550 1850
-$Comp
-L Amplifier_Operational:OPA2156xDGK U2
-U 2 1 5F40BFB2
-P 5550 1100
-F 0 "U2" H 5550 1467 50  0000 C CNN
-F 1 "OPA2156xDGK" H 5550 1376 50  0000 C CNN
-F 2 "Package_SO:VSSOP-8_3.0x3.0mm_P0.65mm" H 5550 1100 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/opa2156.pdf" H 5550 1100 50  0001 C CNN
-	2    5550 1100
-	1    0    0    1   
-$EndComp
-$Comp
-L Range_Slicer_PCB-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue R3
-U 1 1 5F5F7257
-P 1850 2550
-F 0 "R3" V 2000 2575 50  0000 C CNN
-F 1 "10K" V 1925 2550 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 1850 2550 50  0001 C CNN
-F 3 "" H 1850 2550 50  0001 C CNN
-	1    1850 2550
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Range_Slicer_PCB-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue R6
-U 1 1 5F5F7261
-P 2325 2725
-F 0 "R6" H 2175 2775 50  0000 L CNN
-F 1 "5.05K" H 2050 2700 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 2325 2725 50  0001 C CNN
-F 3 "" H 2325 2725 50  0001 C CNN
-	1    2325 2725
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+3.3V #PWR09
-U 1 1 5F5F727F
-P 1975 2175
-F 0 "#PWR09" H 1975 2025 50  0001 C CNN
-F 1 "+3.3V" H 1975 2325 50  0000 C CNN
-F 2 "" H 1975 2175 50  0001 C CNN
-F 3 "" H 1975 2175 50  0001 C CNN
-	1    1975 2175
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1975 2200 1975 2175
-Connection ~ 2325 2550
-$Comp
-L Adafruit_custom:Schurter_4832.2211_3.5mm_vert_TS_switch J2
-U 1 1 5F5F7293
-P 1300 2650
-F 0 "J2" H 1150 2925 50  0000 R CNN
-F 1 "CV_01 IN" H 1050 2850 50  0000 L CNN
-F 2 "Adafruit:Schurter_4832.2211_3.5mm_vert_TS_switch" H 1350 2550 50  0001 C CNN
-F 3 "" H 1350 2550 50  0001 C CNN
-	1    1300 2650
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	1650 2550 1750 2550
-Text Label 2925 3175 0    50   ~ 0
-CV_01_IN
-Text Notes 1000 3075 0    50   ~ 0
- CV_01 Input
-Wire Wire Line
-	4100 2800 4100 2875
-Connection ~ 4100 2450
-Wire Wire Line
-	2925 2150 4100 2150
-Wire Wire Line
-	4100 2450 4100 2150
-Wire Wire Line
-	4000 2450 4100 2450
-Wire Wire Line
-	3625 2450 3700 2450
-Wire Wire Line
-	2925 2350 3025 2350
-Wire Wire Line
-	2925 2350 2925 2150
-$Comp
-L power:GND #PWR016
-U 1 1 5F5F72C2
-P 4100 2875
-F 0 "#PWR016" H 4100 2625 50  0001 C CNN
-F 1 "GND" H 4105 2702 50  0000 C CNN
-F 2 "" H 4100 2875 50  0001 C CNN
-F 3 "" H 4100 2875 50  0001 C CNN
-	1    4100 2875
-	1    0    0    -1  
-$EndComp
-$Comp
-L Range_Slicer_PCB-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue R9
-U 1 1 5F5F72CC
-P 4100 2700
-F 0 "R9" H 4200 2750 50  0000 C CNN
-F 1 "665" H 4225 2675 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 4100 2700 50  0001 C CNN
-F 3 "" H 4100 2700 50  0001 C CNN
-	1    4100 2700
-	1    0    0    -1  
-$EndComp
-$Comp
-L Range_Slicer_PCB-rescue:LED-device-2019-04-06_Range_Slicer_PCB-rescue D10
-U 1 1 5F5F72D6
-P 3850 2450
-F 0 "D10" H 3875 2550 50  0000 C CNN
-F 1 "CV_01_IN_RED" H 3925 2625 50  0000 C CNN
-F 2 "LED_THT:LED_D3.0mm" H 3850 2450 50  0001 C CNN
-F 3 "" H 3850 2450 50  0001 C CNN
-	1    3850 2450
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	2325 2550 2925 2550
-Connection ~ 2925 2550
-Wire Wire Line
-	2925 2550 3025 2550
-Text Label 2925 4725 0    50   ~ 0
-GATE_IN
-Wire Wire Line
-	4100 4350 4100 4425
-Connection ~ 4100 4000
-Wire Wire Line
-	2925 3700 4100 3700
-Wire Wire Line
-	4100 4000 4100 3700
-Wire Wire Line
-	4000 4000 4100 4000
-Wire Wire Line
-	3625 4000 3700 4000
-$Comp
-L Amplifier_Operational:OPA2156xDGK U2
-U 1 1 5F610457
-P 3325 4000
-F 0 "U2" H 3325 4367 50  0000 C CNN
-F 1 "OPA2156xDGK" H 3325 4276 50  0000 C CNN
-F 2 "Package_SO:VSSOP-8_3.0x3.0mm_P0.65mm" H 3325 4000 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/opa2156.pdf" H 3325 4000 50  0001 C CNN
-	1    3325 4000
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	2925 3900 3025 3900
-Wire Wire Line
-	2925 3900 2925 3700
-$Comp
-L power:GND #PWR017
-U 1 1 5F610463
-P 4100 4425
-F 0 "#PWR017" H 4100 4175 50  0001 C CNN
-F 1 "GND" H 4105 4252 50  0000 C CNN
-F 2 "" H 4100 4425 50  0001 C CNN
-F 3 "" H 4100 4425 50  0001 C CNN
-	1    4100 4425
-	1    0    0    -1  
-$EndComp
-$Comp
-L Range_Slicer_PCB-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue R10
-U 1 1 5F61046D
-P 4100 4250
-F 0 "R10" H 4225 4300 50  0000 C CNN
-F 1 "665" H 4225 4225 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 4100 4250 50  0001 C CNN
-F 3 "" H 4100 4250 50  0001 C CNN
-	1    4100 4250
-	1    0    0    -1  
-$EndComp
-$Comp
-L Range_Slicer_PCB-rescue:LED-device-2019-04-06_Range_Slicer_PCB-rescue D11
-U 1 1 5F610477
-P 3850 4000
-F 0 "D11" H 3875 4100 50  0000 C CNN
-F 1 "GATE_RED" H 3900 4175 50  0000 C CNN
-F 2 "LED_THT:LED_D3.0mm" H 3850 4000 50  0001 C CNN
-F 3 "" H 3850 4000 50  0001 C CNN
-	1    3850 4000
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	2925 4100 3025 4100
-Text Notes 1000 4625 0    50   ~ 0
- GATE Input
-Wire Wire Line
-	2325 4100 2925 4100
-Connection ~ 2925 4100
-$Comp
-L Range_Slicer_PCB-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue R1
-U 1 1 5F6E0BC9
-P 8325 4075
-F 0 "R1" V 8475 4050 50  0000 L CNN
-F 1 "470" V 8400 4000 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 8325 4075 50  0001 C CNN
-F 3 "" H 8325 4075 50  0001 C CNN
-	1    8325 4075
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	1650 4200 1825 4200
-Wire Wire Line
-	1650 4100 1750 4100
-Text Label 5600 3675 0    50   ~ 0
-CV_01_OUT
-Text Label 5600 3875 0    50   ~ 0
-CV_01_IN
-Wire Wire Line
-	5600 4175 6150 4175
-Wire Wire Line
-	5600 4275 6150 4275
-Wire Wire Line
-	5600 3875 6150 3875
-Wire Wire Line
-	5600 3775 6150 3775
-Wire Wire Line
-	5600 3675 6150 3675
-Wire Wire Line
-	5600 3575 6150 3575
-Wire Wire Line
-	7550 3875 8100 3875
-Wire Wire Line
-	5300 3275 5300 3200
-Wire Wire Line
-	5300 3275 6150 3275
-Wire Wire Line
-	8400 3275 7550 3275
-Wire Wire Line
-	8400 3275 8400 3325
-Wire Wire Line
-	7550 3375 8175 3375
-Wire Wire Line
-	6150 6975 6475 6975
-Wire Wire Line
-	6150 6850 6150 6975
-Connection ~ 6150 6975
-Wire Wire Line
-	5800 6975 6150 6975
-Text Label 6150 7825 0    50   ~ 0
--12VA
-Wire Wire Line
-	6150 7675 6475 7675
-Wire Wire Line
-	6150 7675 6150 7825
-Wire Wire Line
-	6475 7675 6475 7575
-Connection ~ 6150 7675
-Wire Wire Line
-	5800 7675 6150 7675
-Wire Wire Line
-	5800 7575 5800 7675
-$Comp
-L Amplifier_Operational:OPA2156xDGK U2
-U 3 1 5F1A9C71
-P 5900 7275
-F 0 "U2" H 5858 7321 50  0000 L CNN
-F 1 "OPA2156xDGK" H 5858 7230 50  0000 L CNN
-F 2 "Package_SO:VSSOP-8_3.0x3.0mm_P0.65mm" H 5900 7275 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/opa2156.pdf" H 5900 7275 50  0001 C CNN
-	3    5900 7275
-	1    0    0    -1  
-$EndComp
-$Comp
-L Amplifier_Operational:OPA2156xDGK U1
-U 3 1 5F13C764
-P 5225 7275
-F 0 "U1" H 5183 7321 50  0000 L CNN
-F 1 "OPA2156xDGK" H 5183 7230 50  0000 L CNN
-F 2 "Package_SO:VSSOP-8_3.0x3.0mm_P0.65mm" H 5225 7275 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/opa2156.pdf" H 5225 7275 50  0001 C CNN
-	3    5225 7275
-	1    0    0    -1  
-$EndComp
-Text Label 6150 6850 0    50   ~ 0
-+12VA
-$Comp
-L Amplifier_Operational:OPA2156xDGK U4
-U 3 1 5FF3BC6F
-P 6575 7275
-F 0 "U4" H 6533 7321 50  0000 L CNN
-F 1 "OPA2156xDGK" H 6533 7230 50  0000 L CNN
-F 2 "Package_SO:VSSOP-8_3.0x3.0mm_P0.65mm" H 6575 7275 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/opa2156.pdf" H 6575 7275 50  0001 C CNN
-	3    6575 7275
-	1    0    0    -1  
-$EndComp
-$Comp
-L Amplifier_Operational:OPA2156xDGK U5
-U 3 1 5FF3CB67
-P 7225 7275
-F 0 "U5" H 7183 7321 50  0000 L CNN
-F 1 "OPA2156xDGK" H 7183 7230 50  0000 L CNN
-F 2 "Package_SO:VSSOP-8_3.0x3.0mm_P0.65mm" H 7225 7275 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/opa2156.pdf" H 7225 7275 50  0001 C CNN
-	3    7225 7275
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5800 7675 5125 7675
-Wire Wire Line
-	5125 7675 5125 7575
-Connection ~ 5800 7675
-Wire Wire Line
-	5125 6975 5800 6975
-Connection ~ 5800 6975
-Wire Wire Line
-	6475 6975 7125 6975
-Connection ~ 6475 6975
-Wire Wire Line
-	7125 7575 7125 7675
-Wire Wire Line
-	7125 7675 6475 7675
-Connection ~ 6475 7675
-Wire Wire Line
-	7050 5050 7050 4925
-Wire Wire Line
-	7050 5050 8100 5050
-Wire Wire Line
-	6950 5150 6950 4925
-Wire Wire Line
-	6950 5150 8100 5150
-NoConn ~ 7550 3175
-NoConn ~ 6850 4925
-NoConn ~ 6750 4925
-NoConn ~ 6650 4925
-Wire Wire Line
-	6550 5050 6550 4925
-Wire Wire Line
-	5600 5050 6550 5050
-NoConn ~ 6150 3475
-NoConn ~ 6150 3375
-NoConn ~ 6150 3175
-Wire Wire Line
-	4550 6200 4550 6325
-Wire Wire Line
-	4700 6525 4700 6675
-Wire Wire Line
-	4550 6525 4550 6675
-Wire Wire Line
-	3500 6525 3500 6675
-Wire Wire Line
-	3350 6525 3350 6675
-Wire Wire Line
-	3500 6200 3500 6325
-Wire Wire Line
-	2625 6200 3350 6200
-Wire Wire Line
-	2925 6975 2925 6825
-Wire Wire Line
-	3350 6200 3350 6325
-Wire Wire Line
-	3350 5725 3350 6200
-Connection ~ 3350 6200
-Wire Wire Line
-	2175 6200 2325 6200
-Wire Wire Line
-	2925 7375 2925 7425
-$Comp
-L power:GND #PWR013
-U 1 1 5F706A16
-P 2925 7425
-F 0 "#PWR013" H 2925 7175 50  0001 C CNN
-F 1 "GND" H 2930 7252 50  0000 C CNN
-F 2 "" H 2925 7425 50  0001 C CNN
-F 3 "" H 2925 7425 50  0001 C CNN
-	1    2925 7425
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2650 6975 2775 6975
-Wire Wire Line
-	2775 6975 2925 6975
-Connection ~ 2775 6975
-Wire Wire Line
-	2775 7075 2775 6975
-Connection ~ 2925 6975
-Wire Wire Line
-	2925 6975 2925 7075
-Wire Wire Line
-	2775 7375 2925 7375
-Wire Wire Line
-	2775 7275 2775 7375
-Connection ~ 2925 7375
-Wire Wire Line
-	2925 7375 2925 7275
-$Comp
-L Range_Slicer_PCB-rescue:C_Small-device-2019-04-06_Range_Slicer_PCB-rescue C1
-U 1 1 5F706A06
-P 2775 7175
-F 0 "C1" H 2625 7100 50  0000 L CNN
-F 1 "0.1uF" H 2500 7175 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 2775 7175 50  0001 C CNN
-F 3 "" H 2775 7175 50  0001 C CNN
-	1    2775 7175
-	1    0    0    -1  
-$EndComp
-$Comp
-L Range_Slicer_PCB-rescue:CP1_Small-device-2019-04-06_Range_Slicer_PCB-rescue C2
-U 1 1 5F7069FC
-P 2925 7175
-F 0 "C2" H 3025 7250 50  0000 L CNN
-F 1 "10uF" H 3025 7175 50  0000 L CNN
-F 2 "Capacitor_SMD:C_1210_3225Metric" H 2925 7175 50  0001 C CNN
-F 3 "" H 2925 7175 50  0001 C CNN
-	1    2925 7175
-	1    0    0    1   
-$EndComp
-$Comp
-L Range_Slicer_PCB-rescue:B160-E3-diode-2019-04-06_Range_Slicer_PCB-rescue D8
-U 1 1 5F35B2A8
-P 2500 6975
-F 0 "D8" H 2500 7191 50  0000 C CNN
-F 1 "B160" H 2500 7100 50  0000 C CNN
-F 2 "Diode_SMD:D_SMA" H 2500 6800 50  0001 C CNN
-F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 2500 6975 50  0001 C CNN
-	1    2500 6975
-	1    0    0    -1  
-$EndComp
-Text Label 2925 6825 0    50   ~ 0
--12VA
-Wire Wire Line
-	1875 6875 2175 6875
-Wire Wire Line
-	1875 6775 2175 6775
-Wire Wire Line
-	1875 6675 2175 6675
-Wire Wire Line
-	1375 6775 1175 6775
-Wire Wire Line
-	1375 6675 1175 6675
-Wire Wire Line
-	1175 6875 1375 6875
-Wire Wire Line
-	2175 6200 2175 6575
-Connection ~ 2175 6200
-Wire Wire Line
-	1175 6200 2175 6200
-Wire Wire Line
-	1175 6775 1175 6675
-Wire Wire Line
-	1375 6575 1175 6575
-Text Label 2125 6975 2    50   ~ 0
--12v
-$Comp
-L power:GND #PWR06
-U 1 1 5BBF91ED
-P 2175 7425
-F 0 "#PWR06" H 2175 7175 50  0001 C CNN
-F 1 "GND" H 2180 7252 50  0000 C CNN
-F 2 "" H 2175 7425 50  0001 C CNN
-F 3 "" H 2175 7425 50  0001 C CNN
-	1    2175 7425
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR01
-U 1 1 5BBF9107
-P 1175 7425
-F 0 "#PWR01" H 1175 7175 50  0001 C CNN
-F 1 "GND" H 1180 7252 50  0000 C CNN
-F 2 "" H 1175 7425 50  0001 C CNN
-F 3 "" H 1175 7425 50  0001 C CNN
-	1    1175 7425
-	1    0    0    -1  
-$EndComp
-Text Label 3350 5725 0    50   ~ 0
-+12VA
-Wire Wire Line
-	4700 5850 4700 5800
-$Comp
-L Range_Slicer_PCB-rescue:B160-E3-diode-2019-04-06_Range_Slicer_PCB-rescue D12
-U 1 1 5B608828
-P 4700 6000
-F 0 "D12" V 4625 5825 50  0000 C CNN
-F 1 "B160" V 4700 5800 50  0000 C CNN
-F 2 "Diode_SMD:D_SMA" H 4700 5825 50  0001 C CNN
-F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 4700 6000 50  0001 C CNN
-	1    4700 6000
-	0    -1   1    0   
-$EndComp
-$Comp
-L power:+5VA #PWR018
-U 1 1 5B534637
-P 4700 5800
-F 0 "#PWR018" H 4700 5650 50  0001 C CNN
-F 1 "+5VA" H 4715 5973 50  0000 C CNN
-F 2 "" H 4700 5800 50  0001 C CNN
-F 3 "" H 4700 5800 50  0001 C CNN
-	1    4700 5800
-	1    0    0    -1  
-$EndComp
-Text Notes 3725 7425 0    50   ~ 0
-Power Management
-$Comp
-L Range_Slicer_PCB-rescue:B160-E3-diode-2019-04-06_Range_Slicer_PCB-rescue D7
-U 1 1 5B50786A
-P 2475 6200
-F 0 "D7" H 2475 6416 50  0000 C CNN
-F 1 "B160" H 2475 6325 50  0000 C CNN
-F 2 "Diode_SMD:D_SMA" H 2475 6025 50  0001 C CNN
-F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 2475 6200 50  0001 C CNN
-	1    2475 6200
-	-1   0    0    -1  
-$EndComp
-Text Label 4125 6675 0    50   ~ 0
-GND
-Wire Wire Line
-	1875 6575 2175 6575
-Wire Wire Line
-	4700 6200 4700 6325
-Wire Wire Line
-	4700 6200 4700 6150
-Connection ~ 4700 6200
-Wire Wire Line
-	4550 6200 4700 6200
-Connection ~ 4550 6200
-Wire Wire Line
-	4350 6200 4550 6200
-Wire Wire Line
-	3500 6200 3350 6200
-Connection ~ 3500 6200
-Wire Wire Line
-	3750 6200 3500 6200
-Wire Wire Line
-	3500 6675 3350 6675
-Connection ~ 3500 6675
-Wire Wire Line
-	4050 6675 3500 6675
-Wire Wire Line
-	4550 6675 4700 6675
-Wire Wire Line
-	4050 6675 4050 6800
-Wire Wire Line
-	4050 6500 4050 6675
-Connection ~ 4050 6675
-Connection ~ 4550 6675
-Wire Wire Line
-	4050 6675 4550 6675
-$Comp
-L Range_Slicer_PCB-rescue:C_Small-device-2019-04-06_Range_Slicer_PCB-rescue C5
-U 1 1 5B4BBAED
-P 4550 6425
-F 0 "C5" H 4375 6500 50  0000 L CNN
-F 1 "0.1uF" H 4275 6425 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 4550 6425 50  0001 C CNN
-F 3 "" H 4550 6425 50  0001 C CNN
-	1    4550 6425
-	1    0    0    -1  
-$EndComp
-$Comp
-L Range_Slicer_PCB-rescue:CP1_Small-device-2019-04-06_Range_Slicer_PCB-rescue C6
-U 1 1 5B4BBAE7
-P 4700 6425
-F 0 "C6" H 4775 6500 50  0000 L CNN
-F 1 "10uF" H 4775 6425 50  0000 L CNN
-F 2 "Capacitor_SMD:C_1210_3225Metric" H 4700 6425 50  0001 C CNN
-F 3 "" H 4700 6425 50  0001 C CNN
-	1    4700 6425
-	1    0    0    -1  
-$EndComp
-$Comp
-L Range_Slicer_PCB-rescue:C_Small-device-2019-04-06_Range_Slicer_PCB-rescue C3
-U 1 1 5B4B3918
-P 3350 6425
-F 0 "C3" H 3175 6500 50  0000 L CNN
-F 1 "0.1uF" H 3075 6425 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 3350 6425 50  0001 C CNN
-F 3 "" H 3350 6425 50  0001 C CNN
-	1    3350 6425
-	1    0    0    -1  
-$EndComp
-$Comp
-L Range_Slicer_PCB-rescue:CP1_Small-device-2019-04-06_Range_Slicer_PCB-rescue C4
-U 1 1 5B4B3779
-P 3500 6425
-F 0 "C4" H 3575 6500 50  0000 L CNN
-F 1 "10uF" H 3575 6425 50  0000 L CNN
-F 2 "Capacitor_SMD:C_1210_3225Metric" H 3500 6425 50  0001 C CNN
-F 3 "" H 3500 6425 50  0001 C CNN
-	1    3500 6425
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR014
-U 1 1 5B4AF928
-P 4050 6800
-F 0 "#PWR014" H 4050 6550 50  0001 C CNN
-F 1 "GND" H 4055 6627 50  0000 C CNN
-F 2 "" H 4050 6800 50  0001 C CNN
-F 3 "" H 4050 6800 50  0001 C CNN
-	1    4050 6800
-	1    0    0    -1  
-$EndComp
-$Comp
-L Range_Slicer_PCB-rescue:LM1117-5.0-regul-2019-04-06_Range_Slicer_PCB-rescue U3
-U 1 1 5B4AF822
-P 4050 6200
-F 0 "U3" H 4050 6567 50  0000 C CNN
-F 1 "LM1117-5.0" H 4050 6476 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-223-3_TabPin2" H 4050 6200 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/lm1117.pdf" H 4050 6200 50  0001 C CNN
-	1    4050 6200
-	1    0    0    -1  
-$EndComp
-Text Label 2125 6875 2    50   ~ 0
-GND
-Text Label 2125 6775 2    50   ~ 0
-GND
-Text Label 2125 6675 2    50   ~ 0
-GND
-Text Label 2125 6575 2    50   ~ 0
-+12v
-Text Label 1225 6875 0    50   ~ 0
-GND
-Text Label 1225 6775 0    50   ~ 0
-GND
-Text Label 1225 6675 0    50   ~ 0
-GND
-$Comp
-L Connector_Generic:Conn_02x05_Odd_Even J4
-U 1 1 5B3FFA2F
-P 1575 6775
-F 0 "J4" H 1625 6375 50  0000 C CNN
-F 1 "Eurorack Power" H 1625 6450 50  0000 C CNN
-F 2 "Connector_IDC:IDC-Header_2x05_P2.54mm_Vertical" H 1575 5575 50  0001 C CNN
-F 3 "" H 1575 5575 50  0001 C CNN
-	1    1575 6775
-	1    0    0    1   
-$EndComp
-Text Label 8825 4500 0    50   ~ 0
-PROBE
-Wire Wire Line
-	1825 4200 1825 4725
-$Comp
-L Adafruit_custom:BAT54XY_Dual_Schottky_Diode_Array DA1
-U 2 1 5F426370
-P 2325 2200
-F 0 "DA1" V 2590 2200 50  0000 C CNN
-F 1 "BAT54XY" V 2499 2200 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" V 2325 2250 50  0001 C CNN
-F 3 "" V 2325 2250 50  0001 C CNN
-	2    2325 2200
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Adafruit_custom:BAT54XY_Dual_Schottky_Diode_Array DA2
-U 1 1 5F42CE58
-P 2325 3750
-F 0 "DA2" V 2590 3750 50  0000 C CNN
-F 1 "BAT54XY" V 2499 3750 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" V 2325 3800 50  0001 C CNN
-F 3 "" V 2325 3800 50  0001 C CNN
-	1    2325 3750
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Adafruit_custom:BAT54XY_Dual_Schottky_Diode_Array DA2
-U 2 1 5F42F465
-P 8825 4075
-F 0 "DA2" V 9090 4075 50  0000 C CNN
-F 1 "BAT54XY" V 8999 4075 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" V 8825 4125 50  0001 C CNN
-F 3 "" V 8825 4125 50  0001 C CNN
-	2    8825 4075
-	1    0    0    1   
-$EndComp
-$Comp
-L Adafruit_custom:BAT54XY_Dual_Schottky_Diode_Array DA1
-U 1 1 5F431B57
-P 2325 850
-F 0 "DA1" V 2590 850 50  0000 C CNN
-F 1 "BAT54XY" V 2499 850 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" V 2325 900 50  0001 C CNN
-F 3 "" V 2325 900 50  0001 C CNN
-	1    2325 850 
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	1950 1200 2325 1200
-Wire Wire Line
-	2325 1200 2325 1150
-Connection ~ 2325 1200
-$Comp
-L power:GND #PWR0101
-U 1 1 5F5C3556
-P 2675 900
-F 0 "#PWR0101" H 2675 650 50  0001 C CNN
-F 1 "GND" H 2680 727 50  0000 C CNN
-F 2 "" H 2675 900 50  0001 C CNN
-F 3 "" H 2675 900 50  0001 C CNN
-	1    2675 900 
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2625 850  2675 850 
-Wire Wire Line
-	2675 850  2675 900 
-Wire Wire Line
-	2025 850  1975 850 
-Wire Wire Line
-	2325 1525 2325 1475
-Wire Wire Line
-	1950 2550 2325 2550
-Wire Wire Line
-	1950 4100 2325 4100
-$Comp
-L power:GND #PWR0102
-U 1 1 5F6DAE2D
-P 1650 2875
-F 0 "#PWR0102" H 1650 2625 50  0001 C CNN
-F 1 "GND" H 1655 2702 50  0000 C CNN
-F 2 "" H 1650 2875 50  0001 C CNN
-F 3 "" H 1650 2875 50  0001 C CNN
-	1    1650 2875
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0103
-U 1 1 5F6F5F25
-P 1650 4425
-F 0 "#PWR0103" H 1650 4175 50  0001 C CNN
-F 1 "GND" H 1655 4252 50  0000 C CNN
-F 2 "" H 1650 4425 50  0001 C CNN
-F 3 "" H 1650 4425 50  0001 C CNN
-	1    1650 4425
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0104
-U 1 1 5F710C8D
-P 2325 2875
-F 0 "#PWR0104" H 2325 2625 50  0001 C CNN
-F 1 "GND" H 2330 2702 50  0000 C CNN
-F 2 "" H 2325 2875 50  0001 C CNN
-F 3 "" H 2325 2875 50  0001 C CNN
-	1    2325 2875
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2325 2875 2325 2825
-$Comp
-L power:GND #PWR0105
-U 1 1 5F72BF38
-P 2325 4425
-F 0 "#PWR0105" H 2325 4175 50  0001 C CNN
-F 1 "GND" H 2330 4252 50  0000 C CNN
-F 2 "" H 2325 4425 50  0001 C CNN
-F 3 "" H 2325 4425 50  0001 C CNN
-	1    2325 4425
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2325 4425 2325 4375
-$Comp
-L power:GND #PWR0106
-U 1 1 5F8423C2
-P 2675 2250
-F 0 "#PWR0106" H 2675 2000 50  0001 C CNN
-F 1 "GND" H 2680 2077 50  0000 C CNN
-F 2 "" H 2675 2250 50  0001 C CNN
-F 3 "" H 2675 2250 50  0001 C CNN
-	1    2675 2250
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0107
-U 1 1 5F843365
-P 2675 3800
-F 0 "#PWR0107" H 2675 3550 50  0001 C CNN
-F 1 "GND" H 2680 3627 50  0000 C CNN
-F 2 "" H 2675 3800 50  0001 C CNN
-F 3 "" H 2675 3800 50  0001 C CNN
-	1    2675 3800
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2675 2250 2675 2200
-Wire Wire Line
-	2675 2200 2625 2200
-Wire Wire Line
-	2675 3800 2675 3750
-Wire Wire Line
-	2675 3750 2625 3750
-Wire Wire Line
-	2325 4100 2325 4175
-Wire Wire Line
-	2325 4050 2325 4100
-Wire Wire Line
-	1975 3750 2025 3750
-Wire Wire Line
-	1975 2200 2025 2200
-Wire Wire Line
-	2325 2550 2325 2625
-Wire Wire Line
-	2325 2500 2325 2550
-Connection ~ 2925 1200
-Wire Wire Line
-	2325 1200 2925 1200
-Wire Wire Line
-	2925 1200 3025 1200
-Text Label 2925 1825 0    50   ~ 0
-CV_00_IN
-Wire Wire Line
-	2925 1200 2925 1825
-Wire Wire Line
-	2925 2550 2925 3175
-Wire Wire Line
-	2925 4100 2925 4725
-Wire Wire Line
-	1650 4425 1650 4300
-Wire Wire Line
-	1650 2750 1650 2875
-Wire Wire Line
-	2325 1275 2325 1200
-Wire Wire Line
-	1650 1525 1650 1400
-Wire Wire Line
-	4100 1100 4100 1250
-Wire Wire Line
-	4100 4000 4100 4150
-Wire Wire Line
-	4100 2450 4100 2600
-Wire Wire Line
-	8825 4500 8825 4375
-Wire Wire Line
-	8525 4075 8425 4075
-Wire Wire Line
-	7550 4075 8225 4075
-NoConn ~ 8825 3775
-NoConn ~ 1650 1300
-NoConn ~ 1650 2650
-Wire Wire Line
-	2175 6675 2175 6775
-Wire Wire Line
-	1175 6575 1175 6200
-Connection ~ 2175 6775
-Wire Wire Line
-	2175 6775 2175 6875
-Connection ~ 2175 6875
-Wire Wire Line
-	1175 6875 1175 6775
-Connection ~ 1175 6875
-Connection ~ 1175 6775
-Wire Wire Line
-	1875 6975 1925 6975
-Wire Wire Line
-	1925 6975 1925 7125
-Wire Wire Line
-	1925 7125 1325 7125
-Wire Wire Line
-	1325 7125 1325 6975
-Wire Wire Line
-	1325 6975 1375 6975
-Connection ~ 1925 6975
-Wire Wire Line
-	1925 6975 2350 6975
-Wire Wire Line
-	2175 6875 2175 7425
-Wire Wire Line
-	1175 6875 1175 7425
-NoConn ~ 7550 4375
-Wire Wire Line
-	9450 5150 9375 5150
-Wire Wire Line
-	9375 5150 9375 5025
-Wire Wire Line
-	9450 5350 9375 5350
-Wire Wire Line
-	9375 5350 9375 6250
-Text Label 8900 5550 0    50   ~ 0
-SD_HIPO
-Wire Wire Line
-	9450 5550 8900 5550
-Text Label 8900 6050 0    50   ~ 0
-~SD_CS
-Wire Wire Line
-	8900 6050 9450 6050
-Text Label 8900 6150 0    50   ~ 0
-LITE
-Wire Wire Line
-	8900 6150 9450 6150
-Text Notes 9725 5975 0    50   ~ 0
-DC
-Text Notes 9725 6075 0    50   ~ 0
-SDCS
-Text Notes 9725 6175 0    50   ~ 0
-Lite
-Text Label 5600 4375 0    50   ~ 0
-SD_HIPO
-Wire Wire Line
-	6150 4375 5600 4375
-Text Label 8100 4950 2    50   ~ 0
-~SD_CS
-Text Label 8100 3875 2    50   ~ 0
-LITE
-$Comp
-L Adafruit_custom:ItsyBitsy_M4_Express M1
-U 1 1 5F2C36C5
-P 6850 3775
-F 0 "M1" H 6850 4890 50  0000 C CNN
-F 1 "ItsyBitsy_M4_Express" H 6850 4799 50  0000 C CNN
-F 2 "Adafruit:ItsyBitsy M4 Express" H 6850 3775 50  0001 C CNN
-F 3 "" H 6850 3775 50  0001 C CNN
-	1    6850 3775
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7150 4950 7150 4925
-Wire Wire Line
-	7150 4950 8100 4950
-Wire Wire Line
-	7550 3975 8100 3975
-Text Label 1825 4725 0    50   ~ 0
-PROBE
-$Comp
-L Range_Slicer_PCB-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue R11
-U 1 1 5F532D3E
-P 11975 1650
-F 0 "R11" V 11825 1575 50  0000 L CNN
-F 1 "1K" V 11900 1575 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 11975 1650 50  0001 C CNN
-F 3 "" H 11975 1650 50  0001 C CNN
-	1    11975 1650
-	0    1    1    0   
-$EndComp
-$Comp
-L Range_Slicer_PCB-rescue:C_Small-device-2019-04-06_Range_Slicer_PCB-rescue C7
-U 1 1 5F629FB0
-P 11400 1400
-F 0 "C7" V 11300 1275 50  0000 L CNN
-F 1 "18pF" V 11300 1400 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 11400 1400 50  0001 C CNN
-F 3 "" H 11400 1400 50  0001 C CNN
-	1    11400 1400
+L schmitt_ladder-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue-Range_Slicer_PCB-rescue R4
+U 1 1 5FC61A1D
+P 4850 1800
+F 0 "R4" V 4925 1725 50  0000 L CNN
+F 1 "100K" V 5000 1725 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 4850 1800 50  0001 C CNN
+F 3 "" H 4850 1800 50  0001 C CNN
+	1    4850 1800
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	11700 1650 11750 1650
+	4200 1800 4100 1800
+Wire Wire Line
+	4950 1800 5250 1800
+Wire Wire Line
+	5250 1800 5250 1475
+Wire Wire Line
+	5150 1475 5250 1475
+Wire Wire Line
+	4500 1575 4500 1800
+Connection ~ 4500 1575
+Wire Wire Line
+	4500 1575 4550 1575
+Wire Wire Line
+	4500 1800 4750 1800
+Wire Wire Line
+	4400 1800 4500 1800
+Connection ~ 4500 1800
+Wire Wire Line
+	4100 1900 4100 1800
+Wire Wire Line
+	3900 1575 4500 1575
+Wire Wire Line
+	4550 1375 3650 1375
 $Comp
-L Range_Slicer_PCB-rescue:POT-device-2019-04-06_Range_Slicer_PCB-rescue RV1
-U 1 1 5B675C00
-P 11400 1150
-F 0 "RV1" V 11575 1100 50  0000 R CNN
-F 1 "100K" V 11500 1000 50  0000 C CNN
-F 2 "Adafruit:Potentiometer_Trimmer_Bourns_PV36W" H 11400 1150 50  0001 C CNN
-F 3 "" H 11400 1150 50  0001 C CNN
-	1    11400 1150
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	11750 1650 11750 1400
-Connection ~ 11750 1650
-Wire Wire Line
-	11750 1650 11875 1650
-Wire Wire Line
-	11000 1550 11000 1400
-Wire Wire Line
-	11000 1550 11100 1550
-Wire Wire Line
-	11500 1400 11750 1400
-Wire Wire Line
-	11300 1400 11000 1400
-Connection ~ 11000 1400
-Wire Wire Line
-	12075 1650 12200 1650
-Wire Wire Line
-	12200 1650 12200 1150
-Connection ~ 12200 1650
-Wire Wire Line
-	12200 1650 12550 1650
-Wire Wire Line
-	11250 1150 11000 1150
-Wire Wire Line
-	11000 1150 11000 1400
-Wire Wire Line
-	10600 1250 10600 1150
-Wire Wire Line
-	10600 1150 10700 1150
-Wire Wire Line
-	10900 1150 11000 1150
-Connection ~ 11000 1150
-Wire Wire Line
-	11800 2400 11550 2400
-Wire Wire Line
-	11800 2725 11800 2400
-Wire Wire Line
-	11000 2400 11250 2400
-Connection ~ 11000 2400
-Wire Wire Line
-	11000 2400 11000 2625
-Wire Wire Line
-	10900 2400 11000 2400
-Wire Wire Line
-	10600 2400 10700 2400
-Wire Wire Line
-	10600 2500 10600 2400
-$Comp
-L Range_Slicer_PCB-rescue:LED-device-2019-04-06_Range_Slicer_PCB-rescue D16
-U 1 1 5D0B058D
-P 11400 2400
-F 0 "D16" H 11325 2600 50  0000 C CNN
-F 1 "CV_00_OUT_RED" H 11550 2525 50  0000 C CNN
-F 2 "LED_THT:LED_D3.0mm" H 11400 2400 50  0001 C CNN
-F 3 "" H 11400 2400 50  0001 C CNN
-	1    11400 2400
-	1    0    0    -1  
-$EndComp
-$Comp
-L Range_Slicer_PCB-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue R16
-U 1 1 5D0B0593
-P 10800 2400
-F 0 "R16" V 10950 2400 50  0000 C CNN
-F 1 "2K" V 10875 2375 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 10800 2400 50  0001 C CNN
-F 3 "" H 10800 2400 50  0001 C CNN
-	1    10800 2400
-	0    -1   -1   0   
-$EndComp
-$Comp
-L power:GND #PWR036
-U 1 1 5D0B059C
-P 10600 2500
-F 0 "#PWR036" H 10600 2250 50  0001 C CNN
-F 1 "GND" H 10605 2327 50  0000 C CNN
-F 2 "" H 10600 2500 50  0001 C CNN
-F 3 "" H 10600 2500 50  0001 C CNN
-	1    10600 2500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	11100 2625 11000 2625
-$Comp
-L Amplifier_Operational:OPA2156xDGK U4
-U 2 1 5F13B033
-P 11400 2725
-F 0 "U4" H 11400 3092 50  0000 C CNN
-F 1 "OPA2156xDGK" H 11400 3001 50  0000 C CNN
-F 2 "Package_SO:VSSOP-8_3.0x3.0mm_P0.65mm" H 11400 2725 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/opa2156.pdf" H 11400 2725 50  0001 C CNN
-	2    11400 2725
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	11700 2725 11800 2725
-Wire Wire Line
-	11100 2825 11000 2825
-Wire Wire Line
-	11000 2825 11000 3175
-Wire Wire Line
-	11000 3175 12050 3175
-Wire Wire Line
-	12050 3175 12050 1850
-Wire Wire Line
-	12050 1850 11750 1850
-Wire Wire Line
-	11750 1850 11750 1650
-$Comp
-L Adafruit_custom:Schurter_4832.2211_3.5mm_vert_TS_switch J8
-U 1 1 5FC619E3
-P 12950 4650
-F 0 "J8" H 12850 4925 50  0000 R CNN
-F 1 "CV_01 OUT" H 12975 4850 50  0000 R CNN
-F 2 "Adafruit:Schurter_4832.2211_3.5mm_vert_TS_switch" H 13000 4550 50  0001 C CNN
-F 3 "" H 13000 4550 50  0001 C CNN
-	1    12950 4650
-	1    0    0    -1  
-$EndComp
-NoConn ~ 12600 4650
-$Comp
-L Range_Slicer_PCB-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue R15
-U 1 1 5FC619EE
-P 10850 4050
-F 0 "R15" V 10700 4050 50  0000 C CNN
-F 1 "20K" V 10775 4125 50  0000 R CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 10850 4050 50  0001 C CNN
-F 3 "" H 10850 4050 50  0001 C CNN
-	1    10850 4050
+L schmitt_ladder-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue-Range_Slicer_PCB-rescue R6
+U 1 1 5F6DF221
+P 4300 2800
+F 0 "R6" V 4375 2725 50  0000 L CNN
+F 1 "100K" V 4450 2725 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 4300 2800 50  0001 C CNN
+F 3 "" H 4300 2800 50  0001 C CNN
+	1    4300 2800
 	0    1    1    0   
 $EndComp
-Text Notes 11275 3800 0    50   ~ 0
-Full-Scale\nCalibrate
-Text Notes 11725 4000 0    25   ~ 0
-Ideal gain = 3.03  = 10V Vout / 3.3V Vin\nset cal pot to ~~ 40.6K
-Text Notes 12725 5000 0    50   ~ 0
- CV_01 Output
 $Comp
 L power:GND #PWR03
-U 1 1 5FC619FB
-P 10650 4150
-F 0 "#PWR03" H 10650 3900 50  0001 C CNN
-F 1 "GND" H 10655 3977 50  0000 C CNN
-F 2 "" H 10650 4150 50  0001 C CNN
-F 3 "" H 10650 4150 50  0001 C CNN
-	1    10650 4150
+U 1 1 5F6DF22B
+P 4100 2900
+F 0 "#PWR03" H 4100 2650 50  0001 C CNN
+F 1 "GND" H 4105 2727 50  0000 C CNN
+F 2 "" H 4100 2900 50  0001 C CNN
+F 3 "" H 4100 2900 50  0001 C CNN
+	1    4100 2900
 	1    0    0    -1  
 $EndComp
 $Comp
-L Amplifier_Operational:OPA2156xDGK U5
-U 1 1 5FC61A05
-P 11450 4550
-F 0 "U5" H 11450 4917 50  0000 C CNN
-F 1 "OPA2156xDGK" H 11450 4826 50  0000 C CNN
-F 2 "Package_SO:VSSOP-8_3.0x3.0mm_P0.65mm" H 11450 4550 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/opa2156.pdf" H 11450 4550 50  0001 C CNN
-	1    11450 4550
+L schmitt_ladder-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue-Range_Slicer_PCB-rescue R7
+U 1 1 5F6DF235
+P 4850 2800
+F 0 "R7" V 4925 2725 50  0000 L CNN
+F 1 "100K" V 5000 2725 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 4850 2800 50  0001 C CNN
+F 3 "" H 4850 2800 50  0001 C CNN
+	1    4850 2800
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4200 2800 4100 2800
+Wire Wire Line
+	4950 2800 5250 2800
+Wire Wire Line
+	5250 2800 5250 2475
+Wire Wire Line
+	4500 2575 4500 2800
+Wire Wire Line
+	4500 2800 4750 2800
+Wire Wire Line
+	4400 2800 4500 2800
+Connection ~ 4500 2800
+Wire Wire Line
+	4100 2900 4100 2800
+Wire Wire Line
+	3900 2575 4500 2575
+Wire Wire Line
+	4550 2375 3650 2375
+Wire Wire Line
+	4500 2575 4550 2575
+Connection ~ 4500 2575
+Wire Wire Line
+	5150 2475 5250 2475
+Wire Wire Line
+	5250 2475 5400 2475
+Connection ~ 5250 2475
+Wire Wire Line
+	5250 1475 5400 1475
+Connection ~ 5250 1475
+Wire Wire Line
+	3900 2575 3900 2025
+$Comp
+L schmitt_ladder-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue-Range_Slicer_PCB-rescue R5
+U 1 1 5F6E3ED6
+P 3650 2800
+F 0 "R5" H 3500 2750 50  0000 L CNN
+F 1 "10K" H 3450 2825 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 3650 2800 50  0001 C CNN
+F 3 "" H 3650 2800 50  0001 C CNN
+	1    3650 2800
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3650 1375 3650 1700
+Wire Wire Line
+	3650 2900 3650 3400
+Wire Wire Line
+	3650 2375 3650 2700
+$Comp
+L Amplifier_Operational:OPA2156xDGK U2
+U 1 1 5F6ECD8D
+P 4850 3500
+F 0 "U2" H 4825 3275 50  0000 L CNN
+F 1 "OPA2156xDGK" H 4825 3350 50  0000 L CNN
+F 2 "Package_SO:VSSOP-8_3.0x3.0mm_P0.65mm" H 4850 3500 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/opa2156.pdf" H 4850 3500 50  0001 C CNN
+	1    4850 3500
 	1    0    0    1   
 $EndComp
-Text Label 10600 4650 0    50   ~ 0
-CV_01_OUT
-Wire Wire Line
-	10600 4650 11150 4650
 $Comp
-L power:GND #PWR05
-U 1 1 5FC61A11
-P 12525 4825
-F 0 "#PWR05" H 12525 4575 50  0001 C CNN
-F 1 "GND" H 12530 4652 50  0000 C CNN
-F 2 "" H 12525 4825 50  0001 C CNN
-F 3 "" H 12525 4825 50  0001 C CNN
-	1    12525 4825
-	1    0    0    -1  
+L Amplifier_Operational:OPA2156xDGK U2
+U 2 1 5F6ECD97
+P 4850 4500
+F 0 "U2" H 4825 4275 50  0000 L CNN
+F 1 "OPA2156xDGK" H 4825 4350 50  0000 L CNN
+F 2 "Package_SO:VSSOP-8_3.0x3.0mm_P0.65mm" H 4850 4500 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/opa2156.pdf" H 4850 4500 50  0001 C CNN
+	2    4850 4500
+	1    0    0    1   
 $EndComp
-Wire Wire Line
-	12525 4825 12525 4750
-Wire Wire Line
-	12525 4750 12600 4750
 $Comp
-L Range_Slicer_PCB-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue R18
-U 1 1 5FC61A1D
-P 12025 4550
-F 0 "R18" V 11875 4475 50  0000 L CNN
-F 1 "1K" V 11950 4475 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 12025 4550 50  0001 C CNN
-F 3 "" H 12025 4550 50  0001 C CNN
-	1    12025 4550
+L schmitt_ladder-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue-Range_Slicer_PCB-rescue R9
+U 1 1 5F6ECDA1
+P 4300 3825
+F 0 "R9" V 4375 3750 50  0000 L CNN
+F 1 "100K" V 4450 3750 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 4300 3825 50  0001 C CNN
+F 3 "" H 4300 3825 50  0001 C CNN
+	1    4300 3825
 	0    1    1    0   
-$EndComp
-$Comp
-L Range_Slicer_PCB-rescue:C_Small-device-2019-04-06_Range_Slicer_PCB-rescue C8
-U 1 1 5FC61A27
-P 11450 4300
-F 0 "C8" V 11350 4175 50  0000 L CNN
-F 1 "18pF" V 11350 4300 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 11450 4300 50  0001 C CNN
-F 3 "" H 11450 4300 50  0001 C CNN
-	1    11450 4300
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	11750 4550 11800 4550
-$Comp
-L Range_Slicer_PCB-rescue:POT-device-2019-04-06_Range_Slicer_PCB-rescue RV2
-U 1 1 5FC61A32
-P 11450 4050
-F 0 "RV2" V 11625 4000 50  0000 R CNN
-F 1 "100K" V 11550 3900 50  0000 C CNN
-F 2 "Adafruit:Potentiometer_Trimmer_Bourns_PV36W" H 11450 4050 50  0001 C CNN
-F 3 "" H 11450 4050 50  0001 C CNN
-	1    11450 4050
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	11800 4550 11800 4300
-Connection ~ 11800 4550
-Wire Wire Line
-	11800 4550 11925 4550
-Wire Wire Line
-	11050 4450 11050 4300
-Wire Wire Line
-	11050 4450 11150 4450
-Wire Wire Line
-	11550 4300 11800 4300
-Wire Wire Line
-	11350 4300 11050 4300
-Connection ~ 11050 4300
-Wire Wire Line
-	12125 4550 12250 4550
-Wire Wire Line
-	12250 4550 12250 4050
-Connection ~ 12250 4550
-Wire Wire Line
-	12250 4550 12600 4550
-Wire Wire Line
-	11300 4050 11050 4050
-Wire Wire Line
-	11050 4050 11050 4300
-Wire Wire Line
-	10650 4150 10650 4050
-Wire Wire Line
-	10650 4050 10750 4050
-Wire Wire Line
-	10950 4050 11050 4050
-Connection ~ 11050 4050
-Wire Wire Line
-	11850 5300 11600 5300
-Wire Wire Line
-	11850 5625 11850 5300
-Wire Wire Line
-	11050 5300 11300 5300
-Connection ~ 11050 5300
-Wire Wire Line
-	11050 5300 11050 5525
-Wire Wire Line
-	10950 5300 11050 5300
-Wire Wire Line
-	10650 5300 10750 5300
-Wire Wire Line
-	10650 5400 10650 5300
-$Comp
-L Range_Slicer_PCB-rescue:LED-device-2019-04-06_Range_Slicer_PCB-rescue D17
-U 1 1 5FC61A5B
-P 11450 5300
-F 0 "D17" H 11375 5500 50  0000 C CNN
-F 1 "CV_00_OUT_RED" H 11600 5425 50  0000 C CNN
-F 2 "LED_THT:LED_D3.0mm" H 11450 5300 50  0001 C CNN
-F 3 "" H 11450 5300 50  0001 C CNN
-	1    11450 5300
-	1    0    0    -1  
-$EndComp
-$Comp
-L Range_Slicer_PCB-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue R17
-U 1 1 5FC61A65
-P 10850 5300
-F 0 "R17" V 11000 5300 50  0000 C CNN
-F 1 "2K" V 10925 5275 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 10850 5300 50  0001 C CNN
-F 3 "" H 10850 5300 50  0001 C CNN
-	1    10850 5300
-	0    -1   -1   0   
 $EndComp
 $Comp
 L power:GND #PWR04
-U 1 1 5FC61A6F
-P 10650 5400
-F 0 "#PWR04" H 10650 5150 50  0001 C CNN
-F 1 "GND" H 10655 5227 50  0000 C CNN
-F 2 "" H 10650 5400 50  0001 C CNN
-F 3 "" H 10650 5400 50  0001 C CNN
-	1    10650 5400
+U 1 1 5F6ECDAB
+P 4100 3925
+F 0 "#PWR04" H 4100 3675 50  0001 C CNN
+F 1 "GND" H 4105 3752 50  0000 C CNN
+F 2 "" H 4100 3925 50  0001 C CNN
+F 3 "" H 4100 3925 50  0001 C CNN
+	1    4100 3925
+	1    0    0    -1  
+$EndComp
+$Comp
+L schmitt_ladder-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue-Range_Slicer_PCB-rescue R10
+U 1 1 5F6ECDB5
+P 4850 3825
+F 0 "R10" V 4925 3750 50  0000 L CNN
+F 1 "100K" V 5000 3750 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 4850 3825 50  0001 C CNN
+F 3 "" H 4850 3825 50  0001 C CNN
+	1    4850 3825
+	0    1    1    0   
+$EndComp
+$Comp
+L schmitt_ladder-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue-Range_Slicer_PCB-rescue R8
+U 1 1 5F6ECDBF
+P 3650 3825
+F 0 "R8" H 3500 3775 50  0000 L CNN
+F 1 "10K" H 3450 3850 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 3650 3825 50  0001 C CNN
+F 3 "" H 3650 3825 50  0001 C CNN
+	1    3650 3825
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	4200 3825 4100 3825
+Wire Wire Line
+	4950 3825 5250 3825
+Wire Wire Line
+	5250 3825 5250 3500
+Wire Wire Line
+	5150 3500 5250 3500
+Wire Wire Line
+	4500 3600 4500 3825
+Connection ~ 4500 3600
+Wire Wire Line
+	4500 3600 4550 3600
+Wire Wire Line
+	4500 3825 4750 3825
+Wire Wire Line
+	4400 3825 4500 3825
+Connection ~ 4500 3825
+Wire Wire Line
+	4100 3925 4100 3825
+Wire Wire Line
+	3900 3600 4500 3600
+Wire Wire Line
+	4550 3400 3650 3400
+$Comp
+L schmitt_ladder-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue-Range_Slicer_PCB-rescue R12
+U 1 1 5F6ECDD6
+P 4300 4825
+F 0 "R12" V 4375 4750 50  0000 L CNN
+F 1 "100K" V 4450 4750 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 4300 4825 50  0001 C CNN
+F 3 "" H 4300 4825 50  0001 C CNN
+	1    4300 4825
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR05
+U 1 1 5F6ECDE0
+P 4100 4925
+F 0 "#PWR05" H 4100 4675 50  0001 C CNN
+F 1 "GND" H 4105 4752 50  0000 C CNN
+F 2 "" H 4100 4925 50  0001 C CNN
+F 3 "" H 4100 4925 50  0001 C CNN
+	1    4100 4925
+	1    0    0    -1  
+$EndComp
+$Comp
+L schmitt_ladder-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue-Range_Slicer_PCB-rescue R13
+U 1 1 5F6ECDEA
+P 4850 4825
+F 0 "R13" V 4925 4750 50  0000 L CNN
+F 1 "100K" V 5000 4750 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 4850 4825 50  0001 C CNN
+F 3 "" H 4850 4825 50  0001 C CNN
+	1    4850 4825
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4200 4825 4100 4825
+Wire Wire Line
+	4950 4825 5250 4825
+Wire Wire Line
+	5250 4825 5250 4500
+Wire Wire Line
+	4500 4600 4500 4825
+Wire Wire Line
+	4500 4825 4750 4825
+Wire Wire Line
+	4400 4825 4500 4825
+Connection ~ 4500 4825
+Wire Wire Line
+	4100 4925 4100 4825
+Wire Wire Line
+	3900 4600 4500 4600
+Wire Wire Line
+	4550 4400 3650 4400
+Wire Wire Line
+	4500 4600 4550 4600
+Connection ~ 4500 4600
+Wire Wire Line
+	5150 4500 5250 4500
+Wire Wire Line
+	5250 4500 5400 4500
+Connection ~ 5250 4500
+Wire Wire Line
+	5250 3500 5400 3500
+Connection ~ 5250 3500
+Wire Wire Line
+	3900 4600 3900 3600
+Wire Wire Line
+	3650 3400 3650 3725
+Wire Wire Line
+	3650 3925 3650 4400
+Connection ~ 3650 4400
+Connection ~ 3650 2375
+Connection ~ 3650 3400
+Wire Wire Line
+	3650 4925 3650 5425
+$Comp
+L Amplifier_Operational:OPA2156xDGK U3
+U 1 1 5F7058BC
+P 4850 5525
+F 0 "U3" H 4825 5300 50  0000 L CNN
+F 1 "OPA2156xDGK" H 4825 5375 50  0000 L CNN
+F 2 "Package_SO:VSSOP-8_3.0x3.0mm_P0.65mm" H 4850 5525 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/opa2156.pdf" H 4850 5525 50  0001 C CNN
+	1    4850 5525
+	1    0    0    1   
+$EndComp
+$Comp
+L Amplifier_Operational:OPA2156xDGK U3
+U 2 1 5F7058C6
+P 4850 6525
+F 0 "U3" H 4825 6300 50  0000 L CNN
+F 1 "OPA2156xDGK" H 4825 6375 50  0000 L CNN
+F 2 "Package_SO:VSSOP-8_3.0x3.0mm_P0.65mm" H 4850 6525 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/opa2156.pdf" H 4850 6525 50  0001 C CNN
+	2    4850 6525
+	1    0    0    1   
+$EndComp
+$Comp
+L schmitt_ladder-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue-Range_Slicer_PCB-rescue R15
+U 1 1 5F7058D0
+P 4300 5850
+F 0 "R15" V 4375 5775 50  0000 L CNN
+F 1 "100K" V 4450 5775 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 4300 5850 50  0001 C CNN
+F 3 "" H 4300 5850 50  0001 C CNN
+	1    4300 5850
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR06
+U 1 1 5F7058DA
+P 4100 5950
+F 0 "#PWR06" H 4100 5700 50  0001 C CNN
+F 1 "GND" H 4105 5777 50  0000 C CNN
+F 2 "" H 4100 5950 50  0001 C CNN
+F 3 "" H 4100 5950 50  0001 C CNN
+	1    4100 5950
+	1    0    0    -1  
+$EndComp
+$Comp
+L schmitt_ladder-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue-Range_Slicer_PCB-rescue R16
+U 1 1 5F7058E4
+P 4850 5850
+F 0 "R16" V 4925 5775 50  0000 L CNN
+F 1 "100K" V 5000 5775 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 4850 5850 50  0001 C CNN
+F 3 "" H 4850 5850 50  0001 C CNN
+	1    4850 5850
+	0    1    1    0   
+$EndComp
+$Comp
+L schmitt_ladder-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue-Range_Slicer_PCB-rescue R14
+U 1 1 5F7058EE
+P 3650 5850
+F 0 "R14" H 3600 5800 50  0000 R CNN
+F 1 "10K" H 3600 5875 50  0000 R CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 3650 5850 50  0001 C CNN
+F 3 "" H 3650 5850 50  0001 C CNN
+	1    3650 5850
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	4200 5850 4100 5850
+Wire Wire Line
+	4950 5850 5250 5850
+Wire Wire Line
+	5250 5850 5250 5525
+Wire Wire Line
+	5150 5525 5250 5525
+Wire Wire Line
+	4500 5625 4500 5850
+Connection ~ 4500 5625
+Wire Wire Line
+	4500 5625 4550 5625
+Wire Wire Line
+	4500 5850 4750 5850
+Wire Wire Line
+	4400 5850 4500 5850
+Connection ~ 4500 5850
+Wire Wire Line
+	4100 5950 4100 5850
+Wire Wire Line
+	3900 5625 4500 5625
+Wire Wire Line
+	4550 5425 3650 5425
+$Comp
+L schmitt_ladder-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue-Range_Slicer_PCB-rescue R17
+U 1 1 5F705905
+P 4300 6850
+F 0 "R17" V 4375 6775 50  0000 L CNN
+F 1 "100K" V 4450 6775 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 4300 6850 50  0001 C CNN
+F 3 "" H 4300 6850 50  0001 C CNN
+	1    4300 6850
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR08
+U 1 1 5F70590F
+P 4100 6950
+F 0 "#PWR08" H 4100 6700 50  0001 C CNN
+F 1 "GND" H 4105 6777 50  0000 C CNN
+F 2 "" H 4100 6950 50  0001 C CNN
+F 3 "" H 4100 6950 50  0001 C CNN
+	1    4100 6950
+	1    0    0    -1  
+$EndComp
+$Comp
+L schmitt_ladder-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue-Range_Slicer_PCB-rescue R18
+U 1 1 5F705919
+P 4850 6850
+F 0 "R18" V 4925 6775 50  0000 L CNN
+F 1 "100K" V 5000 6775 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 4850 6850 50  0001 C CNN
+F 3 "" H 4850 6850 50  0001 C CNN
+	1    4850 6850
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4200 6850 4100 6850
+Wire Wire Line
+	4950 6850 5250 6850
+Wire Wire Line
+	5250 6850 5250 6525
+Wire Wire Line
+	4500 6625 4500 6850
+Wire Wire Line
+	4500 6850 4750 6850
+Wire Wire Line
+	4400 6850 4500 6850
+Connection ~ 4500 6850
+Wire Wire Line
+	4100 6950 4100 6850
+Wire Wire Line
+	3900 6625 4500 6625
+Wire Wire Line
+	4550 6425 3650 6425
+Wire Wire Line
+	4500 6625 4550 6625
+Connection ~ 4500 6625
+Wire Wire Line
+	5150 6525 5250 6525
+Wire Wire Line
+	5250 6525 5400 6525
+Connection ~ 5250 6525
+Wire Wire Line
+	5250 5525 5400 5525
+Connection ~ 5250 5525
+Wire Wire Line
+	3900 6625 3900 5625
+$Comp
+L schmitt_ladder-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue-Range_Slicer_PCB-rescue R1
+U 1 1 5F705935
+P 3650 1175
+F 0 "R1" H 3500 1125 50  0000 L CNN
+F 1 "10K" H 3450 1200 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 3650 1175 50  0001 C CNN
+F 3 "" H 3650 1175 50  0001 C CNN
+	1    3650 1175
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3650 5425 3650 5750
+Wire Wire Line
+	3650 5950 3650 6425
+Connection ~ 3650 6425
+Connection ~ 3650 5425
+$Comp
+L power:+10V #PWR01
+U 1 1 5F7A0E19
+P 3650 975
+F 0 "#PWR01" H 3650 825 50  0001 C CNN
+F 1 "+10V" H 3665 1148 50  0000 C CNN
+F 2 "" H 3650 975 50  0001 C CNN
+F 3 "" H 3650 975 50  0001 C CNN
+	1    3650 975 
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	11150 5525 11050 5525
+	3650 1375 3650 1275
+Connection ~ 3650 1375
+Wire Wire Line
+	3650 1075 3650 975 
 $Comp
-L Amplifier_Operational:OPA2156xDGK U5
-U 2 1 5FC61A7A
-P 11450 5625
-F 0 "U5" H 11450 5992 50  0000 C CNN
-F 1 "OPA2156xDGK" H 11450 5901 50  0000 C CNN
-F 2 "Package_SO:VSSOP-8_3.0x3.0mm_P0.65mm" H 11450 5625 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/opa2156.pdf" H 11450 5625 50  0001 C CNN
-	2    11450 5625
-	1    0    0    1   
+L power:GND #PWR07
+U 1 1 5F7AFEE0
+P 3650 6950
+F 0 "#PWR07" H 3650 6700 50  0001 C CNN
+F 1 "GND" H 3655 6777 50  0000 C CNN
+F 2 "" H 3650 6950 50  0001 C CNN
+F 3 "" H 3650 6950 50  0001 C CNN
+	1    3650 6950
+	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	11750 5625 11850 5625
+	3650 6425 3650 6950
 Wire Wire Line
-	11150 5725 11050 5725
+	3900 2025 3150 2025
+Connection ~ 3900 2025
 Wire Wire Line
-	11050 5725 11050 6075
+	3900 2025 3900 1575
+Text GLabel 3150 2025 0    50   Input ~ 0
+INPUT
+Text GLabel 5400 1475 2    50   Output ~ 0
+SLICE_n
+Text GLabel 5400 2475 2    50   Output ~ 0
+SLICE_n-1
+Text GLabel 5400 3500 2    50   Output ~ 0
+SLICE_n-2
+Text GLabel 5400 4500 2    50   Output ~ 0
+SLICE_n-3
+Text GLabel 5400 5525 2    50   Output ~ 0
+SLICE_n-4
 Wire Wire Line
-	11050 6075 12100 6075
+	3650 1900 3650 2375
+$Comp
+L schmitt_ladder-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue-Range_Slicer_PCB-rescue R2
+U 1 1 5F6CF316
+P 3650 1800
+F 0 "R2" H 3500 1750 50  0000 L CNN
+F 1 "10K" H 3450 1825 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 3650 1800 50  0001 C CNN
+F 3 "" H 3650 1800 50  0001 C CNN
+	1    3650 1800
+	-1   0    0    1   
+$EndComp
 Wire Wire Line
-	12100 6075 12100 4750
+	3650 4400 3650 4725
+$Comp
+L schmitt_ladder-rescue:R_Small-device-2019-04-06_Range_Slicer_PCB-rescue-Range_Slicer_PCB-rescue R11
+U 1 1 5F6ECE06
+P 3650 4825
+F 0 "R11" H 3450 4775 50  0000 L CNN
+F 1 "10K" H 3450 4850 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 3650 4825 50  0001 C CNN
+F 3 "" H 3650 4825 50  0001 C CNN
+	1    3650 4825
+	-1   0    0    1   
+$EndComp
+Text GLabel 5400 6525 2    50   Output ~ 0
+SLICE_0
 Wire Wire Line
-	12100 4750 11800 4750
+	3900 2575 3900 3600
+Connection ~ 3900 2575
+Connection ~ 3900 3600
 Wire Wire Line
-	11800 4750 11800 4550
-Text Notes 2375 5075 0    50   ~ 0
-Input Signals
-Text Notes 12675 6250 0    50   ~ 0
-Output Signals
-Wire Wire Line
-	11550 1150 12200 1150
-Wire Wire Line
-	11400 1000 11000 1000
-Wire Wire Line
-	11000 1000 11000 1150
-Wire Wire Line
-	11600 4050 12250 4050
-Wire Wire Line
-	11450 3900 11050 3900
-Wire Wire Line
-	11050 3900 11050 4050
+	3900 4600 3900 5625
+Connection ~ 3900 4600
+Connection ~ 3900 5625
 $EndSCHEMATC
