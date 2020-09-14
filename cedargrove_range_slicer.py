@@ -22,7 +22,7 @@
 """
 `cedargrove_range_slicer`
 ================================================================================
-Range_Slicer 2020-09-13 v32 6:35PM
+Range_Slicer 2020-09-14 v32 10:52AM
 A CircuitPython class for scaling a range of input values into indexed/quantized
 output values. Output slice hysteresis is used to provide dead-zone squelching.
 
@@ -186,13 +186,16 @@ class Slicer:
             if self._idx_mapped > self._old_idx_mapped:
                 #print('in LOWER band and INcreasing -- entered band from a LOWER slice')
                 #print('change _index:', self._index, ' to _idx_quan:', self._idx_quan)
-                self._index = self._idx_quan
+                self._index = self._slice_thresh - self._slice
 
-            """elif self._idx_mapped < self._old_idx_mapped:
+            elif self._idx_mapped < self._old_idx_mapped:
                 #print('in LOWER band and DEcreasing -- entered band from an UPPER slice')
+                if self._old_idx != self._slice_thresh:
+                    print('in LOWER band, DEcreasing, from UPPER slice:', self._old_idx, 'set to curent _slice_thresh:', self._slice_thresh)
+                    self._index = self._slice_thresh
                 pass
 
-            else:
+            """else:
                 #print('* in LOWER band and SAME as before')
                 pass"""
 
@@ -204,13 +207,14 @@ class Slicer:
                 #print('in UPPER band and INcreasing -- entered band from a LOWER slice')
                 if self._idx_mapped > self._idx_quan + self._hyst_band:
                     #print('change _index:', self._index, ' to _idx_quan:', self._idx_quan)
-                    self._index = self._idx_quan
+                    self._index = self._slice_thresh
 
-            """elif self._idx_mapped < self._old_idx_mapped:
-                #print('in UPPER band and DEcreasing -- entered band from an UPPER slice')
+            elif self._idx_mapped < self._old_idx_mapped:
+                print('in UPPER band, DEcreasing, from UPPER slice', self._old_idx, 'set to curent _slice_thresh:', self._slice_thresh)
+                self._index = self._slice_thresh
                 pass
 
-            else:
+            """else:
                 #print('* in UPPER band and SAME as before')
                 pass"""
 
@@ -234,6 +238,7 @@ class Slicer:
             return int(self._index), False
 
         self._old_idx_mapped = self._idx_mapped  # save for next cycle
+        self._old_idx_quan   = self._idx_quan
 
         return self._index, False
 
