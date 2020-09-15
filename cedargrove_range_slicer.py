@@ -174,10 +174,10 @@ class Slicer:
         # quantize and add back the _out_min bias
         self._idx_quan = (self._slice_num * self._slice) + self._out_min
 
-        """print('')
-        print('_idx_mapped:', self._idx_mapped, '_hyst_band:', self._hyst_band, '_idx_quan + _slice:', self._idx_quan + self._slice)
-        print('lower band from _idx_quan + _slice - _band to _idx_quan + _slice:', self._idx_quan + self._slice - self._hyst_band, self._idx_quan + self._slice)
-        print('upper band from _idx_quan                  to _idx_quan +  _band:', self._idx_quan, self._idx_quan + self._hyst_band)"""
+        #print('')
+        #print('_idx_mapped:', self._idx_mapped, '_hyst_band:', self._hyst_band, '_idx_quan + _slice:', self._idx_quan + self._slice)
+        #print('lower band from _idx_quan + _slice - _band to _idx_quan + _slice:', self._idx_quan + self._slice - self._hyst_band, self._idx_quan + self._slice)
+        #print('upper band from _idx_quan                  to _idx_quan +  _band:', self._idx_quan, self._idx_quan + self._hyst_band)"""
 
         # is mapped value in lower band??
         if self._idx_mapped > self._idx_quan + ((1 - self._hyst_factor) * self._slice) and self._idx_mapped < (self._idx_quan + self._slice):
@@ -191,7 +191,7 @@ class Slicer:
             elif self._idx_mapped < self._old_idx_mapped:
                 #print('in LOWER band and DEcreasing -- entered band from an UPPER slice')
                 if self._old_idx != self._slice_thresh:
-                    print('in LOWER band, DEcreasing, from UPPER slice:', self._old_idx, 'set to curent _slice_thresh:', self._slice_thresh)
+                    #print('in LOWER band, DEcreasing, from UPPER slice:', self._old_idx, 'set to curent _slice_thresh:', self._slice_thresh)
                     self._index = self._slice_thresh
                 pass
 
@@ -210,7 +210,7 @@ class Slicer:
                     self._index = self._slice_thresh
 
             elif self._idx_mapped < self._old_idx_mapped:
-                print('in UPPER band, DEcreasing, from UPPER slice', self._old_idx, 'set to curent _slice_thresh:', self._slice_thresh)
+                #print('in UPPER band, DEcreasing, from UPPER slice', self._old_idx, 'set to curent _slice_thresh:', self._slice_thresh)
                 self._index = self._slice_thresh
                 pass
 
