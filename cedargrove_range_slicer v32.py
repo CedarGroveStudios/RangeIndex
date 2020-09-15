@@ -22,7 +22,7 @@
 """
 `cedargrove_range_slicer`
 ================================================================================
-Range_Slicer 2020-09-14 v33 9:09PM
+Range_Slicer 2020-09-14 v32 8:17PM
 A CircuitPython class for scaling a range of input values into indexed/quantized
 output values. Output slice hysteresis is used to provide dead-zone squelching.
 
@@ -156,6 +156,7 @@ class Slicer:
             print("*Init: ", self.__dict__)"""
 
 
+    # -------------------------------------------------------------------- #
     def range_slicer(self, input=0):
         """Determines an index (output) value from the input value. Returns new
            index value and a change flag (True/False) if the new index changed
@@ -164,6 +165,7 @@ class Slicer:
            This is the primary function of the Slicer class. """
 
         self._hyst_band = self._hyst_factor * self._slice
+
         # map hysteresis-adjusted input and remove _out_min bias
         self._idx_mapped = self.mapper(input)
         # calculate the sequential slice number
@@ -172,45 +174,76 @@ class Slicer:
         # quantize and add back the _out_min bias
         self._idx_quan = (self._slice_num * self._slice) + self._out_min
 
+        #print('')
+        #print('_idx_mapped:', self._idx_mapped, '_hyst_band:', self._hyst_band, '_idx_quan + _slice:', self._idx_quan + self._slice)
+        #print('lower band from _idx_quan + _slice - _band to _idx_quan + _slice:', self._idx_quan + self._slice - self._hyst_band, self._idx_quan + self._slice)
+        #print('upper band from _idx_quan                  to _idx_quan +  _band:', self._idx_quan, self._idx_quan + self._hyst_band)"""
+
         # is mapped value in lower band??
         if self._idx_mapped > self._idx_quan + ((1 - self._hyst_factor) * self._slice) and self._idx_mapped < (self._idx_quan + self._slice):
             self._slice_thresh = self._idx_quan + self._slice
+            #print('_slice_thresh:', self._slice_thresh)
             if self._idx_mapped > self._old_idx_mapped:
+                #print('in LOWER band and INcreasing -- entered band from a LOWER slice')
+                #print('change _index:', self._index, ' to _idx_quan:', self._idx_quan)
                 self._index = self._slice_thresh - self._slice
+
             elif self._idx_mapped < self._old_idx_mapped:
+                #print('in LOWER band and DEcreasing -- entered band from an UPPER slice')
                 if self._old_idx != self._slice_thresh:
+                    #print('in LOWER band, DEcreasing, from UPPER slice:', self._old_idx, 'set to curent _slice_thresh:', self._slice_thresh)
                     self._index = self._slice_thresh
 
-        # is mapped value in upper band?
+            """else:
+                #print('* in LOWER band and SAME as before')
+                pass"""
+
+                # is mapped value in upper band?
         elif self._idx_mapped >= self._idx_quan and self._idx_mapped < (self._idx_quan + self._hyst_band):
             self._slice_thresh = self._idx_quan
+            #print('_slice_thresh:', self._slice_thresh)
             if self._idx_mapped > self._old_idx_mapped:
+                #print('in UPPER band and INcreasing -- entered band from a LOWER slice')
                 if self._idx_mapped > self._idx_quan + self._hyst_band:
+                    #print('change _index:', self._index, ' to _idx_quan:', self._idx_quan)
                     self._index = self._slice_thresh
                 else:
                     self._index = self._slice_thresh - self._slice
+
             elif self._idx_mapped < self._old_idx_mapped:
+                #print('in UPPER band, DEcreasing, from UPPER slice', self._old_idx, 'set to curent _slice_thresh:', self._slice_thresh)
                 self._index = self._slice_thresh
+
+            """else:
+                #print('* in UPPER band and SAME as before')
+                pass"""
+
         else:
+            #print('--> NOT in either band')
+            #print('--> _idx_mapped:', self._idx_mapped)
+            #print('--> change _index:', self._index, ' to _idx_quan:', self._idx_quan)
             self._index = self._idx_quan
 
         #if mapped value is greater than or equal to the output maximum, set index to maximum
         if self._idx_mapped >= self._out_max:
             self._index = self._out_max
 
-        # Limit index value to within index span (is this needed?)
+        """# Limit index value to within index span (is this needed?)
         if self._out_min <= self._out_max:
             self._index = max(min(self._index, self._out_max), self._out_min)
         else:
-            self._index = min(max(self._index, self._out_max), self._out_min)
+            self._index = min(max(self._index, self._out_max), self._out_min)"""
+
+        if self._out_integer:  # is the output value data type integer?
+            return int(self._index), False
 
         self._old_idx_mapped = self._idx_mapped  # save for next cycle
         self._old_idx_quan   = self._idx_quan
 
-        if self._out_integer:  # is the output value data type integer?
-            return int(self._index), False
         return self._index, False
 
+
+    # -------------------------------------------------------------------- #
     def mapper(self, map_in):
         """Determines the output value based on the input value.
            (from Adafruit.CircuitPython.simpleio.map_range)  """
