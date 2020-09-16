@@ -22,7 +22,7 @@
 """
 `cedargrove_range_slicer`
 ================================================================================
-Range_Slicer 2020-09-15 v33 5:00PM
+Range_Slicer 2020-09-15 v33 9:05PM
 A CircuitPython class for scaling a range of input values into indexed/quantized
 output values. Output slice hysteresis is used to provide dead-zone squelching.
 
@@ -172,35 +172,24 @@ class Slicer:
         # quantize and add back the _out_min bias
         self._idx_quan = (self._slice_num * self._slice) + self._out_min
 
+        self._slice_thresh = self._idx_quan
+        #print('slice threshold:', self._slice_thresh)
+
         # determine if the input value is increasing or decreasing
         if self._idx_mapped > self._old_idx_mapped:
-            print('input is INcreasing; subtract hyst_band bias')
-            self._idx_mapped_biased = self._idx_mapped  self._hyst_band
-        if self._idx_mapped < self._old_idx_mapped:
-            print('input is DEcreasing; add hust_band bias')
-            self._idx_mapped_biased = self._idx_mapped + self._hyst_band
-
-        # is mapped value in lower band??
-        if self._idx_mapped > self._idx_quan + ((1 - self._hyst_factor) * self._slice) and self._idx_mapped < (self._idx_quan + self._slice):
-            self._slice_thresh = self._idx_quan + self._slice
-            if self._idx_mapped > self._old_idx_mapped:
-                self._index = self._slice_thresh - self._slice
-            elif self._idx_mapped < self._old_idx_mapped:
-                if self._old_idx != self._slice_thresh:
-                    self._index = self._slice_thresh
-
-        # is mapped value in upper band?
-        elif self._idx_mapped >= self._idx_quan and self._idx_mapped < (self._idx_quan + self._hyst_band):
-            self._slice_thresh = self._idx_quan
-            if self._idx_mapped > self._old_idx_mapped:
-                if self._idx_mapped > self._idx_quan + self._hyst_band:
-                    self._index = self._slice_thresh
-                else:
-                    self._index = self._slice_thresh - self._slice
-            elif self._idx_mapped < self._old_idx_mapped:
+            self._idx_mapped_biased = self._idx_mapped - self._hyst_band
+            if self._idx_mapped_biased > self._slice_thresh:
                 self._index = self._slice_thresh
-        else:
-            self._index = self._idx_quan
+            else:
+                self._index = self._slice_thresh - self._slice
+
+        if self._idx_mapped < self._old_idx_mapped:
+            self._slice_thresh = self._slice_thresh + self._slice
+            self._idx_mapped_biased = self._idx_mapped + self._hyst_band
+            if self._idx_mapped_biased < self._slice_thresh:
+                self._index = self._slice_thresh - self._slice
+            else:
+                self._index = self._slice_thresh
 
         #if mapped value is greater than or equal to the output maximum, set index to maximum
         if self._idx_mapped >= self._out_max:
