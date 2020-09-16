@@ -22,7 +22,7 @@
 """
 `cedargrove_range_slicer`
 ================================================================================
-Range_Slicer 2020-09-14 v33 9:09PM
+Range_Slicer 2020-09-15 v33 5:00PM
 A CircuitPython class for scaling a range of input values into indexed/quantized
 output values. Output slice hysteresis is used to provide dead-zone squelching.
 
@@ -171,6 +171,14 @@ class Slicer:
                               / self._slice)
         # quantize and add back the _out_min bias
         self._idx_quan = (self._slice_num * self._slice) + self._out_min
+
+        # determine if the input value is increasing or decreasing
+        if self._idx_mapped > self._old_idx_mapped:
+            print('input is INcreasing; subtract hyst_band bias')
+            self._idx_mapped_biased = self._idx_mapped  self._hyst_band
+        if self._idx_mapped < self._old_idx_mapped:
+            print('input is DEcreasing; add hust_band bias')
+            self._idx_mapped_biased = self._idx_mapped + self._hyst_band
 
         # is mapped value in lower band??
         if self._idx_mapped > self._idx_quan + ((1 - self._hyst_factor) * self._slice) and self._idx_mapped < (self._idx_quan + self._slice):
