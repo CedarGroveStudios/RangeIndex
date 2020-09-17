@@ -22,7 +22,7 @@
 """
 `cedargrove_range_slicer`
 ================================================================================
-Range_Slicer 2020-09-15 v40 11:17AM
+Range_Slicer 2020-09-15 v33 9:05PM
 A CircuitPython class for scaling a range of input values into indexed/quantized
 output values. Output slice hysteresis is used to provide dead-zone squelching.
 
@@ -163,42 +163,35 @@ class Slicer:
            integer data type.
            This is the primary function of the Slicer class. """
 
-        # calculate hysteresis band size
         self._hyst_band = self._hyst_factor * self._slice
-        print('hyst_band:', self._hyst_band)
-        # map hysteresis-adjusted input and add hysteresis bias
-        self._idx_mapped = self.mapper(input) + self._hyst_band
-        # calculate the sequential slice number (*** subtract out_min? ***)
+        # map hysteresis-adjusted input and remove _out_min bias
+        self._idx_mapped = self.mapper(input)
+        # calculate the sequential slice number
         self._slice_num = (((self._idx_mapped - self._out_min) - ((self._idx_mapped - self._out_min) % self._slice))
                               / self._slice)
-        print('slice number:', self._slice_num)
-        # quantize and add back the _out_min bias to calculate slice_threshold  (*** see above ***)
-        self._slice_thresh = (self._slice_num * self._slice) + self._out_min
-        print('mapped + bias:', self._idx_mapped, 'slice threshold:', self._slice_thresh)
+        # quantize and add back the _out_min bias
+        self._idx_quan = (self._slice_num * self._slice) + self._out_min
 
-        self._upper_zone_limit = self._slice_thresh + (2 * self._hyst_band)
+        self._slice_thresh = self._idx_quan
+        #print('slice threshold:', self._slice_thresh)
 
-        # test to see if value is in the current hysteresis zone ("in-zone") and coming from outside
-        print('zone thresholds  upper:', self._upper_zone_limit, 'lower:', self._slice_thresh)
-        if (self._idx_mapped <= self._upper_zone_limit and self._idx_mapped >= self._slice_thresh):
-            if self._in_zone != self._slice_thresh:  # if not from the current hysteresis zone
-                self._in_zone = self._slice_thresh  # toggle in_zone "on"
-                print('in_zone:', self._in_zone)
+        # determine if the input value is increasing or decreasing
+        if self._idx_mapped > self._old_idx_mapped:
+            self._idx_mapped_biased = self._idx_mapped - self._hyst_band
+            if self._idx_mapped_biased > self._slice_thresh:
+                self._index = self._slice_thresh
+            else:
+                self._index = self._slice_thresh - self._slice
 
-                # if value is increasing
-                if self._idx_mapped > self._old_idx_mapped:
-                    self._index = self._slice_thresh
-
-                if self._idx_mapped < self._old_idx_mapped:
-                    self._index = self._slice_thresh - self._slice
-
-        else:
-            self._in_zone = None  # toggle in_zone "off"
-            print('in_zone:', self._in_zone)
-            self._index = self._slice_thresh
+        if self._idx_mapped < self._old_idx_mapped:
+            self._slice_thresh = self._slice_thresh + self._slice
+            self._idx_mapped_biased = self._idx_mapped + self._hyst_band
+            if self._idx_mapped_biased < self._slice_thresh:
+                self._index = self._slice_thresh - self._slice
+            else:
+                self._index = self._slice_thresh
 
         #if mapped value is greater than or equal to the output maximum, set index to maximum
-        # *** subtract hysteresis bias from _idx_mapped first? ***
         if self._idx_mapped >= self._out_max:
             self._index = self._out_max
 
@@ -209,6 +202,7 @@ class Slicer:
             self._index = min(max(self._index, self._out_max), self._out_min)
 
         self._old_idx_mapped = self._idx_mapped  # save for next cycle
+        self._old_idx_quan   = self._idx_quan
 
         if self._out_integer:  # is the output value data type integer?
             return int(self._index), False
@@ -273,7 +267,6 @@ class Slicer:
         self._in_dir = 0
         self._old_idx_mapped = 0
         self._slice_thresh = None
-        self._in_zone = None
 
         # offset parameters
         self._offset = 0
