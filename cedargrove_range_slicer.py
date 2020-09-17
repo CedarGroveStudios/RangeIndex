@@ -22,7 +22,7 @@
 """
 `cedargrove_range_slicer`
 ================================================================================
-Range_Slicer 2020-09-15 v40 11:17AM
+Range_Slicer 2020-09-15 v40 03:06PM
 A CircuitPython class for scaling a range of input values into indexed/quantized
 output values. Output slice hysteresis is used to provide dead-zone squelching.
 
@@ -41,7 +41,7 @@ class Slicer:
     """range_slicer helper class."""
 
     def __init__(self, in_min=0, in_max=65535, out_min=0, out_max=65535,
-                 slice=1.0, hyst_factor=0.25, out_integer=False, debug=False):
+                 slice=1.0, hyst_factor=0.10, out_integer=False, debug=False):
 
         # input parameters
         self._in_min = in_min
@@ -66,7 +66,7 @@ class Slicer:
             print("*Init:", self.__class__)
             print("*Init: ", self.__dict__)"""
 
-        self.param_updater() # Establish the parameters for range_slicer helper
+        self._update_param() # Establish the parameters for range_slicer helper
 
     @property
     def range_min(self):
@@ -77,7 +77,7 @@ class Slicer:
     @range_min.setter
     def range_min(self, in_min=0):
         self._in_min = in_min
-        self.param_updater() # Update the parameters for range_slicer helper
+        self._update_param() # Update the parameters for range_slicer helper
 
     @property
     def range_max(self):
@@ -88,7 +88,7 @@ class Slicer:
     @range_max.setter
     def range_max(self, in_max=65535):
         self._in_max = in_max
-        self.param_updater() # Update the parameters for range_slicer helper
+        self._update_param() # Update the parameters for range_slicer helper
 
     @property
     def index_min(self):
@@ -98,7 +98,7 @@ class Slicer:
     @index_min.setter
     def index_min(self, out_min=0):
         self._out_min = out_min
-        self.param_updater() # Update the parameters for range_slicer helper
+        self._update_param() # Update the parameters for range_slicer helper
 
     @property
     def index_max(self):
@@ -108,7 +108,7 @@ class Slicer:
     @index_max.setter
     def index_max(self, out_max=65535):
         self._out_max = out_max
-        self.param_updater() # Update the parameters for range_slicer helper
+        self._update_param() # Update the parameters for range_slicer helper
 
     @property
     def index_type(self):
@@ -119,7 +119,7 @@ class Slicer:
     @index_type.setter
     def index_type(self, out_integer=False):
         self._out_integer = out_integer
-        self.param_updater() # Update the parameters for range_slicer helper
+        self._update_param() # Update the parameters for range_slicer helper
 
     @property
     def slice(self):
@@ -131,16 +131,16 @@ class Slicer:
         if size <= 0:
             raise RuntimeError("Invalid Slice setting; value must be greater than zero")
         self._slice = size
-        self.param_updater() # Update the parameters for range_slicer helper
+        self._update_param() # Update the parameters for range_slicer helper
 
     @property
     def hysteresis(self):
         """The hysteresis factor value. For example, a factor of 0.50 is a
-        hysteresis setting of 50%. Default is 0.25"""
+        hysteresis setting of 50%. Default is 0.10"""
         return self._hyst_factor
 
     @hysteresis.setter
-    def hysteresis(self, hyst_factor=0.25):
+    def hysteresis(self, hyst_factor=0.10):
         self._hyst_factor = hyst_factor
 
     @property
@@ -163,72 +163,69 @@ class Slicer:
            integer data type.
            This is the primary function of the Slicer class. """
 
-        # calculate hysteresis band size
-        self._hyst_band = self._hyst_factor * self._slice
-        #print('hyst_band:', self._hyst_band)
         # map hysteresis-adjusted input and add hysteresis bias
-        self._idx_mapped = self.mapper(input) + self._hyst_band
-        # calculate the sequential slice number (*** subtract out_min? ***)
-        self._slice_num = (((self._idx_mapped - self._out_min) - ((self._idx_mapped - self._out_min) % self._slice))
+        idx_mapped = self._mapper(input) + self._hyst_band
+        # calculate the sequential slice number (*** subtract out_min offset? ***)
+        slice_num = (((idx_mapped - self._out_min) - ((idx_mapped - self._out_min) % self._slice))
                               / self._slice)
-        #print('slice number:', self._slice_num)
-        # quantize and add back the _out_min bias to calculate slice_threshold  (*** see above ***)
-        self._slice_thresh = (self._slice_num * self._slice) + self._out_min
-        #print('mapped + bias:', self._idx_mapped, 'slice threshold:', self._slice_thresh)
+        #print('slice number:', slice_num)
+        # quantize and add back the _out_min offset to calculate slice_threshold  (*** see above ***)
+        slice_thresh = (slice_num * self._slice) + self._out_min
+        #print('mapped + bias:', idx_mapped, 'slice threshold:', slice_thresh)
 
-        self._upper_zone_limit = self._slice_thresh + (2 * self._hyst_band)
+        upper_zone_limit = slice_thresh + (2 * self._hyst_band)
 
-        # test to see if value is in the current hysteresis zone ("in-zone") and coming from outside
-        #print('zone thresholds  upper:', self._upper_zone_limit, 'lower:', self._slice_thresh)
-        if (self._idx_mapped <= self._upper_zone_limit and self._idx_mapped >= self._slice_thresh):
-            if self._in_zone != self._slice_thresh:  # if not from the current hysteresis zone
-                self._in_zone = self._slice_thresh  # toggle in_zone "on"
+        # test to see if value is in the current hysteresis zone ("in-zone") and direction arriving from outside zone
+        #print('zone thresholds  upper:', upper_zone_limit, 'lower:', slice_thresh)
+        if (idx_mapped <= upper_zone_limit and idx_mapped >= slice_thresh):
+            if self._in_zone != slice_thresh:  # if not from the current hysteresis zone
+                self._in_zone = slice_thresh  # toggle in_zone state "on"
                 #print('in_zone:', self._in_zone)
 
                 # if value is increasing
-                if self._idx_mapped > self._old_idx_mapped:
-                    self._index = self._slice_thresh - self._slice
+                if idx_mapped > self._old_idx_mapped:
+                    self._index = slice_thresh - self._slice
 
                 # if value is decreasing
-                if self._idx_mapped < self._old_idx_mapped:
-                    self._index = self._slice_thresh
+                if idx_mapped < self._old_idx_mapped:
+                    self._index = slice_thresh
 
         else:
-            self._in_zone = None  # toggle in_zone "off"
+            self._in_zone = None  # toggle in_zone state "off"
             #print('in_zone:', self._in_zone)
-            self._index = self._slice_thresh
+            self._index = slice_thresh
 
         #if mapped value is greater than or equal to the output maximum, set index to maximum
         # *** subtract hysteresis bias from _idx_mapped first? ***
-        if self._idx_mapped >= self._out_max:
+        if idx_mapped >= self._out_max:
             self._index = self._out_max
 
-        # Limit index value to within index span (is this needed?)
+        # Limit index value to within index min and max
         if self._out_min <= self._out_max:
             self._index = max(min(self._index, self._out_max), self._out_min)
         else:
             self._index = min(max(self._index, self._out_max), self._out_min)
 
-        self._old_idx_mapped = self._idx_mapped  # save for next cycle
+        self._old_idx_mapped = idx_mapped  # save for next cycle
 
         if self._out_integer:  # is the output value data type integer?
             return int(self._index), False
         return self._index, False
 
-    def mapper(self, map_in):
+    def _mapper(self, map_in):
         """Determines the output value based on the input value.
            (from Adafruit.CircuitPython.simpleio.map_range)  """
 
         if (self._in_min == self._in_max) or (self._out_min == self._out_max):
             return self._out_min
 
-        self._mapped = ((map_in - self._in_min) * (self._out_max - self._out_min)
+        mapped = ((map_in - self._in_min) * (self._out_max - self._out_min)
                         / (self._in_max - self._in_min)) + self._out_min
 
         if self._out_min <= self._out_max:
-            return max(min(self._mapped, self._out_max), self._out_min)
+            return max(min(mapped, self._out_max), self._out_min)
         else:
-            return min(max(self._mapped, self._out_max), self._out_min)
+            return min(max(mapped, self._out_max), self._out_min)
 
     def sign(self, x):
         """Determines the sign of a numeric value. Zero is evaluated as a
@@ -237,7 +234,7 @@ class Slicer:
             return 1
         else: return -1
 
-    def param_updater(self):
+    def _update_param(self):
         """ Establishes and updates parameters for the range_slicer function. """
 
         # input parameters
@@ -262,22 +259,16 @@ class Slicer:
                              / self._slice)) + 1
 
         # hysteresis parameters
-        #   calculate output hysteresis band value based on slice size
+        # calculate hysteresis band size
+        self._hyst_band = self._hyst_factor * self._slice
 
         # output value data type parameters
         #   none
 
         # index and input parameters
         self._index = 0
-        self._old_idx = 0
-        self._old_input = 0
         self._in_dir = 0
         self._old_idx_mapped = 0
-        self._slice_thresh = None
         self._in_zone = None
-
-        # offset parameters
-        self._offset = 0
-        self._in_offset = self._in_span / self._slice_count
 
         return
