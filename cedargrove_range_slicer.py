@@ -171,7 +171,7 @@ class Slicer:
         # calculate the sequential slice number (*** subtract out_min? ***)
         self._slice_num = (((self._idx_mapped - self._out_min) - ((self._idx_mapped - self._out_min) % self._slice))
                               / self._slice)
-        print('slice number:', self._slice_num)
+        #print('slice number:', self._slice_num)
         # quantize and add back the _out_min bias to calculate slice_threshold  (*** see above ***)
         self._slice_thresh = (self._slice_num * self._slice) + self._out_min
         #print('mapped + bias:', self._idx_mapped, 'slice threshold:', self._slice_thresh)
@@ -187,10 +187,11 @@ class Slicer:
 
                 # if value is increasing
                 if self._idx_mapped > self._old_idx_mapped:
-                    self._index = self._slice_thresh
-
-                if self._idx_mapped < self._old_idx_mapped:
                     self._index = self._slice_thresh - self._slice
+
+                # if value is decreasing
+                if self._idx_mapped < self._old_idx_mapped:
+                    self._index = self._slice_thresh
 
         else:
             self._in_zone = None  # toggle in_zone "off"
