@@ -165,7 +165,7 @@ class Slicer:
 
         # calculate hysteresis band size
         self._hyst_band = self._hyst_factor * self._slice
-        print('hyst_band:', self._hyst_band)
+        #print('hyst_band:', self._hyst_band)
         # map hysteresis-adjusted input and add hysteresis bias
         self._idx_mapped = self.mapper(input) + self._hyst_band
         # calculate the sequential slice number (*** subtract out_min? ***)
@@ -174,16 +174,16 @@ class Slicer:
         print('slice number:', self._slice_num)
         # quantize and add back the _out_min bias to calculate slice_threshold  (*** see above ***)
         self._slice_thresh = (self._slice_num * self._slice) + self._out_min
-        print('mapped + bias:', self._idx_mapped, 'slice threshold:', self._slice_thresh)
+        #print('mapped + bias:', self._idx_mapped, 'slice threshold:', self._slice_thresh)
 
         self._upper_zone_limit = self._slice_thresh + (2 * self._hyst_band)
 
         # test to see if value is in the current hysteresis zone ("in-zone") and coming from outside
-        print('zone thresholds  upper:', self._upper_zone_limit, 'lower:', self._slice_thresh)
+        #print('zone thresholds  upper:', self._upper_zone_limit, 'lower:', self._slice_thresh)
         if (self._idx_mapped <= self._upper_zone_limit and self._idx_mapped >= self._slice_thresh):
             if self._in_zone != self._slice_thresh:  # if not from the current hysteresis zone
                 self._in_zone = self._slice_thresh  # toggle in_zone "on"
-                print('in_zone:', self._in_zone)
+                #print('in_zone:', self._in_zone)
 
                 # if value is increasing
                 if self._idx_mapped > self._old_idx_mapped:
@@ -194,7 +194,7 @@ class Slicer:
 
         else:
             self._in_zone = None  # toggle in_zone "off"
-            print('in_zone:', self._in_zone)
+            #print('in_zone:', self._in_zone)
             self._index = self._slice_thresh
 
         #if mapped value is greater than or equal to the output maximum, set index to maximum
