@@ -22,7 +22,7 @@
 """
 `cedargrove_range_slicer`
 ================================================================================
-Range_Slicer 2020-09-15 v41 06:10PM
+Range_Slicer 2020-09-15 v40 06:00PM
 A CircuitPython class for scaling a range of input values into indexed/quantized
 output values. Output slice hysteresis is used to provide dead-zone squelching.
 
@@ -144,38 +144,64 @@ class Slicer:
            integer data type.
            This is the primary function of the Slicer class. """
 
+        # map hysteresis-adjusted input and add hysteresis bias
         idx_mapped = self._mapper(input) + self._hyst_band
+        # calculate the sequential slice number (*** subtract out_min offset? ***)
         slice_num = (((idx_mapped - self._out_span_min) - ((idx_mapped - self._out_span_min) % self._slice)) / self._slice)
+        #print('slice number:', slice_num)
+        # quantize and add back the _out_min offset to calculate slice_threshold  (*** see above ***)
         slice_thresh = (slice_num * self._slice) + self._out_span_min
+        #print('mapped + bias:', idx_mapped, 'slice threshold:', slice_thresh)
+
         upper_zone_limit = slice_thresh + (2 * self._hyst_band)
+
+        # test to see if value is in the current hysteresis zone ("in-zone") and direction arriving from outside zone
+        #print('zone thresholds  upper:', upper_zone_limit, 'lower:', slice_thresh)
         if (idx_mapped <= upper_zone_limit and idx_mapped >= slice_thresh):
-            if self._in_zone != slice_thresh:
-                self._in_zone = slice_thresh
+            if self._in_zone != slice_thresh:  # if not from the current hysteresis zone
+                self._in_zone = slice_thresh  # toggle in_zone state "on"
+                #print('in_zone:', self._in_zone)
+
+                # if value is increasing
                 if idx_mapped > self._old_idx_mapped:
                     self._index = slice_thresh - self._slice
+
+                # if value is decreasing
                 if idx_mapped < self._old_idx_mapped:
                     self._index = slice_thresh
+
         else:
-            self._in_zone = None
+            self._in_zone = None  # toggle in_zone state "off"
+            #print('in_zone:', self._in_zone)
             self._index = slice_thresh
+
+        #if mapped value is greater than or equal to the output maximum, set index to maximum
+        # *** subtract hysteresis bias from _idx_mapped first? ***
         if idx_mapped - self._hyst_band > self._out_span_max:
             self._index = self._out_span_max
+
+        # Limit index value to within index min and max
         if self._out_span_min <= self._out_span_max:
             self._index = max(min(self._index, self._out_span_max), self._out_span_min)
         else:
             self._index = min(max(self._index, self._out_span_max), self._out_span_min)
-        self._old_idx_mapped = idx_mapped
-        if self._out_integer:
+
+        self._old_idx_mapped = idx_mapped  # save for next cycle
+
+        if self._out_integer:  # is the output value data type integer?
             return int(self._index), False
         return self._index, False
 
     def _mapper(self, map_in):
         """Determines the output value based on the input value.
            (from Adafruit.CircuitPython.simpleio.map_range)  """
+
         if (self._in_min == self._in_max) or (self._out_span_min == self._out_span_max):
             return self._out_span_min
+
         mapped = ((map_in - self._in_min) * (self._out_span_max - self._out_span_min)
-                   / (self._in_max - self._in_min)) + self._out_span_min
+                        / (self._in_max - self._in_min)) + self._out_span_min
+
         if self._out_span_min <= self._out_span_max:
             return max(min(mapped, self._out_span_max), self._out_span_min)
         else:
