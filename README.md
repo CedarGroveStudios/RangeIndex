@@ -16,7 +16,7 @@ See use example code in the _examples_ folder.
 •	Adafruit CircuitPython firmware for the supported boards: https://github.com/adafruit/circuitpython/releases
 
 
-#### ```class cedargrove_range_slicer.Slicer(*, in_min=0, in_max=65535, out_min=0, out_max=65535, slice=1.0, hyst_factor=0.25, out_integer=False, debug=False)```
+#### ```class cedargrove_range_slicer.Slicer(*, in_min=0, in_max=65535, out_min=0, out_max=65535, slice=1.0, hyst_factor=0.10, out_integer=False, debug=False)```
 
 Class representing the CedarGroveMaker Range_Slicer.
 
