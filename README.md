@@ -32,7 +32,7 @@ Parameters:
 
 -	`slice` – The size of an output index slice. Can be any positive or negative value other than zero. Defaults to `1.0`.
 
--	`hyst_factor` – The size of the hysteresis threshold expressed as a factor of the slice size. Can be a positive value from 0 to 1.0. Defaults to `0.25` (25% of the slice size value).
+-	`hyst_factor` – The size of the hysteresis threshold expressed as a factor of the slice size. Can be a positive value from 0 to 1.0. Defaults to `0.10` (10% of the slice size value).
 
 - `out_integer` - Truncates the output value to an integer data type. Defaults to False (floating data type).
 
@@ -47,29 +47,38 @@ Parameters:
 - `input` – The input value to convert. Can be any positive or negative numeric value. Defaults to `0`.
 
 
-#### `range(in_min=0, in_max=65535)` 
+#### `range_min(in_min=0)` 
 
-Changes the default input range to new values.
+Changes the default range (input) minimum to a new value.
 
 Parameters:	
 
 - `in_min` – The input range minimum. Can be any positive or negative value, smaller or larger than the input range maximum. Input range minimum and maximum values cannot be equal. Defaults to `0`.
 
-- `in_max` – The input range maximum. Can be any positive or negative value, smaller or larger than the input range minimum. Input range minimum and maximum values cannot be equal. Defaults to `65535`.
 
+#### `range_max(in_max=65535)` 
 
-#### `index(out_min=0, out_max=65535, out_integer=False)` 
-
-Changes the default output index to new values. Optionally sets the output value data type to truncated integer.
+Changes the default range (input) maximum to a new value.
 
 Parameters:	
 
-- `out_min` – The index output minimum. Can be any positive or negative value, smaller or larger than the output index maximum. Output index minimum and maximum values cannot be equal. Defaults to `0`.
+- `in_max` – The input range maximum. Can be any positive or negative value, smaller or larger than the input range minimum. Input range minimum and maximum values cannot be equal. Defaults to `65535`.
 
-- `out_max` – The output index maximum. Can be any positive or negative value, smaller or larger than the output index minimum. Output index minimum and maximum values cannot be equal. Defaults to `65535`.
+#### `index_min(out_min=0)` 
 
-- `out_integer` - Truncates the output value to an integer data type. Defaults to False (floating data type).
+Changes the default index (output) minimum to a new value.
 
+Parameters:	
+
+- `out_min` – The index output minimum. Can be any positive or negative value, SMALLER than the output index maximum. Output index minimum and maximum values cannot be equal. Defaults to `0`.
+
+#### `index_max(out_max=65535)` 
+
+Changes the default index (output) maximum to a new value.
+
+Parameters:	
+
+- `out_max` – The output index maximum. Can be any positive or negative value, LARGER than the output index minimum. Output index minimum and maximum values cannot be equal. Defaults to `65535`.
 
 #### `slice(size=1.0)` 
 
@@ -80,7 +89,7 @@ Parameters:
 - `size` – The size of an index output slice. Can be any positive or negative value other than zero. Defaults to `1.0`.
 
 
-#### `hysteresis(hyst_factor=0.25)`
+#### `hysteresis(hyst_factor=0.10)`
 
 Changes the default hysteresis threshold to a new value.
 
@@ -88,7 +97,17 @@ Parameters:
 
 - `hyst_factor` – The size of the hysteresis threshold expressed as a factor of the slice size. Can be a positive value from 0 to 1.0. Defaults to `0.25` (25% of the slice size value).
 
+
+#### `index_type(out_integer=False)`
+
+Changes the default output index value data type from floating to integer.
+
+Parameters:	
+
+- `out_integer` - Truncates the output value to an integer data type. Defaults to False (floating data type).
+
+
 ![Range_Slicer Logo](https://github.com/CedarGroveStudios/Range_Slicer/blob/master/docs/range%20slicer%20logo%2001.bmp)
 
 ________________________________________
-© Copyright 2019, 2020 Cedar Grove Studios, Revision v2.3. 
+© Copyright 2019, 2020 Cedar Grove Studios, Revision v4.2 Alpha. 
