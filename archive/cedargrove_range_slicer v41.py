@@ -22,7 +22,7 @@
 """
 `cedargrove_range_slicer`
 ================================================================================
-Range_Slicer 2020-09-21 v42 03:02PM
+Range_Slicer 2020-09-15 v41 06:10PM
 A CircuitPython class for scaling a range of input values into indexed/quantized
 output values. Output slice hysteresis is used to provide dead-zone squelching.
 
@@ -144,10 +144,7 @@ class Slicer:
            integer data type.
            This is the primary function of the Slicer class. """
 
-        if self._out_span_dir == 1:
-            idx_mapped = self._mapper(input) + self._hyst_band
-        else:
-            idx_mapped = self._mapper(input) - self._hyst_band
+        idx_mapped = self._mapper(input) + self._hyst_band
         slice_num = (((idx_mapped - self._out_span_min) - ((idx_mapped - self._out_span_min) % self._slice)) / self._slice)
         slice_thresh = (slice_num * self._slice) + self._out_span_min
         upper_zone_limit = slice_thresh + (2 * self._hyst_band)
@@ -161,14 +158,12 @@ class Slicer:
         else:
             self._in_zone = None
             self._index = slice_thresh
+        if idx_mapped - self._hyst_band > self._out_span_max:
+            self._index = self._out_span_max
         if self._out_span_min <= self._out_span_max:
-            """if idx_mapped - self._hyst_band > self._out_span_max:
-                self._index = self._out_span_max"""
             self._index = max(min(self._index, self._out_span_max), self._out_span_min)
         else:
-            """if idx_mapped - self._hyst_band < self._out_span_max:
-                self._index = self._out_span_max"""
-            self._index = min(max(self._index, self._out_span_max), self._out_span_min)  # *** this is it! *** fix this line
+            self._index = min(max(self._index, self._out_span_max), self._out_span_min)
         self._old_idx_mapped = idx_mapped
         if self._out_integer:
             return int(self._index), False
