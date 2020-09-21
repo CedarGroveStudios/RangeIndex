@@ -22,7 +22,7 @@
 """
 `cedargrove_range_slicer`
 ================================================================================
-Range_Slicer 2020-09-21 v42 03:02PM
+Range_Slicer 2020-09-21 v42 03:54PM
 A CircuitPython class for scaling a range of input values into indexed/quantized
 output values. Output slice hysteresis is used to provide dead-zone squelching.
 
@@ -146,10 +146,12 @@ class Slicer:
 
         if self._out_span_dir == 1:
             idx_mapped = self._mapper(input) + self._hyst_band
+            slice_num = (((idx_mapped - self._out_span_min) - ((idx_mapped - self._out_span_min) % self._slice)) / self._slice)
+            slice_thresh = (slice_num * self._slice) + self._out_span_min
         else:
-            idx_mapped = self._mapper(input) - self._hyst_band
-        slice_num = (((idx_mapped - self._out_span_min) - ((idx_mapped - self._out_span_min) % self._slice)) / self._slice)
-        slice_thresh = (slice_num * self._slice) + self._out_span_min
+            idx_mapped = self._mapper(input) + self._hyst_band
+            slice_num = (((idx_mapped - self._out_span_max) - ((idx_mapped - self._out_span_max) % self._slice)) / self._slice)
+            slice_thresh = (slice_num * self._slice) + self._out_span_max
         upper_zone_limit = slice_thresh + (2 * self._hyst_band)
         if (idx_mapped <= upper_zone_limit and idx_mapped >= slice_thresh):
             if self._in_zone != slice_thresh:
@@ -162,17 +164,17 @@ class Slicer:
             self._in_zone = None
             self._index = slice_thresh
         if self._out_span_min <= self._out_span_max:
-            """if idx_mapped - self._hyst_band > self._out_span_max:
-                self._index = self._out_span_max"""
             self._index = max(min(self._index, self._out_span_max), self._out_span_min)
         else:
-            """if idx_mapped - self._hyst_band < self._out_span_max:
-                self._index = self._out_span_max"""
-            self._index = min(max(self._index, self._out_span_max), self._out_span_min)  # *** this is it! *** fix this line
+            self._index = min(max(self._index, self._out_span_max), self._out_span_min)
+        if self._index != self._old_idx_mapped:
+            change_flag = True
+        else:
+            change_flag = False
         self._old_idx_mapped = idx_mapped
         if self._out_integer:
-            return int(self._index), False
-        return self._index, False
+            return int(self._index), change_flag
+        return self._index, change_flag
 
     def _mapper(self, map_in):
         """Determines the output value based on the input value.
@@ -196,10 +198,6 @@ class Slicer:
     def _update_param(self):
         """ Establishes and updates parameters for the range_slicer function. """
 
-        # input parameters
-        self._in_span = (self._in_max - self._in_min)
-        self._in_span_dir = self.sign(self._in_span)
-
         # output parameters
         if self._out_min > self._out_max:
             self._out_span_min = self._out_min + self._slice
@@ -214,20 +212,17 @@ class Slicer:
         # slice parameters
         if self._slice <= 0:
             raise RuntimeError("Invalid Slice setting; value must be greater than zero")
-        self._slice_count = (int((self._out_span_max - self._out_span_min)
-                             / self._slice)) + 1
+        """self._slice_count = (int((self._out_span_max - self._out_span_min)
+                             / self._slice)) + 1"""
 
         # hysteresis parameters
         # calculate hysteresis band size
         self._hyst_band = self._hyst_factor * self._slice
-
-        # output value data type parameters
-        #   none
-
-        # index and input parameters
-        self._index = 0
-        self._in_dir = 0
-        self._old_idx_mapped = 0
+        # reset in-zone state
         self._in_zone = None
+
+        # index parameters
+        self._index = None
+        self._old_idx_mapped = 0
 
         return
