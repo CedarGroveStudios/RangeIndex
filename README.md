@@ -70,7 +70,7 @@ Changes the default index (output) minimum to a new value.
 
 Parameters:	
 
-- `out_min` – The index output minimum. Can be any positive or negative value, SMALLER than the output index maximum. Output index minimum and maximum values cannot be equal. Defaults to `0`.
+- `out_min` – The index output minimum. Can be any positive or negative value, smaller or larger than the output index maximum. Output index minimum and maximum values cannot be equal. Defaults to `0`.
 
 #### `index_max(out_max=65535)` 
 
@@ -78,7 +78,7 @@ Changes the default index (output) maximum to a new value.
 
 Parameters:	
 
-- `out_max` – The output index maximum. Can be any positive or negative value, LARGER than the output index minimum. Output index minimum and maximum values cannot be equal. Defaults to `65535`.
+- `out_max` – The output index maximum. Can be any positive or negative value, smaller or larger than the output index minimum. Output index minimum and maximum values cannot be equal. Defaults to `65535`.
 
 #### `slice(size=1.0)` 
 
