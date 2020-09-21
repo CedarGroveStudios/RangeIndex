@@ -16,7 +16,7 @@ See use example code in the _examples_ folder.
 •	Adafruit CircuitPython firmware for the supported boards: https://github.com/adafruit/circuitpython/releases
 
 
-#### ```class cedargrove_range_slicer.Slicer(*, in_min=0, in_max=65535, out_min=0, out_max=65535, slice=1.0, hyst_factor=0.25, out_integer=False, debug=False)```
+#### ```class cedargrove_range_slicer.Slicer(*, in_min=0, in_max=65535, out_min=0, out_max=65535, slice=1.0, hyst_factor=0.10, out_integer=False, debug=False)```
 
 Class representing the CedarGroveMaker Range_Slicer.
 
@@ -70,7 +70,7 @@ Changes the default index (output) minimum to a new value.
 
 Parameters:	
 
-- `out_min` – The index output minimum. Can be any positive or negative value, SMALLER than the output index maximum. Output index minimum and maximum values cannot be equal. Defaults to `0`.
+- `out_min` – The index output minimum. Can be any positive or negative value, smaller or larger than the output index maximum. Output index minimum and maximum values cannot be equal. Defaults to `0`.
 
 #### `index_max(out_max=65535)` 
 
@@ -78,7 +78,7 @@ Changes the default index (output) maximum to a new value.
 
 Parameters:	
 
-- `out_max` – The output index maximum. Can be any positive or negative value, LARGER than the output index minimum. Output index minimum and maximum values cannot be equal. Defaults to `65535`.
+- `out_max` – The output index maximum. Can be any positive or negative value, smaller or larger than the output index minimum. Output index minimum and maximum values cannot be equal. Defaults to `65535`.
 
 #### `slice(size=1.0)` 
 
@@ -110,4 +110,4 @@ Parameters:
 ![Range_Slicer Logo](https://github.com/CedarGroveStudios/Range_Slicer/blob/master/docs/range%20slicer%20logo%2001.bmp)
 
 ________________________________________
-© Copyright 2019, 2020 Cedar Grove Studios, Revision v4.2 Alpha. 
+© Copyright 2019, 2020 Cedar Grove Studios, Revision v4.2 Beta. 
