@@ -95,7 +95,7 @@ Changes the default hysteresis threshold to a new value.
 
 Parameters:	
 
-- `hyst_factor` – The size of the hysteresis threshold expressed as a factor of the slice size. Can be a positive value from 0 to 1.0. Defaults to `0.25` (25% of the slice size value).
+- `hyst_factor` – The size of the hysteresis threshold expressed as a factor of the slice size. Can be a positive value from 0 to 1.0. Defaults to `0.10` (10% of the slice size value).
 
 
 #### `index_type(out_integer=False)`
