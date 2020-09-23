@@ -222,7 +222,7 @@ class Slicer:
         self._in_zone = None
 
         # index parameters
-        self._index = None
+        self._index = 0
         self._old_idx_mapped = 0
 
         return
