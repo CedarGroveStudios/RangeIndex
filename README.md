@@ -2,7 +2,7 @@
 ## cedargrove_range_slicer
 A CircuitPython class for scaling a range of input values into indexed/quantized output values. Output slice hysteresis is used to provide dead-zone squelching.
 
-![Conceptual Methodology](https://github.com/CedarGroveStudios/Range_Slicer/blob/master/docs/conceptual%202019-03-05.png)
+![Conceptual Methodology](https://github.com/CedarGroveStudios/Range_Slicer/blob/master/docs/Nuevo_Range_Slicer_Concept%202020-10-02.jpeg)
 
 [Conceptual Methodology (animation)](https://youtu.be/ndU70NTm_Bk)
 
