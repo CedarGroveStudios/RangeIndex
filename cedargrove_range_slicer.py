@@ -22,7 +22,7 @@
 """
 `cedargrove_range_slicer`
 ================================================================================
-Range_Slicer 2020-09-21 v42 03:54PM
+Range_Slicer 2020-10-06 v30 12:09PM (Version 3.0)
 A CircuitPython class for scaling a range of input values into indexed/quantized
 output values. Output slice hysteresis is used to provide dead-zone squelching.
 
@@ -30,7 +30,7 @@ output values. Output slice hysteresis is used to provide dead-zone squelching.
 
 Implementation Notes
 --------------------
-**Software and Dependencies:**
+** Software and Dependencies: **
   * Adafruit CircuitPython firmware for the supported boards:
     https://github.com/adafruit/circuitpython/releases
 """
@@ -120,7 +120,7 @@ class Slicer:
     @property
     def hysteresis(self):
         """The hysteresis factor value. For example, a factor of 0.50 is a
-        hysteresis setting of 50%. Default is 0.10"""
+        hysteresis setting of 50%. Default is 0.10 (10%)"""
         return self._hyst_factor
     @hysteresis.setter
     def hysteresis(self, hyst_factor=0.10):
@@ -137,13 +137,12 @@ class Slicer:
             print("*Init:", self.__class__)
             print("*Init: ", self.__dict__)"""
 
+    """range_slicer: Determines an index (output) value from the input value.
+         Returns new index value and a change flag (True/False) if the new
+         index changed from the previous index. Index value can be optionally
+         converted to integer data type.
+         This is the primary function of the Slicer class. """
     def range_slicer(self, input=0):
-        """Determines an index (output) value from the input value. Returns new
-           index value and a change flag (True/False) if the new index changed
-           from the previous index. Index value can be optionally converted to
-           integer data type.
-           This is the primary function of the Slicer class. """
-
         if self._out_span_dir == 1:
             idx_mapped = self._mapper(input) + self._hyst_band
             slice_num = (((idx_mapped - self._out_span_min) - ((idx_mapped - self._out_span_min) % self._slice)) / self._slice)
@@ -176,53 +175,43 @@ class Slicer:
             return int(self._index), change_flag
         return self._index, change_flag
 
+    """_mapper: Determines the linear output value based on the input value.
+         ( y = mx + b ) """
     def _mapper(self, map_in):
-        """Determines the output value based on the input value.
-           (from Adafruit.CircuitPython.simpleio.map_range)  """
         if (self._in_min == self._in_max) or (self._out_span_min == self._out_span_max):
             return self._out_span_min
-        mapped = ((map_in - self._in_min) * (self._out_span_max - self._out_span_min)
-                   / (self._in_max - self._in_min)) + self._out_span_min
+        mapped = (((self._out_span_max - self._out_span_min) / (self._in_max - self._in_min))
+                   * (map_in - self._in_min)) + self._out_span_min
         if self._out_span_min <= self._out_span_max:
             return max(min(mapped, self._out_span_max), self._out_span_min)
         else:
             return min(max(mapped, self._out_span_max), self._out_span_min)
 
-    def sign(self, x):
-        """Determines the sign of a numeric value. Zero is evaluated as a
-           positive value.  """
+    """Determines the sign of a numeric value. Zero is evaluated as a
+         positive value.  """
+    def _sign(self, x):
         if x >= 0:
             return 1
         else: return -1
 
+    """ Recalculate spans and hysteresis value when parameters change. """
     def _update_param(self):
-        """ Establishes and updates parameters for the range_slicer function. """
-
-        # output parameters
+        # output span parameters
         if self._out_min > self._out_max:
             self._out_span_min = self._out_min + self._slice
             self._out_span_max = self._out_max
         else:
             self._out_span_min = self._out_min
             self._out_span_max = self._out_max + self._slice
-
         self._out_span = (self._out_span_max - self._out_span_min)
-        self._out_span_dir = self.sign(self._out_span)
-
-        # slice parameters
+        self._out_span_dir = self._sign(self._out_span)
+        # slice size parameter
         if self._slice <= 0:
-            raise RuntimeError("Invalid Slice setting; value must be greater than zero")
-        """self._slice_count = (int((self._out_span_max - self._out_span_min)
-                             / self._slice)) + 1"""
-
-        # hysteresis parameters
-        # calculate hysteresis band size
+            raise RuntimeError("Invalid Slice value; must be greater than zero")
+        # hysteresis parameters: calculate hysteresis band size, reset in-zone state
         self._hyst_band = self._hyst_factor * self._slice
-        # reset in-zone state
         self._in_zone = None
-
         # index parameters
         self._index = 0
         self._old_idx_mapped = 0
-
         return
